@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI-Wise Module - Diagnostic Questionnaire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="main-header">
+  <div class="header-inner">
+    <h1>AI-Wise Module</h1>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-logo-wrap">
+    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
+  </div>
+  <a class="diagnostic-link active" href="index.html">Diagnostic Questionnaire</a>
+  <a href="exploring-topic.html">Exploring a topic</a>
+  <a href="research-question.html">Formulating a central research question</a>
+  <a href="searching-literature.html">Searching for and selecting scientific literature</a>
+  <a href="organizing-literature.html">Organizing literature</a>
+  <a href="draft-outline.html">Creating a draft structure or outline</a>
+  <a href="writing-sections.html">Writing sections of the literature review (Introduction, Main body)</a>
+  <a href="revising-feedback.html">Revising the text based on feedback</a>
+  <a href="finalizing-paper.html">Finalizing the paper (Polishing language, Coherence, APA formatting)</a>
+</nav>
+
+<section>
+  <div class="page-content pageShell">
+    <h2 class="diagnostic-title">Questionnaire</h2>
+    <p>Answer 3 questions and jump to the most relevant stage.</p>
+
+    <div class="form-grid">
+      <fieldset class="form-field question-group">
+        1. Which stage of the Academic Writing process are you currently working on?
+        <div class="question-options question-options-stack">
+          <label class="question-option"><input type="radio" name="q_stuck" value="exploring">Exploring a topic</label>
+          <label class="question-option"><input type="radio" name="q_stuck" value="rq">Formulating a central research question</label>
+          <label class="question-option"><input type="radio" name="q_stuck" value="searching">Searching for and selecting scientific literature</label>
+          <label class="question-option"><input type="radio" name="q_stuck" value="organizing">Organizing literature</label>
+          <label class="question-option"><input type="radio" name="q_stuck" value="outline">Creating a draft structure or outline</label>
+          <label class="question-option"><input type="radio" name="q_stuck" value="writing">Writing sections of the literature review (Introduction, Main body)</label>
+          <label class="question-option"><input type="radio" name="q_stuck" value="revising">Revising the text based on feedback</label>
+          <label class="question-option"><input type="radio" name="q_stuck" value="finalizing">Finalizing the paper (Polishing language, Coherence, APA formatting)</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-field question-group">
+        2. Are you planning to use GenAI for this step?
+        <div class="question-options question-options-inline">
+          <label class="question-option"><input type="radio" name="q_use_ai" value="yes">Yes</label>
+          <label class="question-option"><input type="radio" name="q_use_ai" value="no">No</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-field question-group">
+        3. Would you like a provided exercise to practice this step?
+        <div class="question-options question-options-inline">
+          <label class="question-option"><input type="radio" name="q_material_state" value="yes">Yes</label>
+          <label class="question-option"><input type="radio" name="q_material_state" value="no">No</label>
+        </div>
+      </fieldset>
+
+      <div class="button-row">
+        <button id="btn_recommend" type="button">Get recommendation</button>
+        <button id="btn_reset" type="button">Reset</button>
+      </div>
+
+      <div id="result_box" style="display:none;">
+        <div id="result_title">Recommendation</div>
+        <div id="result_text"></div>
+        <div id="result_short_desc" class="result-short-desc"></div>
+        <button id="btn_go" type="button" style="display:none;">Enter to Recommended Page</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  const btnRec = document.getElementById("btn_recommend");
+  const btnReset = document.getElementById("btn_reset");
+  const resultBox = document.getElementById("result_box");
+  const resultText = document.getElementById("result_text");
+  const resultShortDesc = document.getElementById("result_short_desc");
+  const btnGo = document.getElementById("btn_go");
+
+  let recommendedId = null;
+
+  function getRadioValue(name) {
+    const checked = document.querySelector('input[name="' + name + '"]:checked');
+    return checked ? checked.value : "";
+  }
+
+  const pageMap = {
+    exploring: "exploring-topic.html",
+    rq: "research-question.html",
+    searching: "searching-literature.html",
+    organizing: "organizing-literature.html",
+    outline: "draft-outline.html",
+    writing: "writing-sections.html",
+    revising: "revising-feedback.html",
+    finalizing: "finalizing-paper.html"
+  };
+
+  function computeRecommendation() {
+    const stage = getRadioValue("q_stuck");
+    if (!stage) return null;
+    return stage;
+  }
+
+  btnRec.addEventListener("click", () => {
+    recommendedId = computeRecommendation();
+
+    resultBox.style.display = "block";
+
+    if (!recommendedId) {
+      resultText.textContent = "Please answer at least Question 1.";
+      resultShortDesc.textContent = "";
+      btnGo.style.display = "none";
+      return;
+    }
+
+    const labelMap = {
+      exploring: "Exploring a Topic",
+      rq: "Formulating a Central Research Question",
+      searching: "Searching for and Selecting Scientific Literature",
+      organizing: "Organizing Literature",
+      outline: "Creating a Draft Structure or Outline",
+      writing: "Writing Sections of the Literature Review",
+      revising: "Revising the Text Based on Feedback",
+      finalizing: "Finalizing the Paper"
+    };
+
+    btnGo.style.display = "inline-block";
+    resultText.textContent = "Recommended section: " + labelMap[recommendedId] + ".";
+    resultShortDesc.textContent = "Short description will be shown here. We will finalize this wording together later.";
+  });
+
+  btnGo.addEventListener("click", () => {
+    if (!recommendedId) return;
+
+    const page = pageMap[recommendedId];
+    if (!page) return;
+
+    const state = {
+      stage: recommendedId,
+      useAi: getRadioValue("q_use_ai"),
+      materialState: getRadioValue("q_material_state"),
+      fromQuestionnaire: true,
+      generatedAt: Date.now()
+    };
+
+    try {
+      sessionStorage.setItem("aiwise-questionnaire-state", JSON.stringify(state));
+    } catch (error) {
+    }
+
+    const params = new URLSearchParams({
+      from: "questionnaire",
+      stage: recommendedId,
+      use_ai: getRadioValue("q_use_ai") || "",
+      material_state: getRadioValue("q_material_state") || ""
+    });
+
+    window.location.href = page + "?" + params.toString();
+  });
+
+  btnReset.addEventListener("click", () => {
+    document.querySelectorAll('input[name="q_stuck"]').forEach((input) => {
+      input.checked = false;
+    });
+    document.querySelectorAll('input[name="q_use_ai"]').forEach((input) => {
+      input.checked = false;
+    });
+    document.querySelectorAll('input[name="q_material_state"]').forEach((input) => {
+      input.checked = false;
+    });
+    recommendedId = null;
+
+    resultBox.style.display = "none";
+    resultText.textContent = "";
+    resultShortDesc.textContent = "";
+    btnGo.style.display = "none";
+
+    try {
+      sessionStorage.removeItem("aiwise-questionnaire-state");
+    } catch (error) {
+    }
+  });
+})();
+</script>
+<script src="ui-effects.js"></script>
+</body>
+</html>
