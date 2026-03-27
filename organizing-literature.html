@@ -17,20 +17,41 @@
   <div class="nav-logo-wrap">
     <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
   </div>
-  <a class="diagnostic-link" href="index.html">Diagnostic Questionnaire</a>
+  <a class="diagnostic-link" href="diagnostic-questionnaire.html">Diagnostic Questionnaire</a>
   <a  href="exploring-topic.html">Exploring a topic</a>
   <a  href="research-question.html">Formulating a central research question</a>
   <a  href="searching-literature.html">Searching for and selecting scientific literature</a>
   <a class="active" href="organizing-literature.html">Organizing literature</a>
   <a  href="draft-outline.html">Creating a draft structure or outline</a>
-  <a  href="writing-sections.html">Writing sections of the literature review (Introduction, Main body)</a>
-  <a  href="revising-feedback.html">Revising the text based on feedback</a>
-  <a  href="finalizing-paper.html">Finalizing the paper (Polishing language, Coherence, APA formatting)</a>
+  <a  href="writing-sections.html">Writing sections of the literature review</a>
+  <a  href="finalizing-paper.html">Finalizing the paper</a>
 </nav>
 
 <section>
   <div class="page-content pageShell">
     <h2>Organizing Literature</h2>
+
+    <div class="stage-intro">
+      <p>
+        After identifying a set of relevant articles through Scopus, the next step is to organize the literature in a meaningful way.
+        At this stage, the goal is not simply to read articles one by one, but to begin understanding how different studies relate to each other.
+      </p>
+
+      <p>
+        You should now have a set of candidate articles, typically around 10 or more.
+        These articles need to be read strategically so that you can identify their key ideas, methods, and findings.
+        By doing this, you will start to see patterns across the literature: where studies support each other, where they extend existing work, and where they present different perspectives.
+      </p>
+
+      <p>
+        To support this process, it is helpful to create structured notes for each article and to organize the information in a clear overview.
+        The goal is not only to summarize individual studies, but to build a foundation for identifying the main themes, debates, and logical structure that will later shape your literature review.
+      </p>
+
+      <p style="margin-bottom: 0;">
+        The content below is based on course materials in Canvas. The reading instructions provide guidance on how to analyze scientific articles efficiently, while the literature overview template helps you organize and compare the articles you have selected.
+      </p>
+    </div>
 
     <section id="organizing-handout" style="max-width: 920px; line-height: 1.55; margin: 0 auto; color: #626c6e;">
       <details id="organizing-annex-viii" class="stepSection softCard">
@@ -73,7 +94,7 @@
       </details>
 
       <details id="organizing-template-overview" class="stepSection softCard">
-        <summary style="cursor: pointer; font-weight: 700;">Template Literature Overview_EN</summary>
+        <summary style="cursor: pointer; font-weight: 700;">Template Literature Overview</summary>
         <div style="margin-top: 10px;">
           <p style="margin: 0;"><strong>Template Literature Overview</strong></p>
           <p style="margin: 0;">Academic Writing Skills 1</p>
@@ -127,12 +148,22 @@
       </details>
     </section>
 
-    <div id="recommended_info" class="recommended-info" style="display:none;">
-      <strong>Recommended from questionnaire</strong>
-      <p id="recommended_short_desc" style="margin:8px 0 0 0;">Short description will appear here. We will finalize this wording together later.</p>
+    <div id="genai_description_card" class="genaiIntro softCard" style="display:none; margin-top: 28px;">
+      <div class="genaiIntroHeader">
+        <div class="genaiIntroPill">Using GenAI in AWSI</div>
+        <h3 class="genaiIntroTitle">Formulating a Literature Overview Table</h3>
+      </div>
+
+      <p class="genaiIntroText">
+        This step focuses on translating your reading into a structured overview of the literature. After selecting relevant articles, your task is to read each paper and extract its key components into the literature overview table. The purpose is not to produce perfect summaries, but to build a clear, organized "top view" of your sources. This overview serves as the foundation for later stages, where you will compare studies, identify patterns, and construct your argument. At this stage, the priority is to capture your understanding in a structured form, not to refine or evaluate it.
+      </p>
+
+      <p class="genaiIntroText" style="margin-bottom: 0;">
+        GenAI in this activity functions as a language support tool, not as a source of content. The informational process should remain: paper -> student -> (GenAI) -> table. You are responsible for understanding the article and deciding what information is relevant. GenAI supports you by helping you express that understanding more clearly, efficiently, and in an academically appropriate way. This reduces friction in writing and allows you to stay focused on the thinking process rather than wording or formatting. It helps you elaborate incomplete ideas, refine phrasing, and maintain flow, but it does not replace reading, interpretation, or decision making.
+      </p>
     </div>
 
-    <div class="pre-prompt-space" id="pre_prompt_space"></div>
+    <div class="pre-prompt-space genai-flow-gap" id="pre_prompt_space"></div>
 
         <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="display:none;">
       <div class="promptHeader">
@@ -154,7 +185,7 @@
 
       <div class="promptGrid">
         <div class="promptBlock">
-          <p class="promptBlockTitle">Course prompt:</p>
+          <p class="promptBlockTitle">Course Preset Prompts:</p>
           <div class="promptButtonRow">
             <button id="btn_copy_course_prompt" type="button">Copy course preset prompt</button>
             <button id="btn_download_course_prompt" type="button">Download course preset prompt (.txt)</button>
@@ -179,7 +210,7 @@
       </div>
     </div>
 
-    <a class="back-link" href="index.html">Back to Diagnostic Questionnaire</a>
+    <a class="back-link" href="diagnostic-questionnaire.html">Back to Diagnostic Questionnaire</a>
   </div>
 </section>
 
@@ -206,6 +237,7 @@
   const isMatchedRecommendation = cameFromQuestionnaire && recommendedStage === CURRENT_STAGE;
 
   const recommendedInfo = document.getElementById("recommended_info");
+  const genaiDescriptionCard = document.getElementById("genai_description_card");
   const promptPanel = document.getElementById("section_prompt_panel");
   const activityPanel = document.getElementById("section_activity_prompt");
   const coursePromptText = document.getElementById("course_prompt_text");
@@ -258,6 +290,10 @@
   }
 
   if (isMatchedRecommendation && useAi === "yes" && promptPanel) {
+    if (genaiDescriptionCard) {
+      genaiDescriptionCard.style.display = "block";
+    }
+
     promptPanel.style.display = "block";
     coursePromptText.textContent = coursePreset;
 

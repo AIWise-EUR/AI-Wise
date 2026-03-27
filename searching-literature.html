@@ -17,20 +17,29 @@
   <div class="nav-logo-wrap">
     <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
   </div>
-  <a class="diagnostic-link" href="index.html">Diagnostic Questionnaire</a>
+  <a class="diagnostic-link" href="diagnostic-questionnaire.html">Diagnostic Questionnaire</a>
   <a  href="exploring-topic.html">Exploring a topic</a>
   <a  href="research-question.html">Formulating a central research question</a>
   <a class="active" href="searching-literature.html">Searching for and selecting scientific literature</a>
   <a  href="organizing-literature.html">Organizing literature</a>
   <a  href="draft-outline.html">Creating a draft structure or outline</a>
-  <a  href="writing-sections.html">Writing sections of the literature review (Introduction, Main body)</a>
-  <a  href="revising-feedback.html">Revising the text based on feedback</a>
-  <a  href="finalizing-paper.html">Finalizing the paper (Polishing language, Coherence, APA formatting)</a>
+  <a  href="writing-sections.html">Writing sections of the literature review</a>
+  <a  href="finalizing-paper.html">Finalizing the paper</a>
 </nav>
 
 <section>
   <div class="page-content pageShell">
     <h2>Searching for and Selecting Scientific Literature</h2> 
+    <div style="max-width: 920px; margin: 0 auto 18px auto; line-height: 1.55; color: #626c6e;">
+      <p>
+        In this step, you begin searching for scientific literature related to your central research question. 
+        You will learn how to search for scientific articles using Scopus and how to identify relevant studies for your topic. 
+        The goal is to develop a search profile and create an initial list of relevant articles that can be used for your literature review.
+      </p>
+      <p style="margin-bottom: 0;">
+        The content below is based on course materials in Canvas, specifically the Meeting 2 PowerPoint slides and the Hand-Out <em>Scopus_Academic Writing Skills I</em>.
+      </p>
+    </div>
 
     <!-- =========================================================
     Handout (Structured) | Searching with Scopus | AWS I
@@ -39,9 +48,6 @@
     ========================================================= -->
     <section id="scopus-handout" style="max-width: 920px; line-height: 1.55; margin: 0 auto; color: #626c6e;">
 
-      <header style="margin-bottom: 16px;">
-        <h2 style="margin: 0 0 6px 0; color: #1b4c52;">Searching with Scopus</h2>
-      </header>
 
       <section aria-label="Useful links" class="softCard" style="font-size: 10px;">
         <h3 style="margin-top: 0; color: #1b4c52;">Useful links</h3>
@@ -469,6 +475,7 @@ Students often make predictable mistakes at this stage. Ideas are entered as ful
 
   <p class="genaiIntroText genaiIntroHint">
    To guide this process, preset prompts are provided below. Use them as a framework to structure your interaction with GenAI and to make your search logic explicit. When you use GenAI, make sure to critically evaluate the output. Check if the search string is correctly structured and if it captures the nuances of your research question. Use it as a tool to enhance your understanding of how to effectively search in Scopus, rather than as a shortcut to bypass the critical thinking process.
+  </p>
   <div class="genaiIntroActions">
  
   </div>
@@ -494,7 +501,7 @@ Students often make predictable mistakes at this stage. Ideas are entered as ful
 
       <div class="promptGrid">
         <div class="promptBlock">
-          <p class="promptBlockTitle">Course prompt:</p>
+          <p class="promptBlockTitle">Course Preset Prompts:</p>
           <div class="promptButtonRow">
             <button id="btn_copy_course_prompt" type="button">Copy course preset prompt</button>
             <button id="btn_download_course_prompt" type="button">Download course preset prompt (.txt)</button>
@@ -519,7 +526,7 @@ Students often make predictable mistakes at this stage. Ideas are entered as ful
       </div>
     </div>
 
-    <a class="back-link" href="index.html">Back to Diagnostic Questionnaire</a>
+    <a class="back-link" href="diagnostic-questionnaire.html">Back to Diagnostic Questionnaire</a>
   </div>
 </section>
 
@@ -599,7 +606,7 @@ Students often make predictable mistakes at this stage. Ideas are entered as ful
     recommendedInfo.style.display = "block";
   }
 
-  if (useAi === "yes") {
+  if (isMatchedRecommendation && useAi === "yes") {
     if (prePromptSpace) prePromptSpace.style.display = "block";
     if (genAiIntroCard) genAiIntroCard.style.display = "block";
   } else {
