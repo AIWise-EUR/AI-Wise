@@ -8,7 +8,7 @@
   <style>
     .lobby-layout {
       display: flex;
-      gap: 0;
+      gap: 24px;
       align-items: flex-start;
       max-width: 1200px;
       margin: 0 auto;
@@ -19,15 +19,16 @@
     .lobby-main {
       flex: 1 1 0;
       min-width: 0;
-      padding-right: 284px;
+      padding-right: 0;
     }
 
     /* Fast Track Sticky Panel */
     .fast-track-panel {
-      position: fixed;
+      position: sticky;
       top: 24px;
-      right: 24px;
       width: 252px;
+      flex: 0 0 252px;
+      align-self: flex-start;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radiusLg);
@@ -397,6 +398,18 @@
       .lobby-main { padding-right: 0; }
       .fast-track-panel { display: none; }
     }
+
+    @media (max-width: 1200px) and (min-width: 901px) {
+      .lobby-layout { gap: 16px; }
+      .fast-track-panel {
+        top: 16px;
+        width: 224px;
+        flex-basis: 224px;
+        padding: 12px 10px;
+        max-height: calc(100vh - 32px);
+      }
+      .fast-track-desc { font-size: 11px; }
+    }
   </style>
 </head>
 <body>
@@ -427,6 +440,7 @@
     <div class="lobby-main">
       <h2 class="diag-page-title">Diagnostic Questionnaire</h2>
       <p class="diag-intro">Check all statements that currently apply to you. Be honest — this is not a test. The questionnaire identifies where you are in the process and recommends the most relevant steps to focus on right now.</p>
+      <p id="diag_restore_note" class="diag-restore-note" style="display:none;">Your previous diagnostic state has been restored. Click <strong>Reset</strong> if you want to start fresh.</p>
 
       <div class="step-divider">
         <span class="step-divider-label">Step 1 — Exploring a Topic</span>
@@ -695,6 +709,7 @@
 
   var writingTriggers = ["WD10","WD11","WD12","WD13"];
   var step7Nodes = ["WD16","WD17"];
+  var uiStateKey = "aiwise-diagnostic-ui-state";
 
   function getChecked() {
     var checked = {};
@@ -756,6 +771,83 @@
     } catch(e) {}
   }
 
+  function persistUiState(hasResult) {
+    try {
+      var checkedNodes = [];
+      document.querySelectorAll('input[name="node"]:checked').forEach(function(el) {
+        checkedNodes.push(el.value);
+      });
+
+      var resultUseAi = getUseAi();
+      var fastTrackUseAi = getFtUseAi();
+      var payload = {
+        checkedNodes: checkedNodes,
+        resultUseAi: resultUseAi,
+        fastTrackUseAi: fastTrackUseAi,
+        selectedFtStage: selectedFtStage,
+        hasResult: Boolean(hasResult),
+        savedAt: Date.now()
+      };
+      sessionStorage.setItem(uiStateKey, JSON.stringify(payload));
+    } catch (e) {}
+  }
+
+  function restoreUiState() {
+    var raw = null;
+    try {
+      raw = sessionStorage.getItem(uiStateKey);
+    } catch (e) {
+      raw = null;
+    }
+    if (!raw) return;
+
+    var parsed = null;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (e) {
+      parsed = null;
+    }
+    if (!parsed) return;
+
+    var checkedSet = {};
+    (parsed.checkedNodes || []).forEach(function(nodeId) {
+      checkedSet[nodeId] = true;
+    });
+
+    document.querySelectorAll('input[name="node"]').forEach(function(el) {
+      el.checked = Boolean(checkedSet[el.value]);
+    });
+
+    if (parsed.resultUseAi === "yes" || parsed.resultUseAi === "no") {
+      var resultRadio = document.querySelector('input[name="r_use_ai"][value="' + parsed.resultUseAi + '"]');
+      if (resultRadio) resultRadio.checked = true;
+    }
+
+    if (parsed.fastTrackUseAi === "yes" || parsed.fastTrackUseAi === "no") {
+      var ftRadio = document.querySelector('input[name="ft_use_ai"][value="' + parsed.fastTrackUseAi + '"]');
+      if (ftRadio) ftRadio.checked = true;
+    }
+
+    if (parsed.selectedFtStage) {
+      selectedFtStage = parsed.selectedFtStage;
+      document.querySelectorAll(".fast-track-step").forEach(function(btn) {
+        btn.classList.toggle("is-selected", btn.getAttribute("data-stage") === selectedFtStage);
+      });
+      document.getElementById("btn_fast_track_go").disabled = false;
+    }
+
+    if (parsed.hasResult) {
+      var checked = getChecked();
+      var scores = calcScores(checked);
+      var currentIdx = detectCurrentStep(scores);
+      document.getElementById("result_area").style.display = "block";
+      renderResults(scores, currentIdx, checked);
+    }
+
+    var restoreNote = document.getElementById("diag_restore_note");
+    if (restoreNote) restoreNote.style.display = "block";
+  }
+
   function makeStepCard(stage, pct) {
     var card = document.createElement("div");
     card.className = "result-step-card";
@@ -814,6 +906,7 @@
     var currentIdx = detectCurrentStep(scores);
     document.getElementById("result_area").style.display = "block";
     renderResults(scores, currentIdx, checked);
+    persistUiState(true);
     document.getElementById("result_area").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
@@ -823,6 +916,19 @@
       var scores     = calcScores(checked);
       var currentIdx = detectCurrentStep(scores);
       renderResults(scores, currentIdx, checked);
+      persistUiState(document.getElementById("result_area").style.display === "block");
+    });
+  });
+
+  document.querySelectorAll('input[name="node"]').forEach(function(checkbox) {
+    checkbox.addEventListener("change", function() {
+      persistUiState(document.getElementById("result_area").style.display === "block");
+    });
+  });
+
+  document.querySelectorAll('input[name="ft_use_ai"]').forEach(function(radio) {
+    radio.addEventListener("change", function() {
+      persistUiState(document.getElementById("result_area").style.display === "block");
     });
   });
 
@@ -830,7 +936,15 @@
     document.querySelectorAll('input[name="node"]').forEach(function(el){ el.checked = false; });
     document.querySelectorAll('input[name="r_use_ai"]').forEach(function(el){ el.checked = false; });
     document.getElementById("result_area").style.display = "none";
-    try { sessionStorage.removeItem("aiwise-questionnaire-state"); } catch(e) {}
+    document.querySelectorAll(".fast-track-step").forEach(function(b){ b.classList.remove("is-selected"); });
+    selectedFtStage = null;
+    document.getElementById("btn_fast_track_go").disabled = true;
+    var restoreNote = document.getElementById("diag_restore_note");
+    if (restoreNote) restoreNote.style.display = "none";
+    try {
+      sessionStorage.removeItem("aiwise-questionnaire-state");
+      sessionStorage.removeItem(uiStateKey);
+    } catch(e) {}
   });
 
   // Fast Track Panel
@@ -842,15 +956,19 @@
       btn.classList.add("is-selected");
       selectedFtStage = btn.getAttribute("data-stage");
       document.getElementById("btn_fast_track_go").disabled = false;
+      persistUiState(document.getElementById("result_area").style.display === "block");
     });
   });
 
   document.getElementById("btn_fast_track_go").addEventListener("click", function() {
     if (!selectedFtStage) return;
     var useAi = getFtUseAi();
+    persistUiState(document.getElementById("result_area").style.display === "block");
     saveState(selectedFtStage, useAi);
     window.location.href = buildGoUrl(selectedFtStage, useAi);
   });
+
+  restoreUiState();
 
 })();
 </script>
