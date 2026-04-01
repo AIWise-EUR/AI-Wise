@@ -116,10 +116,17 @@ html, body {
 /* ── PATHWAY CARDS ───────────────────────────────────────── */
 .pathways {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   width: 100%;
-  max-width: 700px;
+  max-width: 1080px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 1180px;
 }
 
 .pathway {
@@ -133,6 +140,62 @@ html, body {
   box-shadow: var(--shadowMd);
   position: relative; overflow: hidden;
   transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+}
+.info-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLg);
+  padding: 28px 24px 22px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadowMd);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+}
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadowLg);
+}
+.info-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.external-card::before { background: var(--gold); }
+.aws-card::before { background: var(--accent); }
+.info-card h3 {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 10px 0;
+}
+.info-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 13.5px;
+}
+.card-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+.external-card .card-label { color: #8a6828; }
+.card-source {
+  margin-top: 14px !important;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px !important;
 }
 .pathway:hover {
   transform: translateY(-4px);
@@ -198,6 +261,12 @@ html, body {
 .pathway:hover .pathway-cta { opacity: 0.85; transform: translateX(2px); }
 .pathway-a .pathway-cta { background: rgba(43,93,99,0.09); color: var(--accent); }
 .pathway-b .pathway-cta { background: rgba(201,169,110,0.13); color: #8a6828; }
+.pathway-c:hover { border-color: #6c7f84; }
+.pathway-c::before { background: #6c7f84; }
+.pathway-c .pathway-icon { background: rgba(108,127,132,0.12); }
+.pathway-c .pathway-tag { color: #4f5d60; }
+.pathway-c .pathway-item-dot { background: #6c7f84; opacity: 0.55; }
+.pathway-c .pathway-cta { background: rgba(108,127,132,0.12); color: #4f5d60; }
 
 /* ── LOGO ────────────────────────────────────────────────── */
 .logo-wrap {
@@ -227,9 +296,15 @@ html, body {
 
 /* ── RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 580px) {
-  .pathways { grid-template-columns: 1fr; }
+  .pathways, .card-grid { grid-template-columns: 1fr; }
   .top { padding: 48px 20px 44px; }
   .bottom { padding: 40px 20px 52px; }
+}
+@media (max-width: 980px) {
+  .pathways, .card-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 680px) {
+  .pathways, .card-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -243,11 +318,10 @@ html, body {
     </div>
     <div class="top-inner">
       <div class="eyebrow">
-        <div class="eyebrow-dot"></div>
-        Academic Writing Skills · AWS1
+        
       </div>
       <h1 class="title">AI-Wise</h1>
-      <div style="max-width: 1240px; margin: 0 auto 18px auto; line-height: 1.6; color: rgba(255,255,255,0.92); font-weight: 500;">
+      <div style="max-width: 1240px; margin: 0 auto 18px auto; line-height: 1.6; color: rgba(255,255,255,0.92); font-weight: 500; text-align: left;">
         <p>
           This module is designed to help you use GenAI in Academic Writing Skills I in a course aligned and academically responsible way. Rather than replacing your own work, it supports your thinking, writing process, and decisions as you move through the course.
         </p>
@@ -262,39 +336,42 @@ html, body {
   <div class="bottom">
     <p class="choose-label">Where would you like to start?</p>
 
-    <div class="pathways">
-
-      <!-- A: AI Orientation -->
-      <a href="aiwise-c1-final.html" class="pathway pathway-a">
-        <div class="pathway-icon">🧠</div>
-        <div class="pathway-tag">AI Orientation</div>
-        <div class="pathway-title">Understand GenAI first</div>
-        <div class="pathway-desc">
-          Build the conceptual foundation — what GenAI is mechanistically, what it does to your cognition, and how to engage with it on your own terms.
-        </div>
-        <div class="pathway-items">
-          <div class="pathway-item"><div class="pathway-item-dot"></div>What is GenAI?</div>
-          <div class="pathway-item"><div class="pathway-item-dot"></div>GenAI and Human Cognition</div>
-          <div class="pathway-item"><div class="pathway-item-dot"></div>How to Engage</div>
-        </div>
-        <div class="pathway-cta">Start with What is GenAI? →</div>
+    <div class="card-grid">
+      <a class="info-card external-card" href="https://share.eu.articulate.com/21J35MtuVTrBS-u4Wq-Gb#/" target="_blank" rel="noopener noreferrer">
+        <div class="card-label">External e module</div>
+        <h3>A Student's Guide to Generative AI</h3>
+        <p>
+          A broader introductory e module on the responsible use of GenAI in academic contexts.
+          This resource can help build a general foundation before moving into AWS1 specific orientation.
+        </p>
+        <p class="card-source">
+          <strong>Developed by:</strong> Erasmus University Library and Community for Learning &amp; Innovation
+        </p>
       </a>
 
-      <!-- B: GenAI in AWS1 -->
-      <a href="diagnostic-questionnaire-final.html" class="pathway pathway-b">
-        <div class="pathway-icon">✍️</div>
-        <div class="pathway-tag">GenAI in AWS1</div>
-        <div class="pathway-title">Apply it to your writing now</div>
-        <div class="pathway-desc">
-          Map how you are currently using GenAI across your writing process and get a personalised guide to the modules most relevant to where you are right now.
-        </div>
-        <div class="pathway-items">
-          <div class="pathway-item"><div class="pathway-item-dot"></div>⚡ Diagnostic Questionnaire</div>
-          <div class="pathway-item"><div class="pathway-item-dot"></div>Activity Modules 1–7</div>
-        </div>
-        <div class="pathway-cta">Take the diagnostic →</div>
+      <a class="info-card" href="aiwise-c1-final.html">
+        <div class="card-label">AI-Wise Module</div>
+        <h3>AI Orientation</h3>
+        <p>
+          Move from general understanding to course specific orientation by exploring how GenAI is positioned
+          within AWS1, what it is useful for, and how to use it responsibly within this module.
+        </p>
+        <p class="card-source">
+          <strong>Developed for:</strong> Academic Writing Skills 1, Erasmus University Rotterdam
+        </p>
       </a>
 
+      <a class="info-card aws-card" href="diagnostic-questionnaire-final.html">
+        <div class="card-label">GenAI in AWS I</div>
+        <h3>Apply it to your writing now</h3>
+        <p>
+          Go directly to the AWS1 flow and use the Diagnostic Questionnaire to identify the most relevant
+          step modules for your current stage.
+        </p>
+        <p class="card-source">
+          <strong>Includes:</strong> Diagnostic Questionnaire and Activity Modules 1–7
+        </p>
+      </a>
     </div>
   </div>
 

@@ -472,6 +472,72 @@ body {
   color: var(--accent);
 }
 
+.resource-link-card {
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto 10px;
+  padding: 10px 12px;
+}
+
+.resource-link-card:not(#finalizing-rubric) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 8px;
+}
+
+.resource-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.resource-link-grid {
+  max-width: 920px;
+  margin: 0 auto 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.resource-link-grid .resource-link-card {
+  max-width: none;
+  margin: 0;
+}
+
+.resource-link-grid .resource-link-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.resource-link-title {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.resource-link-anchor {
+  color: #1b4c52;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  justify-self: end;
+}
+
+.resource-link-anchor:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.resource-link-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 10px;
+  gap: 6px;
+}
+
+
 .genaiIntroHeader {
   margin-bottom: 14px;
 }
@@ -981,6 +1047,30 @@ button.pressFx {
 
   .genaiIntroText {
     font-size: 16px;
+  }
+
+  .resource-link-card:not(#finalizing-rubric),
+  .resource-link-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .resource-link-card:not(#finalizing-rubric) {
+    display: flex;
+  }
+
+  .resource-link-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-link-anchor {
+    white-space: normal;
+    justify-self: auto;
+  }
+
+  .resource-link-meta {
+    align-items: flex-start;
   }
 
   .promptGrid {
