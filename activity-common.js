@@ -53,7 +53,8 @@
     steps += '</div>';
 
     var diagLink = '<div class="fast-track-divider"></div>'
-      + '<a class="fast-track-diag-link" href="diagnostic-questionnaire-final.html">Diagnostic Questionnaire</a>';
+      + '<a class="fast-track-diag-link" href="diagnostic-questionnaire-final.html">Diagnostic Questionnaire</a>'
+      + '<a class="fast-track-diag-link" href="lobby.html">Home</a>';
 
     panel.innerHTML = heading + steps + diagLink;
     return panel;
