@@ -77,7 +77,7 @@ body {
 }
 
 /* ── NAV (c1/c2/c3 pages only) ────────────────────────── */
-nav {
+body.has-nav > nav {
   position: fixed;
   top: 0;
   left: 0;
@@ -92,14 +92,14 @@ nav {
   overflow-y: auto;
 }
 
-.nav-logo-wrap {
+body.has-nav .nav-logo-wrap {
   position: absolute;
   top: 22px;
   left: 48%;
   transform: translateX(-50%);
 }
 
-.nav-logo-sticker {
+body.has-nav .nav-logo-sticker {
   display: block;
   width: 128px;
   max-width: 100%;
@@ -110,7 +110,7 @@ nav {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
 }
 
-nav a {
+body.has-nav > nav a {
   color: white;
   text-decoration: none;
   font-size: 14px;
@@ -120,10 +120,10 @@ nav a {
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-nav a.diagnostic-link { color: #ffe4d1; font-weight: 700; }
-nav a:hover { background: #18474d; transform: translateX(2px); }
-nav a.active { background: #2b5d63; font-weight: 700; }
-hr.nav-divider { border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 4px 0; }
+body.has-nav > nav a.diagnostic-link { color: #ffe4d1; font-weight: 700; }
+body.has-nav > nav a:hover { background: #18474d; transform: translateX(2px); }
+body.has-nav > nav a.active { background: #2b5d63; font-weight: 700; }
+body.has-nav > nav hr.nav-divider { border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 4px 0; }
 
 .nav-section-label {
   font-size: 10px;
@@ -514,16 +514,53 @@ h2 { margin-top: 0; }
   gap: 6px;
 }
 
+/* ── GENAI FULL-WIDTH BAND ─────────────────────────────── */
+.genai-band {
+  background: #eef4f3;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 40px 24px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  border-top: 1px solid #d4e3e1;
+  border-bottom: 1px solid #d4e3e1;
+}
+
+.genai-band-inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
 /* ── GENAI INTRO SECTION ──────────────────────────────── */
 .genaiIntroHeader { margin-bottom: 14px; }
 
 .genaiIntro {
-  border-radius: 0 var(--radiusLg) var(--radiusLg) 0 !important;
-  padding: 22px 22px 22px 26px !important;
-  border: 1px solid rgba(43, 93, 99, 0.15) !important;
-  border-left: 4px solid var(--accent) !important;
-  background: rgba(43, 93, 99, 0.025) !important;
-  box-shadow: var(--shadowSm) !important;
+  border-radius: var(--radiusLg) !important;
+  padding: 22px !important;
+  border: 1px solid var(--border) !important;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+.genai-band .genaiIntro {
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  margin-bottom: 28px !important;
+}
+
+.genai-band .genaiIntroPill {
+  background: rgba(43, 93, 99, 0.12);
+}
+
+.genai-band .genaiIntroTitle {
+  color: var(--dark);
+  font-size: 24px;
+}
+
+.genai-band .genaiIntroText {
+  color: #3d5a5e;
 }
 
 .genaiIntroPill {
@@ -726,6 +763,12 @@ button.pressFx { animation: tapGlow 0.32s ease; }
   border-radius: var(--radiusLg);
   background: #fff;
   padding: 22px;
+  box-shadow: var(--shadowSm);
+}
+
+.genai-band .section-prompt-panel {
+  margin-top: 0;
+  box-shadow: 0 2px 12px rgba(9, 24, 26, 0.06);
 }
 
 .promptHeader { margin-bottom: 16px; }
@@ -1160,7 +1203,7 @@ button.pressFx { animation: tapGlow 0.32s ease; }
 
 /* ── RESPONSIVE ───────────────────────────────────────── */
 @media (max-width: 900px) {
-  nav {
+  body.has-nav > nav {
     position: sticky;
     width: 100%;
     height: auto;
@@ -1169,8 +1212,8 @@ button.pressFx { animation: tapGlow 0.32s ease; }
     gap: 12px;
     overflow-x: auto;
   }
-  .nav-logo-wrap { display: none; }
-  nav a { white-space: nowrap; padding: 6px 8px; }
+  body.has-nav .nav-logo-wrap { display: none; }
+  body.has-nav > nav a { white-space: nowrap; padding: 6px 8px; }
   body.has-nav .main-header { margin-left: 0; }
   body.has-nav > section { margin-left: 0; }
 
@@ -1201,6 +1244,12 @@ button.pressFx { animation: tapGlow 0.32s ease; }
 
   .promptGrid { grid-template-columns: 1fr; }
   .promptButtonRow { grid-template-columns: 1fr; }
+
+  .genai-band {
+    margin-left: -12px;
+    margin-right: -12px;
+    padding: 28px 16px;
+  }
 
   .activity-layout { flex-direction: column; }
   .fast-track-panel {
@@ -1239,12 +1288,12 @@ button.pressFx { animation: tapGlow 0.32s ease; }
   .ui-transition-target,
   button,
   .stepPill,
-  nav a,
+  body.has-nav > nav a,
   .stepSection > summary,
   .stepSection > summary::after {
     transition: none;
   }
-  nav a:hover { transform: none; }
+  body.has-nav > nav a:hover { transform: none; }
   button.pressFx { animation: none; }
   .copy-success { animation: none; }
   .canvas-card::before { transition: none; }

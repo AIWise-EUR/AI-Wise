@@ -188,12 +188,51 @@
     h2.parentNode.replaceChild(hero, h2);
   }
 
+  /* ── GENAI FULL-WIDTH BAND ────────────────────────────────── */
+  function initGenaiBand() {
+    var intro = document.querySelector(".genaiIntro");
+    var promptPanel = document.querySelector(".section-prompt-panel");
+    if (!intro && !promptPanel) return;
+
+    /* Find the parent that holds these elements */
+    var parent = (intro || promptPanel).parentNode;
+    if (!parent) return;
+
+    /* Also grab the pre-prompt-space if it exists */
+    var spacer = document.getElementById("pre_prompt_space");
+
+    /* Create the full-width band (breaks out of max-width container) */
+    var band = document.createElement("div");
+    band.className = "genai-band";
+
+    var bandInner = document.createElement("div");
+    bandInner.className = "genai-band-inner";
+
+    /* Move elements into band */
+    if (spacer) band.appendChild(spacer);
+    if (intro) bandInner.appendChild(intro);
+    if (promptPanel) bandInner.appendChild(promptPanel);
+
+    band.appendChild(bandInner);
+
+    /* Insert band before the back-link / step-nav */
+    var stepNav = parent.querySelector(".step-nav");
+    var backLink = parent.querySelector(".back-link");
+    var insertBefore = stepNav || backLink || null;
+    if (insertBefore) {
+      parent.insertBefore(band, insertBefore);
+    } else {
+      parent.appendChild(band);
+    }
+  }
+
   /* ── INIT ────────────────────────────────────────────────── */
   injectFastTrack();
   initHeaderBadge();
   initPageHero();
   initGenaiCollapse();
   initStepNav();
+  initGenaiBand();
 
   /* ── PRESET PROMPT HELPERS ──────────────────────────────── */
   window.AIWISE_COMMON = window.AIWISE_COMMON || {};
