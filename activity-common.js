@@ -1,8 +1,11 @@
 /**
  * activity-common.js
  * Shared logic for all AI-Wise activity pages:
- *  - Fast-track navigation panel (injected into page)
- *  - Preset prompt copy / download
+ *  - Header step badge
+ *  - Fast-track navigation panel with progress states
+ *  - Preset prompt copy / download with animation
+ *  - GenAI intro collapsible
+ *  - Previous / Next step navigation
  *  - Dialog popup handling
  *  - Button press effects
  */
@@ -32,6 +35,14 @@
 
   /* ── DETECT CURRENT STAGE ───────────────────────────────── */
   var currentStage = document.body.getAttribute("data-stage") || "";
+  var currentIdx = STAGE_ORDER.indexOf(currentStage);
+
+  /* ── HEADER STEP BADGE ──────────────────────────────────── */
+  function initHeaderBadge() {
+    var badge = document.getElementById("header_step_badge");
+    if (!badge || currentIdx < 0) return;
+    badge.textContent = "Step " + (currentIdx + 1) + " of 7";
+  }
 
   /* ── FAST-TRACK PANEL ───────────────────────────────────── */
   function buildFastTrackPanel() {
@@ -43,29 +54,37 @@
 
     var steps = '<div class="fast-track-steps">';
     STAGE_ORDER.forEach(function (stage, i) {
-      var isCurrent = stage === currentStage;
-      var cls = "fast-track-step" + (isCurrent ? " is-current" : "");
+      var cls = "fast-track-step";
+      var numContent = String(i + 1);
+
+      if (stage === currentStage) {
+        cls += " is-current";
+      } else if (currentIdx >= 0 && i < currentIdx) {
+        cls += " is-completed";
+        numContent = "\u2713";
+      } else if (currentIdx >= 0 && i > currentIdx) {
+        cls += " is-future";
+      }
+
       steps += '<a class="' + cls + '" href="' + PAGE_MAP[stage] + '">'
-            +  '<span class="fast-track-step-num">' + (i + 1) + '</span> '
+            +  '<span class="fast-track-step-num">' + numContent + '</span> '
             +  STAGE_LABELS[stage]
             +  '</a>';
     });
     steps += '</div>';
 
-    var diagLink = '<div class="fast-track-divider"></div>'
-      + '<a class="fast-track-diag-link" href="diagnostic-questionnaire-final.html">Diagnostic Questionnaire</a>'
-      + '<a class="fast-track-diag-link" href="lobby.html">Home</a>';
+    var links = '<div class="fast-track-divider"></div>'
+      + '<a class="fast-track-diag-link" href="diagnostic-questionnaire-final.html">\u2190 Diagnostic Questionnaire</a>'
+      + '<a class="fast-track-diag-link" href="lobby.html">\u2302 Home</a>';
 
-    panel.innerHTML = heading + steps + diagLink;
+    panel.innerHTML = heading + steps + links;
     return panel;
   }
 
-  /* Inject panel into the page layout */
   function injectFastTrack() {
     var content = document.querySelector(".page-content");
     if (!content) return;
 
-    /* Wrap existing content in a layout container */
     var shell = content.parentElement;
     if (!shell) return;
 
@@ -75,7 +94,6 @@
     var main = document.createElement("div");
     main.className = "activity-main";
 
-    /* Move all children of shell into main */
     while (shell.firstChild) {
       main.appendChild(shell.firstChild);
     }
@@ -86,7 +104,96 @@
     shell.appendChild(layout);
   }
 
+  /* ── STEP NAVIGATION (prev / next) ──────────────────────── */
+  function initStepNav() {
+    if (currentIdx < 0) return;
+
+    var backLink = document.querySelector(".back-link");
+    if (!backLink) return;
+
+    var nav = document.createElement("nav");
+    nav.className = "step-nav";
+
+    /* Previous */
+    var prevHref, prevLabel;
+    if (currentIdx === 0) {
+      prevHref = "diagnostic-questionnaire-final.html";
+      prevLabel = "Diagnostic Questionnaire";
+    } else {
+      var prevStage = STAGE_ORDER[currentIdx - 1];
+      prevHref = PAGE_MAP[prevStage];
+      prevLabel = STAGE_LABELS[prevStage];
+    }
+    nav.innerHTML = '<a class="step-nav-link step-nav-prev" href="' + prevHref + '">'
+      + '<span class="step-nav-label">\u2190 Previous</span>'
+      + '<span class="step-nav-title">' + prevLabel + '</span>'
+      + '</a>';
+
+    /* Next */
+    if (currentIdx < STAGE_ORDER.length - 1) {
+      var nextStage = STAGE_ORDER[currentIdx + 1];
+      nav.innerHTML += '<a class="step-nav-link step-nav-next" href="' + PAGE_MAP[nextStage] + '">'
+        + '<span class="step-nav-label">Next \u2192</span>'
+        + '<span class="step-nav-title">' + STAGE_LABELS[nextStage] + '</span>'
+        + '</a>';
+    }
+
+    backLink.parentNode.replaceChild(nav, backLink);
+  }
+
+  /* ── GENAI INTRO COLLAPSE ───────────────────────────────── */
+  function initGenaiCollapse() {
+    var intro = document.querySelector(".genaiIntro");
+    if (!intro) return;
+
+    var texts = intro.querySelectorAll(".genaiIntroText");
+    if (texts.length <= 2) return;
+
+    var hiddenTexts = [];
+    for (var i = 2; i < texts.length; i++) {
+      texts[i].classList.add("genai-collapsed");
+      hiddenTexts.push(texts[i]);
+    }
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "genai-toggle-btn";
+    btn.textContent = "Show more";
+    var expanded = false;
+
+    btn.addEventListener("click", function () {
+      expanded = !expanded;
+      hiddenTexts.forEach(function (el) {
+        el.classList.toggle("genai-collapsed", !expanded);
+      });
+      btn.textContent = expanded ? "Show less" : "Show more";
+    });
+
+    /* Insert after last visible text */
+    texts[1].parentNode.insertBefore(btn, texts[2]);
+  }
+
+  /* ── PAGE HERO (auto-generate from h2) ──────────────────── */
+  function initPageHero() {
+    if (currentIdx < 0) return;
+
+    var h2 = document.querySelector(".page-content h2");
+    if (!h2) return;
+
+    var hero = document.createElement("div");
+    hero.className = "page-hero";
+    hero.innerHTML = '<span class="page-hero-step">Step ' + (currentIdx + 1) + '</span>'
+      + '<h2 class="page-hero-title">' + h2.textContent + '</h2>';
+
+    h2.parentNode.replaceChild(hero, h2);
+  }
+
+  /* ── INIT ────────────────────────────────────────────────── */
   injectFastTrack();
+  initHeaderBadge();
+  initPageHero();
+  initGenaiCollapse();
+  initStepNav();
 
   /* ── PRESET PROMPT HELPERS ──────────────────────────────── */
   window.AIWISE_COMMON = window.AIWISE_COMMON || {};
@@ -95,7 +202,11 @@
     if (!button) return;
     var original = button.textContent;
     button.textContent = message;
-    setTimeout(function () { button.textContent = original; }, 1300);
+    button.classList.add("copy-success");
+    setTimeout(function () {
+      button.textContent = original;
+      button.classList.remove("copy-success");
+    }, 1300);
   };
 
   window.AIWISE_COMMON.copyPrompt = function (text, button) {
@@ -122,14 +233,6 @@
     URL.revokeObjectURL(url);
   };
 
-  /**
-   * Wire up a standard prompt block (copy + download + view).
-   * @param {string} promptText  The prompt string
-   * @param {string} preId       ID of the <pre> element
-   * @param {string} copyBtnId   ID of copy button
-   * @param {string} dlBtnId     ID of download button
-   * @param {string} filename    Download filename
-   */
   window.AIWISE_COMMON.wirePromptBlock = function (promptText, preId, copyBtnId, dlBtnId, filename) {
     var pre = document.getElementById(preId);
     var copyBtn = document.getElementById(copyBtnId);

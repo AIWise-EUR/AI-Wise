@@ -290,7 +290,9 @@
 <body>
 <header class="main-header">
   <div class="header-inner">
+    <img src="erasmus-logo.png" alt="Erasmus University Rotterdam" class="header-logo">
     <h1>AI-Wise Module</h1>
+    <span class="header-step-badge">Diagnostic Questionnaire</span>
   </div>
 </header>
 
@@ -302,6 +304,9 @@
       <h2 class="diag-page-title">Diagnostic Questionnaire</h2>
       <p class="diag-intro">Check all statements that currently apply to you. Be honest — this is not a test. The questionnaire identifies where you are in the process and recommends the most relevant steps to focus on right now.</p>
       <p id="diag_restore_note" class="diag-restore-note" style="display:none;">Your previous diagnostic state has been restored. Click <strong>Reset</strong> if you want to start fresh.</p>
+
+      <div class="diag-progress-bar"><div class="diag-progress-fill" id="diag_progress_fill"></div></div>
+      <p class="diag-progress-label" id="diag_progress_label">0 of 40 items checked</p>
 
       <div class="step-divider">
         <span class="step-divider-label">Step 1 — Exploring a Topic</span>
@@ -486,6 +491,23 @@
 
 <script>
 (function () {
+  /* ── PROGRESS BAR ─────────────────────────────────────── */
+  var progressFill = document.getElementById("diag_progress_fill");
+  var progressLabel = document.getElementById("diag_progress_label");
+  var allCheckboxes = document.querySelectorAll('input[name="node"]');
+  var totalItems = allCheckboxes.length;
+
+  function updateProgress() {
+    var checked = document.querySelectorAll('input[name="node"]:checked').length;
+    var pct = totalItems > 0 ? Math.round((checked / totalItems) * 100) : 0;
+    if (progressFill) progressFill.style.width = pct + "%";
+    if (progressLabel) progressLabel.textContent = checked + " of " + totalItems + " items checked";
+  }
+
+  allCheckboxes.forEach(function (cb) {
+    cb.addEventListener("change", updateProgress);
+  });
+
   var pageMap = {
     exploring:  "exploring-topic.html",
     rq:         "research-question.html",
@@ -710,6 +732,7 @@
 
     var restoreNote = document.getElementById("diag_restore_note");
     if (restoreNote) restoreNote.style.display = "block";
+    updateProgress();
   }
 
   function makeStepCard(stage, pct) {
@@ -805,6 +828,7 @@
     document.getElementById("btn_fast_track_go").disabled = true;
     var restoreNote = document.getElementById("diag_restore_note");
     if (restoreNote) restoreNote.style.display = "none";
+    updateProgress();
     try {
       sessionStorage.removeItem("aiwise-questionnaire-state");
       sessionStorage.removeItem(uiStateKey);
