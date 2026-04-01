@@ -415,14 +415,6 @@
       </div>
 
       <div id="result_area">
-        <div class="result-ai-row">
-          <p class="result-ai-label">Are you planning to use GenAI for this step?</p>
-          <div class="result-ai-options">
-            <label><input type="radio" name="r_use_ai" value="yes"> Yes</label>
-            <label><input type="radio" name="r_use_ai" value="no"> No</label>
-          </div>
-        </div>
-
         <div id="tier_must" class="tier-block tier-must" style="display:none;">
           <span class="tier-label">Must</span>
           <div class="tier-steps" id="steps_must"></div>
@@ -473,12 +465,6 @@
       </div>
 
       <div class="fast-track-divider"></div>
-
-      <p class="fast-track-ai-label">Are you planning to use GenAI?</p>
-      <div class="fast-track-ai-options">
-        <label><input type="radio" name="ft_use_ai" value="yes"> Yes</label>
-        <label><input type="radio" name="ft_use_ai" value="no"> No</label>
-      </div>
 
       <button class="fast-track-go" id="btn_fast_track_go" disabled>Go to step</button>
 
@@ -636,13 +622,11 @@
   }
 
   function getUseAi() {
-    var el = document.querySelector('input[name="r_use_ai"]:checked');
-    return el ? el.value : "";
+    return "";
   }
 
   function getFtUseAi() {
-    var el = document.querySelector('input[name="ft_use_ai"]:checked');
-    return el ? el.value : "";
+    return "";
   }
 
   function buildGoUrl(stage, useAi) {
@@ -703,16 +687,6 @@
     document.querySelectorAll('input[name="node"]').forEach(function(el) {
       el.checked = Boolean(checkedSet[el.value]);
     });
-
-    if (parsed.resultUseAi === "yes" || parsed.resultUseAi === "no") {
-      var resultRadio = document.querySelector('input[name="r_use_ai"][value="' + parsed.resultUseAi + '"]');
-      if (resultRadio) resultRadio.checked = true;
-    }
-
-    if (parsed.fastTrackUseAi === "yes" || parsed.fastTrackUseAi === "no") {
-      var ftRadio = document.querySelector('input[name="ft_use_ai"][value="' + parsed.fastTrackUseAi + '"]');
-      if (ftRadio) ftRadio.checked = true;
-    }
 
     if (parsed.selectedFtStage) {
       selectedFtStage = parsed.selectedFtStage;
@@ -795,16 +769,16 @@
     renderResults(scores, currentIdx, checked);
     persistUiState(true);
     document.getElementById("result_area").scrollIntoView({ behavior: "smooth", block: "start" });
-  });
 
-  document.querySelectorAll('input[name="r_use_ai"]').forEach(function(radio) {
-    radio.addEventListener("change", function() {
-      var checked    = getChecked();
-      var scores     = calcScores(checked);
-      var currentIdx = detectCurrentStep(scores);
-      renderResults(scores, currentIdx, checked);
-      persistUiState(document.getElementById("result_area").style.display === "block");
-    });
+    /* Analytics: dispatch event so analytics.js can track result */
+    var scoresForAnalytics = {};
+    stepOrder.forEach(function(s) { scoresForAnalytics[s] = scores[s] ? scores[s].pct : 0; });
+    document.dispatchEvent(new CustomEvent("aiwise:diagnostic", { detail: {
+      recommendedStage: stepOrder[currentIdx] || "",
+      checkedCount:     checked.length,
+      checkedNodes:     checked.slice(),
+      scores:           scoresForAnalytics
+    }}));
   });
 
   document.querySelectorAll('input[name="node"]').forEach(function(checkbox) {
@@ -813,15 +787,8 @@
     });
   });
 
-  document.querySelectorAll('input[name="ft_use_ai"]').forEach(function(radio) {
-    radio.addEventListener("change", function() {
-      persistUiState(document.getElementById("result_area").style.display === "block");
-    });
-  });
-
   document.getElementById("btn_reset_diag").addEventListener("click", function() {
     document.querySelectorAll('input[name="node"]').forEach(function(el){ el.checked = false; });
-    document.querySelectorAll('input[name="r_use_ai"]').forEach(function(el){ el.checked = false; });
     document.getElementById("result_area").style.display = "none";
     document.querySelectorAll(".fast-track-step").forEach(function(b){ b.classList.remove("is-selected"); });
     selectedFtStage = null;
@@ -860,6 +827,7 @@
 
 })();
 </script>
+<script src="analytics.js"></script>
 <script src="ui-effects.js"></script>
 </body>
 </html>
