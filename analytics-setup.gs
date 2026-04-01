@@ -2,113 +2,85 @@
  * analytics-setup.gs
  * Google Apps Script — Web App backend for AI-Wise analytics.
  *
- * ── HOW TO DEPLOY ────────────────────────────────────────────────────────────
+ * ── HOW TO DEPLOY ─────────────────────────────────────────────
  * 1. Open Google Drive → New → More → Google Apps Script
- * 2. Delete the default code and paste this entire file.
- * 3. Click  Deploy → New deployment
+ * 2. Delete default code and paste this entire file.
+ * 3. Deploy → New deployment
  *      Type:           Web app
  *      Execute as:     Me
  *      Who has access: Anyone
- * 4. Authorize and copy the Web App URL that appears.
- * 5. Open analytics.js in this project and paste the URL into the ENDPOINT var.
- * ─────────────────────────────────────────────────────────────────────────────
+ * 4. Authorize → copy the Web App URL.
+ * 5. Paste URL into ENDPOINT in analytics.js.
+ * ──────────────────────────────────────────────────────────────
  *
- * Spreadsheet structure created automatically:
+ * Spreadsheet structure (auto-created on first event):
  *
  *  Sheet "Prompt Events"
- *    A  Timestamp (ISO)
+ *    A  Date        (YYYY-MM-DD)
  *    B  Event type  (prompt_copy | prompt_download)
  *    C  Stage       (exploring | searching | … | diagnostic)
- *    D  Prompt type (course_prompt | activity_prompt | grammar_prompt | …)
- *    E  User-agent  (truncated)
+ *    D  Prompt type (course_prompt | activity_prompt | …)
  *
  *  Sheet "Diagnostic Results"
- *    A  Timestamp (ISO)
+ *    A  Date              (YYYY-MM-DD)
  *    B  Recommended stage
  *    C  Checked items count
- *    D  Checked node IDs    (comma-separated, e.g. RQ11,RQ12,RU21)
- *    E  Stage scores JSON   (e.g. {"exploring":100,"rq":60,…})
- *    F  User-agent          (truncated)
+ *    D  Checked node IDs  (comma-separated, e.g. RQ11,RQ12,RU21)
+ *    E  Stage scores JSON (e.g. {"exploring":100,"rq":60,…})
  */
 
-/* ── CORS helper ──────────────────────────────────────────── */
-function addCorsHeaders(output) {
-  return output
-    .setHeader("Access-Control-Allow-Origin", "*")
-    .setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-    .setHeader("Access-Control-Allow-Headers", "Content-Type");
-}
-
-/* ── OPTIONS pre-flight (browsers send this before POST) ──── */
 function doGet(e) {
-  return addCorsHeaders(
-    ContentService.createTextOutput("ok")
-      .setMimeType(ContentService.MimeType.TEXT)
-  );
+  return ContentService.createTextOutput("ok")
+    .setMimeType(ContentService.MimeType.TEXT);
 }
 
-/* ── MAIN HANDLER ─────────────────────────────────────────── */
 function doPost(e) {
   var ok = ContentService.createTextOutput(JSON.stringify({ status: "ok" }))
     .setMimeType(ContentService.MimeType.JSON);
 
   try {
     var raw = e.postData ? e.postData.contents : null;
-    if (!raw) return addCorsHeaders(ok);
+    if (!raw) return ok;
 
-    var payload = JSON.parse(raw);
+    var payload   = JSON.parse(raw);
     var eventType = payload.eventType || "";
-    var timestamp = payload.timestamp || new Date().toISOString();
-    var ua        = (payload.userAgent || "").substring(0, 120);
-    var data      = payload.data || {};
+    var date      = payload.date      || new Date().toISOString().substring(0, 10);
+    var data      = payload.data      || {};
 
     var ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    /* ── Prompt copy / download ── */
     if (eventType === "prompt_copy" || eventType === "prompt_download") {
       var pSheet = getOrCreateSheet(ss, "Prompt Events", [
-        "Timestamp", "Event Type", "Stage", "Prompt Type", "User-Agent"
+        "Date", "Event Type", "Stage", "Prompt Type"
       ]);
-      pSheet.appendRow([
-        timestamp,
-        eventType,
-        data.stage        || "",
-        data.promptType   || "",
-        ua
-      ]);
+      pSheet.appendRow([date, eventType, data.stage || "", data.promptType || ""]);
     }
 
-    /* ── Diagnostic result ── */
     if (eventType === "diagnostic_result") {
       var dSheet = getOrCreateSheet(ss, "Diagnostic Results", [
-        "Timestamp", "Recommended Stage", "Checked Count",
-        "Checked Nodes", "Stage Scores", "User-Agent"
+        "Date", "Recommended Stage", "Checked Count", "Checked Nodes", "Stage Scores"
       ]);
       dSheet.appendRow([
-        timestamp,
+        date,
         data.recommendedStage || "",
         data.checkedCount     || 0,
         (data.checkedNodes    || []).join(","),
-        JSON.stringify(data.scores || {}),
-        ua
+        JSON.stringify(data.scores || {})
       ]);
     }
 
   } catch (err) {
-    // Never surface errors to the client — tracking must be silent
     Logger.log("Analytics error: " + err.toString());
   }
 
-  return addCorsHeaders(ok);
+  return ok;
 }
 
-/* ── Helper: get or create a sheet with header row ─────────── */
 function getOrCreateSheet(ss, name, headers) {
   var sheet = ss.getSheetByName(name);
   if (!sheet) {
     sheet = ss.insertSheet(name);
     sheet.appendRow(headers);
-    // Freeze header row and bold it
     sheet.setFrozenRows(1);
     sheet.getRange(1, 1, 1, headers.length).setFontWeight("bold");
   }
