@@ -6,46 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-stage="writing">
 <header class="main-header">
   <div class="header-inner">
     <h1>AI-Wise Module</h1>
   </div>
 </header>
 
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <hr class="nav-divider">
-  <a href="diagnostic-questionnaire-final.html" class="diagnostic-link">Diagnostic Questionnaire</a>
-  <a href="exploring-topic.html">Exploring a topic</a>
-  <a href="research-question.html">Formulating a central research question</a>
-  <a href="searching-literature.html">Searching for and selecting scientific literature</a>
-  <a href="organizing-literature.html">Organizing literature</a>
-  <a href="draft-outline.html">Creating a draft structure or outline</a>
-  <a href="writing-sections.html" class="active">Writing sections of the literature review</a>
-  <a href="finalizing-paper.html">Finalizing the paper</a></nav>
-
-
-
 <section>
   <div class="page-content pageShell">
     <h2>Writing Sections of the Literature Review</h2>
     <div class="stage-intro">
-      <p>
-        A literature report consists of a title, abstract, introduction, main body, discussion and reference list. In addition, there are a number of general aspects that you should note. This concerns the general structure, the coherence, the depth of content, the writing style and the references in the text. Below you will find a brief explanation of the various elements.
-      <p>
-        The links below lead to course materials related to this stage. Please read them before using the GenAI activity on this page, since the activity assumes that you are already familiar with the basic content. A basic understanding is also necessary to use GenAI appropriately and critically.
-      </p>
-      </p>
+      <p>A literature report consists of a title, abstract, introduction, main body, discussion and reference list. In addition, there are a number of general aspects that you should note. This concerns the general structure, the coherence, the depth of content, the writing style and the references in the text.</p>
+      <p>The links below lead to course materials related to this stage. Please read them before using the GenAI activity on this page.</p>
     </div>
 
     <section id="writing-handout" style="max-width: 920px; line-height: 1.55; margin: 18px auto 0 auto; color: #626c6e;">
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
         <a href="https://canvas.eur.nl/courses/51313/pages/annex-7-components-of-a-literature-report?module_item_id=1415996" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-          <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Annex VII: Components of a literature report</span>
+          <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Appendix VII: Components of a literature report</span>
           <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
         </a>
       </div>
@@ -56,35 +35,19 @@
         <div class="genaiIntroPill">Using GenAI in AWSI</div>
         <h3 class="genaiIntroTitle">Adjusting Your Sentences to Match Your Intention</h3>
       </div>
-
-      <p class="genaiIntroText">
-        This activity helps you polish your sentences so that they accurately reflect your intended meaning and the reading experience you want to create.
-      </p>
-
-      <p class="genaiIntroText">
-        It is divided into two parts. First, Grammar Check focuses on identifying and correcting clear grammatical issues at the sentence level. Second, Terminology Options allows you to explore alternative word choices to better match your intention, tone, and level of precision.
-      </p>
-
-      <p class="genaiIntroText">
-        The focus is on working at a small scale. You revise one or two sentences at a time, then place them back into your paragraph and evaluate how they fit. Coherence is not handled automatically; you are responsible for checking whether your revisions maintain the overall flow and consistency of your writing.
-      </p>
-
-      <p class="genaiIntroText" style="margin-bottom: 0;">
-        Rather than rewriting your work, this activity supports you by providing possible options. You decide which changes to accept and how they integrate into your text.
-      </p>
+      <p class="genaiIntroText">This activity helps you polish your sentences so that they accurately reflect your intended meaning and the reading experience you want to create.</p>
+      <p class="genaiIntroText">It is divided into two parts. First, Grammar Check focuses on identifying and correcting clear grammatical issues at the sentence level. Second, Terminology Options allows you to explore alternative word choices to better match your intention, tone, and level of precision.</p>
+      <p class="genaiIntroText">The focus is on working at a small scale. You revise one or two sentences at a time, then place them back into your paragraph and evaluate how they fit.</p>
+      <p class="genaiIntroText" style="margin-bottom: 0;">Rather than rewriting your work, this activity supports you by providing possible options. You decide which changes to accept and how they integrate into your text.</p>
     </div>
 
     <div class="pre-prompt-space" id="pre_prompt_space"></div>
 
-        <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
+    <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
-        <p class="prompt-box-intro">
-          The preset prompts are designed to structure your interaction with GenAI. They are not templates for a final answer, but tools to guide your reasoning process.
-        </p>
-        <p class="prompt-box-intro">
-          You will find two types of prompts below: a Course preset prompt and an Activity preset prompt. They serve different purposes.
-        </p>
+        <p class="prompt-box-intro">The preset prompts are designed to structure your interaction with GenAI. They are not templates for a final answer, but tools to guide your reasoning process.</p>
+        <p class="prompt-box-intro">You will find two types of prompts below: a Course preset prompt and two Activity preset prompts (Grammar Check and Terminology Options).</p>
         <p class="prompt-box-intro" style="margin-bottom: 0;">
           <strong>Practical use</strong><br>
           1. Copy the Course preset prompt first.<br>
@@ -114,7 +77,7 @@
             <p style="margin: 0 0 8px 0; font-weight: 600;">Grammar Check</p>
             <div class="promptButtonRow">
               <button id="btn_copy_grammar_prompt" type="button">Copy Grammar Check prompt</button>
-              <button id="btn_download_grammar_prompt" type="button">Download Grammar check prompt (.txt)</button>
+              <button id="btn_download_grammar_prompt" type="button">Download Grammar Check prompt (.txt)</button>
             </div>
             <details class="prompt-details">
               <summary>View full Grammar Check prompt</summary>
@@ -142,114 +105,19 @@
 </section>
 
 <script src="preset-prompts.js"></script>
+<script src="activity-common.js"></script>
 <script>
 (function () {
-  const CURRENT_STAGE = "writing";
+  var presets = window.AIWISE_PRESETS || {};
+  var course = presets.course || "";
+  var raw = (presets.activities || {}).writing || "";
+  var grammar = (typeof raw === "object" && raw !== null) ? (raw.grammarCheck || "") : "";
+  var terminology = (typeof raw === "object" && raw !== null) ? (raw.terminologyOptions || "") : "";
+  var C = window.AIWISE_COMMON;
 
-  const params = new URLSearchParams(window.location.search);
-  const fromQuery = params.get("from") === "questionnaire";
-  const stageFromQuery = params.get("stage") || "";
-  const useAiFromQuery = params.get("use_ai") || "";
-
-  let stored = null;
-  try {
-    stored = JSON.parse(sessionStorage.getItem("aiwise-questionnaire-state") || "null");
-  } catch (error) {
-    stored = null;
-  }
-
-  const recommendedStage = stageFromQuery || (stored && stored.stage) || "";
-  const useAi = useAiFromQuery || (stored && stored.useAi) || "";
-  const cameFromQuestionnaire = Boolean(fromQuery || (stored && stored.fromQuestionnaire));
-  const isMatchedRecommendation = cameFromQuestionnaire && recommendedStage === CURRENT_STAGE;
-
-  const recommendedInfo = document.getElementById("recommended_info");
-  const genaiDescriptionCard = document.getElementById("genai_description_card");
-  const promptPanel = document.getElementById("section_prompt_panel");
-  const activityPanel = document.getElementById("section_activity_prompt");
-  const coursePromptText = document.getElementById("course_prompt_text");
-  const grammarPromptBlock = document.getElementById("writing_grammar_prompt_block");
-  const terminologyPromptBlock = document.getElementById("writing_terminology_prompt_block");
-  const grammarPromptText = document.getElementById("grammar_prompt_text");
-  const terminologyPromptText = document.getElementById("terminology_prompt_text");
-
-  const btnCopyCoursePrompt = document.getElementById("btn_copy_course_prompt");
-  const btnDownloadCoursePrompt = document.getElementById("btn_download_course_prompt");
-  const btnCopyGrammarPrompt = document.getElementById("btn_copy_grammar_prompt");
-  const btnDownloadGrammarPrompt = document.getElementById("btn_download_grammar_prompt");
-  const btnCopyTerminologyPrompt = document.getElementById("btn_copy_terminology_prompt");
-  const btnDownloadTerminologyPrompt = document.getElementById("btn_download_terminology_prompt");
-
-  const presets = window.AIWISE_PRESETS || {};
-  const coursePreset = presets.course || "";
-  const activityPresets = presets.activities || {};
-  const activityPresetRaw = activityPresets[CURRENT_STAGE] || "";
-  const grammarPreset = typeof activityPresetRaw === "object" && activityPresetRaw !== null
-    ? (activityPresetRaw.grammarCheck || "")
-    : "";
-  const terminologyPreset = typeof activityPresetRaw === "object" && activityPresetRaw !== null
-    ? (activityPresetRaw.terminologyOptions || "")
-    : "";
-
-  function setButtonFeedback(button, message) {
-    const original = button.textContent;
-    button.textContent = message;
-    window.setTimeout(() => {
-      button.textContent = original;
-    }, 1300);
-  }
-
-  function copyPrompt(text, button) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        setButtonFeedback(button, "Copied");
-      }).catch(() => {
-        setButtonFeedback(button, "Copy failed");
-      });
-      return;
-    }
-    setButtonFeedback(button, "Clipboard unavailable");
-  }
-
-  function downloadPrompt(text, filename) {
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-  }
-
-  if (coursePromptText) coursePromptText.textContent = coursePreset;
-  if (grammarPromptText && grammarPreset) grammarPromptText.textContent = grammarPreset;
-  if (terminologyPromptText && terminologyPreset) terminologyPromptText.textContent = terminologyPreset;
-
-  btnCopyCoursePrompt.addEventListener("click", () => {
-    copyPrompt(coursePreset, btnCopyCoursePrompt);
-  });
-
-  btnDownloadCoursePrompt.addEventListener("click", () => {
-    downloadPrompt(coursePreset, "course-preset-prompt.txt");
-  });
-
-  btnCopyGrammarPrompt.addEventListener("click", () => {
-    copyPrompt(grammarPreset, btnCopyGrammarPrompt);
-  });
-
-  btnDownloadGrammarPrompt.addEventListener("click", () => {
-    downloadPrompt(grammarPreset, "activity-preset-prompt-grammar-check.txt");
-  });
-
-  btnCopyTerminologyPrompt.addEventListener("click", () => {
-    copyPrompt(terminologyPreset, btnCopyTerminologyPrompt);
-  });
-
-  btnDownloadTerminologyPrompt.addEventListener("click", () => {
-    downloadPrompt(terminologyPreset, "activity-preset-prompt-terminology-options.txt");
-  });
+  C.wirePromptBlock(course, "course_prompt_text", "btn_copy_course_prompt", "btn_download_course_prompt", "course-preset-prompt.txt");
+  C.wirePromptBlock(grammar, "grammar_prompt_text", "btn_copy_grammar_prompt", "btn_download_grammar_prompt", "activity-preset-prompt-grammar-check.txt");
+  C.wirePromptBlock(terminology, "terminology_prompt_text", "btn_copy_terminology_prompt", "btn_download_terminology_prompt", "activity-preset-prompt-terminology-options.txt");
 })();
 </script>
 <script src="ui-effects.js"></script>

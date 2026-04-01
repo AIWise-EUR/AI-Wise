@@ -6,29 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-stage="rq">
 <header class="main-header">
   <div class="header-inner">
     <h1>AI-Wise Module</h1>
   </div>
 </header>
-
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <hr class="nav-divider">
-  <a href="diagnostic-questionnaire-final.html" class="diagnostic-link">Diagnostic Questionnaire</a>
-  <a href="exploring-topic.html">Exploring a topic</a>
-  <a href="research-question.html" class="active">Formulating a central research question</a>
-  <a href="searching-literature.html">Searching for and selecting scientific literature</a>
-  <a href="organizing-literature.html">Organizing literature</a>
-  <a href="draft-outline.html">Creating a draft structure or outline</a>
-  <a href="writing-sections.html">Writing sections of the literature review</a>
-  <a href="finalizing-paper.html">Finalizing the paper</a></nav>
-
-
 
 <section>
   <div class="page-content pageShell">
@@ -47,33 +30,18 @@
 
     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
       <a href="https://canvas.eur.nl/courses/51313/pages/annex-3-topic-orientation-and-central-question?module_item_id=1415992" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-        <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Annex III: Topic orientation and central question</span>
-        <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
-      </a>
-      <a href="https://canvas.eur.nl/courses/51313/pages/annex-3-topic-orientation-and-central-question?module_item_id=1415992" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-        <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Criteria to assess central question</span>
+        <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Appendix III: Topic orientation and central question</span>
         <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
       </a>
     </div>
 
-
-
-    <div class="pre-prompt-space" id="pre_prompt_space"></div>
-            <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
+    <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using GenAI in this stage</h3>
-        <p class="prompt-box-intro">
-          For this stage, we strongly recommend formulating your central research question without GenAI.
-        </p>
-        <p class="prompt-box-intro">
-          Your central research question should reflect your own interests, perspective, and reasoning about your assigned topic. There is no statistically “best” central question. A question may sound well written, but still be a poor fit for your assignment, your assigned subject, or your own motivation.
-        </p>
-        <p class="prompt-box-intro">
-          If you need support, discuss your ideas with your classmates, tutor, or course coordinator. They are familiar with the expectations of the assignment and can best judge whether your question is suitable, clear, and feasible within the scope of this course.
-        </p>
-        <p class="prompt-box-intro" style="margin-bottom: 0;">
-          If you still choose to use GenAI, use it only for process support. For example, you may ask it to help you clarify your wording or to challenge your reasoning. Do not copy a generated research question and treat it as your own. Always verify your question with the course guidelines and your tutor.
-        </p>
+        <p class="prompt-box-intro">For this stage, we strongly recommend formulating your central research question without GenAI.</p>
+        <p class="prompt-box-intro">Your central research question should reflect your own interests, perspective, and reasoning about your assigned topic. There is no statistically "best" central question. A question may sound well written, but still be a poor fit for your assignment, your assigned subject, or your own motivation.</p>
+        <p class="prompt-box-intro">If you need support, discuss your ideas with your classmates, tutor, or course coordinator. They are familiar with the expectations of the assignment and can best judge whether your question is suitable, clear, and feasible within the scope of this course.</p>
+        <p class="prompt-box-intro" style="margin-bottom: 0;">If you still choose to use GenAI, use it only for process support. For example, you may ask it to help you clarify your wording or to challenge your reasoning. Do not copy a generated research question and treat it as your own. Always verify your question with the course guidelines and your tutor.</p>
       </div>
     </div>
 
@@ -81,142 +49,7 @@
   </div>
 </section>
 
-<script src="preset-prompts.js"></script>
-<script>
-(function () {
-  const CURRENT_STAGE = "rq";
-
-  const params = new URLSearchParams(window.location.search);
-  const fromQuery = params.get("from") === "questionnaire";
-  const stageFromQuery = params.get("stage") || "";
-  const useAiFromQuery = params.get("use_ai") || "";
-
-  let stored = null;
-  try {
-    stored = JSON.parse(sessionStorage.getItem("aiwise-questionnaire-state") || "null");
-  } catch (error) {
-    stored = null;
-  }
-
-  const recommendedStage = stageFromQuery || (stored && stored.stage) || "";
-  const useAi = useAiFromQuery || (stored && stored.useAi) || "";
-  const cameFromQuestionnaire = Boolean(fromQuery || (stored && stored.fromQuestionnaire));
-  const isMatchedRecommendation = cameFromQuestionnaire && recommendedStage === CURRENT_STAGE;
-
-  const recommendedInfo = document.getElementById("recommended_info");
-  const promptPanel = document.getElementById("section_prompt_panel");
-  const activityPanel = document.getElementById("section_activity_prompt");
-  const coursePromptText = document.getElementById("course_prompt_text");
-  const activityPromptText = document.getElementById("activity_prompt_text");
-
-  const btnCopyCoursePrompt = document.getElementById("btn_copy_course_prompt");
-  const btnDownloadCoursePrompt = document.getElementById("btn_download_course_prompt");
-  const btnCopyActivityPrompt = document.getElementById("btn_copy_activity_prompt");
-  const btnDownloadActivityPrompt = document.getElementById("btn_download_activity_prompt");
-
-  const presets = window.AIWISE_PRESETS || {};
-  const coursePreset = presets.course || "";
-  const activityPresets = presets.activities || {};
-  const activityPreset = activityPresets[CURRENT_STAGE] || "";
-
-  function setButtonFeedback(button, message) {
-    const original = button.textContent;
-    button.textContent = message;
-    window.setTimeout(() => {
-      button.textContent = original;
-    }, 1300);
-  }
-
-  function copyPrompt(text, button) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        setButtonFeedback(button, "Copied");
-      }).catch(() => {
-        setButtonFeedback(button, "Copy failed");
-      });
-      return;
-    }
-    setButtonFeedback(button, "Clipboard unavailable");
-  }
-
-  function downloadPrompt(text, filename) {
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-  }
-
-  if (coursePromptText) coursePromptText.textContent = coursePreset;
-  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
-
-  if (btnCopyCoursePrompt) {
-    btnCopyCoursePrompt.addEventListener("click", () => {
-      copyPrompt(coursePreset, btnCopyCoursePrompt);
-    });
-  }
-
-  if (btnDownloadCoursePrompt) {
-    btnDownloadCoursePrompt.addEventListener("click", () => {
-      downloadPrompt(coursePreset, "course-preset-prompt.txt");
-    });
-  }
-
-  if (btnCopyActivityPrompt) {
-    btnCopyActivityPrompt.addEventListener("click", () => {
-      copyPrompt(activityPreset, btnCopyActivityPrompt);
-    });
-  }
-
-  if (btnDownloadActivityPrompt) {
-    btnDownloadActivityPrompt.addEventListener("click", () => {
-      downloadPrompt(activityPreset, "activity-preset-prompt.txt");
-    });
-  }
-
-  const popupTriggers = document.querySelectorAll("[data-dialog-id]");
-  popupTriggers.forEach((trigger) => {
-    const dialogId = trigger.getAttribute("data-dialog-id");
-    const dialog = dialogId ? document.getElementById(dialogId) : null;
-    if (!dialog || typeof dialog.showModal !== "function") {
-      return;
-    }
-    trigger.addEventListener("click", () => {
-      dialog.showModal();
-    });
-  });
-
-  const popupCloseButtons = document.querySelectorAll("[data-dialog-close]");
-  popupCloseButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const dialog = button.closest("dialog");
-      if (dialog) {
-        dialog.close();
-      }
-    });
-  });
-
-  const popupDialogs = document.querySelectorAll("dialog.content-popup");
-  popupDialogs.forEach((dialog) => {
-    dialog.addEventListener("click", (event) => {
-      const rect = dialog.getBoundingClientRect();
-      const clickedBackdrop = (
-        event.clientX < rect.left ||
-        event.clientX > rect.right ||
-        event.clientY < rect.top ||
-        event.clientY > rect.bottom
-      );
-      if (clickedBackdrop) {
-        dialog.close();
-      }
-    });
-  });
-})();
-</script>
+<script src="activity-common.js"></script>
 <script src="ui-effects.js"></script>
 </body>
 </html>

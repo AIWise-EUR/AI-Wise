@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Diagnostic-specific layout */
     .lobby-layout {
       display: flex;
       gap: 24px;
@@ -15,131 +16,13 @@
       padding: 10px 12px 60px;
       position: relative;
     }
-
     .lobby-main {
       flex: 1 1 0;
       min-width: 0;
       padding-right: 0;
     }
-
-    /* Fast Track Sticky Panel */
-    .fast-track-panel {
-      position: sticky;
-      top: 24px;
-      width: 252px;
-      flex: 0 0 252px;
-      align-self: flex-start;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radiusLg);
-      box-shadow: var(--shadowMd);
-      padding: 16px 14px;
-      z-index: 20;
-      max-height: calc(100vh - 48px);
-      overflow-y: auto;
-    }
-
-    .fast-track-heading {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin: 0 0 3px 0;
-    }
-
-    .fast-track-desc {
-      font-size: 11.5px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 0 0 11px 0;
-    }
-
-    .fast-track-steps { display: grid; gap: 5px; margin-bottom: 12px; }
-
-    .fast-track-step {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 9px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: #fff;
-      cursor: pointer;
-      font-size: 11.5px;
-      color: var(--text);
-      text-align: left;
-      width: 100%;
-      transition: border-color 0.18s ease, background-color 0.18s ease;
-    }
-
-    .fast-track-step:hover { border-color: #9eb2b4; background: #f7faf9; }
-
-    .fast-track-step.is-selected {
-      border-color: var(--accent);
-      background: #f0f6f6;
-      font-weight: 600;
-    }
-
-    .fast-track-step-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 17px;
-      height: 17px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .fast-track-divider { height: 1px; background: var(--border); margin: 10px 0; }
-
-    .fast-track-ai-label {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--muted);
-      margin: 0 0 7px 0;
-    }
-
-    .fast-track-ai-options { display: grid; gap: 4px; margin-bottom: 9px; }
-
-    .fast-track-ai-options label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11.5px;
-      color: var(--text);
-      cursor: pointer;
-      padding: 5px 9px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: #fff;
-      transition: border-color 0.18s ease, background-color 0.18s ease;
-    }
-
-    .fast-track-ai-options label:has(input:checked) {
-      border-color: var(--accent);
-      background: #f0f6f6;
-    }
-
-    .fast-track-go {
-      width: 100%;
-      padding: 8px 0;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 7px;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .fast-track-go:hover { opacity: 0.9; transform: translateY(-1px); }
-    .fast-track-go:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .fast-track-steps { margin-bottom: 12px; }
+    .fast-track-panel { width: 252px; flex: 0 0 252px; }
 
     /* Page intro */
     .diag-page-title {
@@ -398,21 +281,13 @@
       .lobby-main { padding-right: 0; }
       .fast-track-panel { display: none; }
     }
-
     @media (max-width: 1200px) and (min-width: 901px) {
       .lobby-layout { gap: 16px; }
-      .fast-track-panel {
-        top: 16px;
-        width: 224px;
-        flex-basis: 224px;
-        padding: 12px 10px;
-        max-height: calc(100vh - 32px);
-      }
-      .fast-track-desc { font-size: 11px; }
+      .fast-track-panel { width: 224px; flex-basis: 224px; }
     }
   </style>
 </head>
-<body>
+<body class="has-nav">
 <header class="main-header">
   <div class="header-inner">
     <h1>AI-Wise Module</h1>
