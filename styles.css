@@ -150,6 +150,7 @@ body.has-nav > section { margin-left: 260px; }
 .activity-main {
   flex: 1 1 0;
   min-width: 0;
+  overflow-x: hidden;
 }
 
 /* ── FAST-TRACK PANEL ─────────────────────────────────── */
@@ -321,8 +322,6 @@ body.has-nav > section { margin-left: 260px; }
 section {
   padding: 24px;
   background: #fff;
-  border-radius: var(--radiusLg);
-  margin-bottom: 16px;
 }
 
 h2 { margin-top: 0; }
@@ -815,10 +814,10 @@ button.pressFx { animation: tapGlow 0.32s ease; }
 }
 
 .prompt-box {
-  border: 1px solid #c8d7d9;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLg);
   padding: 14px;
-  background: #f6fbfb;
+  background: #ffffff;
 }
 .prompt-box-intro { margin: 0 0 10px 0; }
 
