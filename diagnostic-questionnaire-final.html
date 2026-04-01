@@ -773,10 +773,11 @@
     /* Analytics: dispatch event so analytics.js can track result */
     var scoresForAnalytics = {};
     stepOrder.forEach(function(s) { scoresForAnalytics[s] = scores[s] ? scores[s].pct : 0; });
+    var checkedKeys = Object.keys(checked);
     document.dispatchEvent(new CustomEvent("aiwise:diagnostic", { detail: {
       recommendedStage: stepOrder[currentIdx] || "",
-      checkedCount:     checked.length,
-      checkedNodes:     checked.slice(),
+      checkedCount:     checkedKeys.length,
+      checkedNodes:     checkedKeys,
       scores:           scoresForAnalytics
     }}));
   });
