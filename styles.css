@@ -326,7 +326,7 @@ section {
 }
 
 h2 { margin-top: 0; }
-.page-content { max-width: 900px; position: relative; }
+.page-content { max-width: 920px; margin: 0 auto; position: relative; }
 .diagnostic-title { color: var(--dark); }
 
 /* ── PAGE HERO ────────────────────────────────────────── */
@@ -723,9 +723,9 @@ button.pressFx { animation: tapGlow 0.32s ease; }
 /* ── PROMPT PANEL ─────────────────────────────────────── */
 .section-prompt-panel {
   margin-top: 22px;
-  border: 1px solid rgba(43, 93, 99, 0.18);
+  border: 1px solid var(--border);
   border-radius: var(--radiusLg);
-  background: linear-gradient(180deg, #f6f9f8 0%, #eef3f2 100%);
+  background: #fff;
   padding: 22px;
 }
 
@@ -842,6 +842,9 @@ button.pressFx { animation: tapGlow 0.32s ease; }
   margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid var(--border);
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .step-nav-link {
