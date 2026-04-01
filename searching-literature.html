@@ -85,9 +85,9 @@
 
     </section>
 
-    <div class="pre-prompt-space" id="pre_prompt_space" style="display:none;"></div>
+    <div class="pre-prompt-space" id="pre_prompt_space"></div>
 
-    <div class="genaiIntro softCard" id="genai_intro_card" style="display:none;">
+    <div class="genaiIntro softCard" id="genai_intro_card">
   <div class="genaiIntroHeader">
     <div class="genaiIntroPill">Using GenAI in AWSI</div>
     <h3 class="genaiIntroTitle">Translating Ideas into Search Strings</h3>
@@ -117,7 +117,7 @@ Students often make predictable mistakes at this stage. Ideas are entered as ful
   </div>
 </div>
 
-        <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="display:none;">
+        <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
         <p class="prompt-box-intro">
@@ -148,7 +148,7 @@ Students often make predictable mistakes at this stage. Ideas are entered as ful
           </details>
         </div>
 
-        <div id="section_activity_prompt" class="promptBlock activity-box" style="display:none;">
+        <div id="section_activity_prompt" class="promptBlock activity-box">
           <p class="promptBlockTitle">Activity specific prompt for this section:</p>
           <div class="promptButtonRow">
             <button id="btn_copy_activity_prompt" type="button">Copy activity preset prompt</button>
@@ -238,27 +238,8 @@ Students often make predictable mistakes at this stage. Ideas are entered as ful
     URL.revokeObjectURL(url);
   }
 
-  if (isMatchedRecommendation && recommendedInfo) {
-    recommendedInfo.style.display = "block";
-  }
-
-  if (isMatchedRecommendation && useAi === "yes") {
-    if (prePromptSpace) prePromptSpace.style.display = "block";
-    if (genAiIntroCard) genAiIntroCard.style.display = "block";
-  } else {
-    if (prePromptSpace) prePromptSpace.style.display = "none";
-    if (genAiIntroCard) genAiIntroCard.style.display = "none";
-  }
-
-  if (isMatchedRecommendation && useAi === "yes" && promptPanel) {
-    promptPanel.style.display = "block";
-    coursePromptText.textContent = coursePreset;
-
-    if (activityPreset) {
-      activityPanel.style.display = "block";
-      activityPromptText.textContent = activityPreset;
-    }
-  }
+  if (coursePromptText) coursePromptText.textContent = coursePreset;
+  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
 
   btnCopyCoursePrompt.addEventListener("click", () => {
     copyPrompt(coursePreset, btnCopyCoursePrompt);

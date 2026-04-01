@@ -58,7 +58,7 @@
 
 
     <div class="pre-prompt-space" id="pre_prompt_space"></div>
-            <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="display:none;">
+            <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using GenAI in this stage</h3>
         <p class="prompt-box-intro">
@@ -150,19 +150,8 @@
     URL.revokeObjectURL(url);
   }
 
-  if (isMatchedRecommendation && recommendedInfo) {
-    recommendedInfo.style.display = "block";
-  }
-
-  if (isMatchedRecommendation && useAi === "yes" && promptPanel) {
-    promptPanel.style.display = "block";
-    coursePromptText.textContent = coursePreset;
-
-    if (activityPreset) {
-      activityPanel.style.display = "block";
-      activityPromptText.textContent = activityPreset;
-    }
-  }
+  if (coursePromptText) coursePromptText.textContent = coursePreset;
+  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
 
   if (btnCopyCoursePrompt) {
     btnCopyCoursePrompt.addEventListener("click", () => {

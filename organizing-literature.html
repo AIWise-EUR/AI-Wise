@@ -68,7 +68,7 @@
       </div>
     </section>
 
-    <div id="genai_description_card" class="genaiIntro softCard" style="display:none; margin-top: 28px;">
+    <div id="genai_description_card" class="genaiIntro softCard" style="margin-top: 28px;">
       <div class="genaiIntroHeader">
         <div class="genaiIntroPill">Using GenAI in AWSI</div>
         <h3 class="genaiIntroTitle">Formulating a Literature Overview Table</h3>
@@ -85,7 +85,7 @@
 
     <div class="pre-prompt-space genai-flow-gap" id="pre_prompt_space"></div>
 
-        <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="display:none;">
+        <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
         <p class="prompt-box-intro">
@@ -116,7 +116,7 @@
           </details>
         </div>
 
-        <div id="section_activity_prompt" class="promptBlock activity-box" style="display:none;">
+        <div id="section_activity_prompt" class="promptBlock activity-box">
           <p class="promptBlockTitle">Activity specific prompt for this section:</p>
           <div class="promptButtonRow">
             <button id="btn_copy_activity_prompt" type="button">Copy activity preset prompt</button>
@@ -205,23 +205,8 @@
     URL.revokeObjectURL(url);
   }
 
-  if (isMatchedRecommendation && recommendedInfo) {
-    recommendedInfo.style.display = "block";
-  }
-
-  if (isMatchedRecommendation && useAi === "yes" && promptPanel) {
-    if (genaiDescriptionCard) {
-      genaiDescriptionCard.style.display = "block";
-    }
-
-    promptPanel.style.display = "block";
-    coursePromptText.textContent = coursePreset;
-
-    if (activityPreset) {
-      activityPanel.style.display = "block";
-      activityPromptText.textContent = activityPreset;
-    }
-  }
+  if (coursePromptText) coursePromptText.textContent = coursePreset;
+  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
 
   btnCopyCoursePrompt.addEventListener("click", () => {
     copyPrompt(coursePreset, btnCopyCoursePrompt);

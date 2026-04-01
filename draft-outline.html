@@ -61,7 +61,7 @@
 
     </section>
 
-    <div id="genai_description_card" class="genaiIntro softCard is-hidden" style="margin-top: 28px;">
+    <div id="genai_description_card" class="genaiIntro softCard" style="margin-top: 28px;">
       <div class="genaiIntroHeader">
         <div class="genaiIntroPill">Using GenAI in AWSI</div>
         <h3 class="genaiIntroTitle">Draft Structure and Logic Review</h3>
@@ -84,9 +84,9 @@
       </p>
     </div>
 
-    <div class="pre-prompt-space is-hidden" id="pre_prompt_space" style="min-height: 8px; margin-top: 0;"></div>
+    <div class="pre-prompt-space" id="pre_prompt_space" style="min-height: 8px; margin-top: 0;"></div>
 
-        <div id="section_prompt_panel" class="prompt-box section-prompt-panel is-hidden">
+        <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
         <p class="prompt-box-intro">
@@ -117,7 +117,7 @@
           </details>
         </div>
 
-        <div id="section_activity_prompt" class="promptBlock activity-box is-hidden">
+        <div id="section_activity_prompt" class="promptBlock activity-box">
           <p class="promptBlockTitle">Activity specific prompt for this section:</p>
           <div class="promptButtonRow">
             <button id="btn_copy_activity_prompt" type="button">Copy activity preset prompt</button>
@@ -207,37 +207,8 @@
     URL.revokeObjectURL(url);
   }
 
-  if (isMatchedRecommendation && recommendedInfo) {
-    recommendedInfo.style.display = "block";
-  }
-
-  function setVisible(element, visible) {
-    if (!element) return;
-    element.classList.toggle("is-hidden", !visible);
-  }
-
-  if (isMatchedRecommendation && useAi === "yes") {
-    setVisible(prePromptSpace, true);
-    setVisible(genAiDescriptionCard, true);
-  } else {
-    setVisible(prePromptSpace, false);
-    setVisible(genAiDescriptionCard, false);
-  }
-
-  if (isMatchedRecommendation && useAi === "yes") {
-    setVisible(promptPanel, true);
-    coursePromptText.textContent = coursePreset;
-
-    if (activityPreset) {
-      setVisible(activityPanel, true);
-      activityPromptText.textContent = activityPreset;
-    } else {
-      setVisible(activityPanel, false);
-    }
-  } else {
-    setVisible(promptPanel, false);
-    setVisible(activityPanel, false);
-  }
+  if (coursePromptText) coursePromptText.textContent = coursePreset;
+  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
 
   btnCopyCoursePrompt.addEventListener("click", () => {
     copyPrompt(coursePreset, btnCopyCoursePrompt);

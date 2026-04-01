@@ -70,9 +70,9 @@
 
     </section>
 
-    <div class="pre-prompt-space" id="pre_prompt_space" style="display:none;"></div>
+    <div class="pre-prompt-space" id="pre_prompt_space"></div>
 
-    <div class="genaiIntro softCard" id="genai_intro_card" style="display:none;">
+    <div class="genaiIntro softCard" id="genai_intro_card">
       <div class="genaiIntroHeader">
         <div class="genaiIntroPill">GenAI support in AWS I</div>
         <h3 class="genaiIntroTitle">Using GenAI to clarify concepts and relationships in your topic map</h3>
@@ -99,7 +99,7 @@
         </p>
       </div>
     </div>
-            <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="display:none; max-width: 920px; margin: 16px auto 0 auto;">
+            <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="max-width: 920px; margin: 16px auto 0 auto;">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
         <p class="prompt-box-intro">
@@ -130,7 +130,7 @@
           </details>
         </div>
 
-        <div id="section_activity_prompt" class="promptBlock activity-box" style="display:none;">
+        <div id="section_activity_prompt" class="promptBlock activity-box">
           <p class="promptBlockTitle">Activity specific prompt for this section:</p>
           <div class="promptButtonRow">
             <button id="btn_copy_activity_prompt" type="button">Copy activity preset prompt</button>
@@ -153,28 +153,11 @@
 (function () {
   const CURRENT_STAGE = "exploring";
 
-  const params = new URLSearchParams(window.location.search);
-  const fromQuery = params.get("from") === "questionnaire";
-  const stageFromQuery = params.get("stage") || "";
-  const useAiFromQuery = params.get("use_ai") || "";
+  const presets = window.AIWISE_PRESETS || {};
+  const coursePreset = presets.course || "";
+  const activityPresets = presets.activities || {};
+  const activityPreset = activityPresets[CURRENT_STAGE] || "";
 
-  let stored = null;
-  try {
-    stored = JSON.parse(sessionStorage.getItem("aiwise-questionnaire-state") || "null");
-  } catch (error) {
-    stored = null;
-  }
-
-  const recommendedStage = stageFromQuery || (stored && stored.stage) || "";
-  const useAi = useAiFromQuery || (stored && stored.useAi) || "";
-  const cameFromQuestionnaire = Boolean(fromQuery || (stored && stored.fromQuestionnaire));
-  const isMatchedRecommendation = cameFromQuestionnaire && recommendedStage === CURRENT_STAGE;
-
-  const recommendedInfo = document.getElementById("recommended_info");
-  const prePromptSpace = document.getElementById("pre_prompt_space");
-  const genAiIntroCard = document.getElementById("genai_intro_card");
-  const promptPanel = document.getElementById("section_prompt_panel");
-  const activityPanel = document.getElementById("section_activity_prompt");
   const coursePromptText = document.getElementById("course_prompt_text");
   const activityPromptText = document.getElementById("activity_prompt_text");
 
@@ -182,11 +165,6 @@
   const btnDownloadCoursePrompt = document.getElementById("btn_download_course_prompt");
   const btnCopyActivityPrompt = document.getElementById("btn_copy_activity_prompt");
   const btnDownloadActivityPrompt = document.getElementById("btn_download_activity_prompt");
-
-  const presets = window.AIWISE_PRESETS || {};
-  const coursePreset = presets.course || "";
-  const activityPresets = presets.activities || {};
-  const activityPreset = activityPresets[CURRENT_STAGE] || "";
 
   function setButtonFeedback(button, message) {
     const original = button.textContent;
@@ -220,24 +198,8 @@
     URL.revokeObjectURL(url);
   }
 
-  if (isMatchedRecommendation && recommendedInfo) {
-    recommendedInfo.style.display = "block";
-  }
-
-  if (isMatchedRecommendation && useAi === "yes") {
-    if (prePromptSpace) prePromptSpace.style.display = "block";
-    if (genAiIntroCard) genAiIntroCard.style.display = "block";
-
-    if (promptPanel) {
-      promptPanel.style.display = "block";
-      coursePromptText.textContent = coursePreset;
-
-      if (activityPreset) {
-        activityPanel.style.display = "block";
-        activityPromptText.textContent = activityPreset;
-      }
-    }
-  }
+  if (coursePromptText) coursePromptText.textContent = coursePreset;
+  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
 
   btnCopyCoursePrompt.addEventListener("click", () => {
     copyPrompt(coursePreset, btnCopyCoursePrompt);

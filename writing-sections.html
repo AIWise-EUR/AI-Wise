@@ -49,7 +49,7 @@
       </div>
     </section>
 
-    <div id="genai_description_card" class="genaiIntro softCard" style="display:none; margin-top: 28px;">
+    <div id="genai_description_card" class="genaiIntro softCard" style="margin-top: 28px;">
       <div class="genaiIntroHeader">
         <div class="genaiIntroPill">Using GenAI in AWSI</div>
         <h3 class="genaiIntroTitle">Adjusting Your Sentences to Match Your Intention</h3>
@@ -74,7 +74,7 @@
 
     <div class="pre-prompt-space" id="pre_prompt_space"></div>
 
-        <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="display:none;">
+        <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
         <p class="prompt-box-intro">
@@ -105,10 +105,10 @@
           </details>
         </div>
 
-        <div id="section_activity_prompt" class="promptBlock activity-box" style="display:none;">
+        <div id="section_activity_prompt" class="promptBlock activity-box">
           <p class="promptBlockTitle">Activity Preset Prompts for this section:</p>
 
-          <div id="writing_grammar_prompt_block" style="display:none; margin-bottom: 16px;">
+          <div id="writing_grammar_prompt_block" style="margin-bottom: 16px;">
             <p style="margin: 0 0 8px 0; font-weight: 600;">Grammar Check</p>
             <div class="promptButtonRow">
               <button id="btn_copy_grammar_prompt" type="button">Copy Grammar Check prompt</button>
@@ -120,7 +120,7 @@
             </details>
           </div>
 
-          <div id="writing_terminology_prompt_block" style="display:none;">
+          <div id="writing_terminology_prompt_block">
             <p style="margin: 0 0 8px 0; font-weight: 600;">Terminology Options</p>
             <div class="promptButtonRow">
               <button id="btn_copy_terminology_prompt" type="button">Copy Terminology Options prompt</button>
@@ -221,32 +221,9 @@
     URL.revokeObjectURL(url);
   }
 
-  if (isMatchedRecommendation && recommendedInfo) {
-    recommendedInfo.style.display = "block";
-  }
-
-  if (isMatchedRecommendation && useAi === "yes" && promptPanel) {
-    if (genaiDescriptionCard) {
-      genaiDescriptionCard.style.display = "block";
-    }
-
-    promptPanel.style.display = "block";
-    coursePromptText.textContent = coursePreset;
-
-    if (grammarPreset || terminologyPreset) {
-      activityPanel.style.display = "block";
-    }
-
-    if (grammarPreset) {
-      grammarPromptBlock.style.display = "block";
-      grammarPromptText.textContent = grammarPreset;
-    }
-
-    if (terminologyPreset) {
-      terminologyPromptBlock.style.display = "block";
-      terminologyPromptText.textContent = terminologyPreset;
-    }
-  }
+  if (coursePromptText) coursePromptText.textContent = coursePreset;
+  if (grammarPromptText && grammarPreset) grammarPromptText.textContent = grammarPreset;
+  if (terminologyPromptText && terminologyPreset) terminologyPromptText.textContent = terminologyPreset;
 
   btnCopyCoursePrompt.addEventListener("click", () => {
     copyPrompt(coursePreset, btnCopyCoursePrompt);
