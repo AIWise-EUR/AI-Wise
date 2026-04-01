@@ -141,37 +141,7 @@
     backLink.parentNode.replaceChild(nav, backLink);
   }
 
-  /* ── GENAI INTRO COLLAPSE ───────────────────────────────── */
-  function initGenaiCollapse() {
-    var intro = document.querySelector(".genaiIntro");
-    if (!intro) return;
-
-    var texts = intro.querySelectorAll(".genaiIntroText");
-    if (texts.length <= 2) return;
-
-    var hiddenTexts = [];
-    for (var i = 2; i < texts.length; i++) {
-      texts[i].classList.add("genai-collapsed");
-      hiddenTexts.push(texts[i]);
-    }
-
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "genai-toggle-btn";
-    btn.textContent = "Show more";
-    var expanded = false;
-
-    btn.addEventListener("click", function () {
-      expanded = !expanded;
-      hiddenTexts.forEach(function (el) {
-        el.classList.toggle("genai-collapsed", !expanded);
-      });
-      btn.textContent = expanded ? "Show less" : "Show more";
-    });
-
-    /* Insert after last visible text */
-    texts[1].parentNode.insertBefore(btn, texts[2]);
-  }
+  /* ── (removed: genai collapse) ─────────────────────────── */
 
   /* ── PAGE HERO (auto-generate from h2) ──────────────────── */
   function initPageHero() {
@@ -230,7 +200,6 @@
   injectFastTrack();
   initHeaderBadge();
   initPageHero();
-  initGenaiCollapse();
   initStepNav();
   initGenaiBand();
 

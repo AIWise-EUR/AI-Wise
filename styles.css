@@ -591,24 +591,6 @@ h2 { margin-top: 0; }
 
 .genaiIntroText:last-child { margin-bottom: 0; }
 
-/* Collapsible text */
-.genai-collapsed { display: none; }
-
-.genai-toggle-btn {
-  margin-top: 10px;
-  padding: 6px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent);
-  background: transparent;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.genai-toggle-btn:hover {
-  background: rgba(43, 93, 99, 0.06);
-}
 
 /* ── STEP PILLS ───────────────────────────────────────── */
 .stepPillRow {
