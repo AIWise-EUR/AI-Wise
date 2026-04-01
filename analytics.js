@@ -17,7 +17,7 @@
      Replace the empty string below with your deployed Apps Script URL.
      Format: https://script.google.com/macros/s/XXXXXXXX/exec
   ─────────────────────────────────────────────────────────── */
-  var ENDPOINT = "";   // <-- paste your Web App URL here
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbyJFJW1CASqa3en_pGid025YGsuLR3VQaQc91Ve6L6fsdQIoe5qTMAOUpq6KyTRr7ET3A/exec";   // <-- paste your Web App URL here
 
   /* ── SEND ───────────────────────────────────────────────────
      Fire-and-forget POST.  Silently swallowed on any error so it
@@ -32,18 +32,11 @@
       data: data || {}
     });
 
-    /* Prefer sendBeacon so the event survives page navigation */
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(ENDPOINT, new Blob([payload], { type: "application/json" }));
-      return;
-    }
-
-    /* Fallback: fetch with no-cors so CORS errors don't throw */
+    /* Use fetch with no-cors — GAS handles this reliably */
     try {
       fetch(ENDPOINT, {
         method: "POST",
         mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
         body: payload
       });
     } catch (e) {}
