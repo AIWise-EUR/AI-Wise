@@ -514,21 +514,18 @@ h2 { margin-top: 0; }
   gap: 6px;
 }
 
-/* ── GENAI FULL-WIDTH BAND ─────────────────────────────── */
+/* ── GENAI ACTIVITY BAND ───────────────────────────────── */
 .genai-band {
   background: #eef4f3;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  padding: 40px 24px;
+  border-radius: var(--radiusLg);
+  padding: 32px 28px;
   margin-top: 32px;
   margin-bottom: 32px;
-  border-top: 1px solid #d4e3e1;
-  border-bottom: 1px solid #d4e3e1;
+  border: 1px solid #d4e3e1;
 }
 
 .genai-band-inner {
-  max-width: 920px;
-  margin: 0 auto;
+  max-width: 100%;
 }
 
 /* ── GENAI INTRO SECTION ──────────────────────────────── */
@@ -1246,9 +1243,8 @@ button.pressFx { animation: tapGlow 0.32s ease; }
   .promptButtonRow { grid-template-columns: 1fr; }
 
   .genai-band {
-    margin-left: -12px;
-    margin-right: -12px;
-    padding: 28px 16px;
+    padding: 24px 16px;
+    border-radius: var(--radiusMd);
   }
 
   .activity-layout { flex-direction: column; }
