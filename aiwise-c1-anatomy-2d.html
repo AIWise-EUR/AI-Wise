@@ -910,14 +910,14 @@ window.addEventListener('mousemove', e => {
   applyTransform();
 });
 
-// Wheel: zoom IN only (scroll up = zoom in, scroll down = ignored)
+// Wheel: zoom in/out, but never below fit-to-view scale
 wrap.addEventListener('wheel', e => {
   e.preventDefault();
-  if (e.deltaY >= 0) return; // block zoom-out
-  const factor = 1.1;
+  const factor = e.deltaY < 0 ? 1.1 : 0.91;
   const rect = wrap.getBoundingClientRect();
   const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-  const newScale = Math.min(3, scale * factor);
+  const newScale = Math.min(3, Math.max(baseScale, scale * factor));
+  if (newScale === scale) return;
   const f = newScale / scale;
   vx = mx - (mx - vx) * f;
   vy = my - (my - vy) * f;
