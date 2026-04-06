@@ -36,37 +36,52 @@ body {
 .ui-transition-target.ui-entering { opacity: 0; transform: translateY(6px); }
 .ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
 
-nav {
-  position: fixed; top: 0; left: 0;
-  width: var(--nav-w); height: 100vh;
-  background: var(--nav-bg);
-  padding: 122px 14px 20px;
-  display: flex; flex-direction: column; gap: 8px;
-  overflow-y: auto; z-index: 50;
+/* RIGHT STICKY NAV */
+.side-nav {
+  position: fixed;
+  top: 80px;
+  right: 28px;
+  width: 200px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radiusMd);
+  box-shadow: var(--shadowMd);
+  padding: 20px 18px;
+  z-index: 40;
 }
-.nav-logo-wrap { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); }
-.nav-logo-sticker {
-  display: block; width: 128px; padding: 6px 8px;
-  border: 1px solid rgba(255,255,255,0.22); border-radius: 10px;
-  background: rgba(255,255,255,0.06); box-shadow: 0 4px 10px rgba(0,0,0,0.16);
-}
-.nav-label {
+.side-nav-title {
   font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: rgba(255,255,255,0.3);
-  padding: 4px 10px 2px; margin-top: 10px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 14px;
 }
-nav a {
-  color: rgba(255,255,255,0.75); text-decoration: none;
-  font-size: 13px; padding: 7px 10px; border-radius: 6px;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
+.side-nav a {
+  display: block;
+  font-size: 12.5px; color: var(--muted);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-left: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 2px;
+  transition: all 0.2s;
+  line-height: 1.4;
 }
-nav a:hover { background: #18474d; transform: translateX(2px); color: #fff; }
-nav a.active { background: #2b5d63; font-weight: 600; color: #fff; }
-nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
-hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 4px 0; }
+.side-nav a:hover { color: var(--text); background: var(--teal-pale); }
+.side-nav a.active {
+  color: var(--accent); font-weight: 600;
+  border-left-color: var(--accent);
+  background: var(--teal-pale);
+}
+.side-nav-home {
+  display: block; margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 11.5px; color: var(--accent);
+  text-decoration: none; font-weight: 600;
+  transition: opacity 0.2s;
+}
+.side-nav-home:hover { opacity: 0.7; }
 
 .main-header {
-  margin-left: var(--nav-w); padding: 18px 40px;
+  padding: 18px 40px;
   background: #fff; border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 30;
   display: flex; align-items: center; gap: 16px;
@@ -75,7 +90,7 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
 .breadcrumb { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
 .breadcrumb span { color: var(--border); }
 
-.page { margin-left: var(--nav-w); }
+.page { margin-right: 240px; }
 
 .hero {
   background: var(--nav-bg); padding: 64px 40px 56px;
@@ -184,11 +199,11 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
   cursor: pointer; font-family: inherit;
 }
 
+@media (max-width: 1100px) {
+  .side-nav { display: none; }
+  .page { margin-right: 0; }
+}
 @media (max-width: 900px) {
-  nav { position: sticky; width: 100%; height: auto; padding: 10px; flex-direction: row; overflow-x: auto; }
-  .nav-logo-wrap, .nav-label { display: none; }
-  nav a { white-space: nowrap; }
-  .page, .main-header { margin-left: 0; }
   .hero, .section, .sources, .next-bar { padding-left: 20px; padding-right: 20px; }
 }
 
@@ -203,23 +218,20 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
 
 
 
+<!-- RIGHT STICKY NAV -->
+<div class="side-nav" id="sideNav">
+  <div class="side-nav-title">On this page</div>
+  <a href="#section-1" data-section="section-1">1 · Content Placeholder</a>
+  <a href="#section-2" data-section="section-2">2 · Content Placeholder</a>
+  <a class="side-nav-home" href="lobby.html">← Back to Home</a>
+</div>
+
 <header class="main-header">
   <h1>AI-Wise</h1>
   <div class="breadcrumb">
     <span>Core Blocks</span> › C3 · How to Engage
   </div>
 </header>
-
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <a href="aiwise-c1-final.html">What is GenAI?</a>
-  <a href="aiwise-c2-final.html">GenAI & Human Cognition</a>
-  <a href="aiwise-c3-final.html" class="active">How to Engage</a>
-  <a class="diagnostic-link" href="diagnostic-questionnaire-final.html">GenAI in AWS I</a>
-</nav>
 
 <main class="page ui-transition-target">
   <section class="hero">
@@ -231,7 +243,7 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="section-1">
     <div class="section-tag">Section 1</div>
     <h3>Content Placeholder</h3>
     <div class="section-body">
@@ -240,7 +252,7 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
     <div class="placeholder-box">C3 Section 1 Placeholder</div>
   </section>
 
-  <section class="section section-alt">
+  <section class="section section-alt" id="section-2">
     <div class="section-tag">Section 2</div>
     <h3>Content Placeholder</h3>
     <div class="section-body">
@@ -279,6 +291,31 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
   }
   window.addEventListener('pageshow', mount);
   mount();
+})();
+
+// ─── Scroll-tracking side nav ───
+(function() {
+  var navLinks = document.querySelectorAll('.side-nav a[data-section]');
+  var sections = [];
+  navLinks.forEach(function(link) {
+    var el = document.getElementById(link.getAttribute('data-section'));
+    if (el) sections.push({ id: link.getAttribute('data-section'), el: el, link: link });
+  });
+  function onScroll() {
+    var scrollY = window.scrollY + 120;
+    var current = null;
+    for (var i = sections.length - 1; i >= 0; i--) {
+      if (sections[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+        current = sections[i].id;
+        break;
+      }
+    }
+    navLinks.forEach(function(link) {
+      link.classList.toggle('active', link.getAttribute('data-section') === current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 </script>
 
