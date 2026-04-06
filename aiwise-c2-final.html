@@ -41,48 +41,68 @@ body {
   overflow-y: scroll;
 }
 
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0;
-  width: var(--nav-w); height: 100vh;
-  background: var(--nav-bg);
-  padding: 122px 14px 20px;
-  display: flex; flex-direction: column; gap: 8px;
-  overflow-y: auto; z-index: 50;
-}
-.nav-logo-wrap { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); }
-.nav-logo-sticker {
-  display: block; width: 128px; padding: 6px 8px;
-  border: 1px solid rgba(255,255,255,0.22); border-radius: 10px;
-  background: rgba(255,255,255,0.06); box-shadow: 0 4px 10px rgba(0,0,0,0.16);
-}
-.nav-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: rgba(255,255,255,0.3);
-  padding: 4px 10px 2px; margin-top: 10px;
-}
-nav a {
-  color: rgba(255,255,255,0.75); text-decoration: none;
-  font-size: 13px; padding: 7px 10px; border-radius: 6px;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
-}
-nav a:hover { background: #18474d; transform: translateX(2px); color: #fff; }
-nav a.active { background: #2b5d63; font-weight: 600; color: #fff; }
-nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
-
 /* HEADER */
 .main-header {
-  margin-left: var(--nav-w); padding: 18px 40px;
+  padding: 18px 40px;
   background: #fff; border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 30;
   display: flex; align-items: center; gap: 16px;
 }
 .main-header h1 { font-size: 18px; font-weight: 700; color: var(--nav-bg); margin-right: auto; }
+
+/* RIGHT STICKY NAV */
+.side-nav {
+  position: fixed;
+  top: 80px;
+  right: 28px;
+  width: 200px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radiusMd);
+  box-shadow: var(--shadowMd);
+  padding: 20px 18px;
+  z-index: 40;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.side-nav-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 14px;
+}
+.side-nav a {
+  display: block;
+  font-size: 12.5px; color: var(--muted);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-left: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 2px;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+.side-nav a:hover { color: var(--text); background: var(--teal-pale); }
+.side-nav a.active {
+  color: var(--accent); font-weight: 600;
+  border-left-color: var(--accent);
+  background: var(--teal-pale);
+}
+.side-nav .side-nav-sub {
+  font-size: 11.5px;
+  padding-left: 18px;
+}
+.side-nav-home {
+  display: block; margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 11.5px; color: var(--accent);
+  text-decoration: none; font-weight: 600;
+  transition: opacity 0.2s;
+}
+.side-nav-home:hover { opacity: 0.7; }
 .breadcrumb { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
 .breadcrumb span { color: var(--border); }
 
 /* PAGE */
-.page { margin-left: var(--nav-w); }
+.page { margin-right: 240px; }
 
 /* HERO */
 .hero {
@@ -491,11 +511,11 @@ nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
 .next-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); opacity: 0.92; }
 
 /* RESPONSIVE */
+@media (max-width: 1100px) {
+  .side-nav { display: none; }
+  .page { margin-right: 0; }
+}
 @media (max-width: 900px) {
-  nav { position: sticky; width: 100%; height: auto; padding: 10px; flex-direction: row; overflow-x: auto; }
-  .nav-logo-wrap, .nav-label { display: none; }
-  nav a { white-space: nowrap; }
-  .page, .main-header { margin-left: 0; }
   .hero, .section, .next-bar { padding-left: 20px; padding-right: 20px; }
   .dual-cards { grid-template-columns: 1fr; }
   .comparison-grid { grid-template-columns: 1fr; }
@@ -510,17 +530,17 @@ nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <a href="aiwise-c1-final.html">What is GenAI?</a>
-  <a href="aiwise-c2-final.html" class="active">GenAI &amp; Human Cognition</a>
-  <a href="aiwise-c3-final.html">How to Engage</a>
-  <a class="diagnostic-link" href="diagnostic-questionnaire-final.html">GenAI in AWS I</a>
-</nav>
+<!-- RIGHT STICKY NAV -->
+<div class="side-nav" id="sideNav">
+  <div class="side-nav-title">On this page</div>
+  <a href="#section-1" data-section="section-1">1 · Why they differ</a>
+  <a href="#part-a" class="side-nav-sub" data-section="part-a">Input asymmetry</a>
+  <a href="#part-b" class="side-nav-sub" data-section="part-b">Distance from reality</a>
+  <a href="#part-c" class="side-nav-sub" data-section="part-c">Information loss</a>
+  <a href="#section-2" data-section="section-2">2 · Functional comparison</a>
+  <a href="#section-3" data-section="section-3">3 · Collaboration framework</a>
+  <a class="side-nav-home" href="lobby.html">← Back to Home</a>
+</div>
 
 <!-- HEADER -->
 <header class="main-header">
@@ -559,7 +579,7 @@ nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
 
     <!-- PART A -->
     <div class="part-block">
-      <div class="part-header">Part A: Input channel asymmetry</div>
+      <div class="part-header" id="part-a">Part A: Input channel asymmetry</div>
       <div class="section-body">
         <p>Think about the last time you saw an elephant. Not in a photo, but in real life. You didn't just see it. You smelled it. You heard it breathe. You felt the ground vibrate slightly under its weight. All of that entered your brain at once, and all of it shaped what "elephant" means to you.</p>
         <p>Now think about what happens when a language model encounters the word "elephant." It receives a token. A numerical code that represents the word. That's it. No smell, no sound, no sense of scale. Just a number in a sequence of numbers.</p>
@@ -604,7 +624,7 @@ nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
 
     <!-- PART B -->
     <div class="part-block">
-      <div class="part-header">Part B: Distance from reality</div>
+      <div class="part-header" id="part-b">Part B: Distance from reality</div>
       <div class="section-body">
         <p>The information GenAI learns from is not reality. It is a filtered, compressed, and unevenly sampled version of what people have written online.</p>
         <p>Think of it like a chain. At each link, something gets lost.</p>
@@ -655,7 +675,7 @@ nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
 
     <!-- PART C -->
     <div class="part-block">
-      <div class="part-header">Part C: Intentional information loss</div>
+      <div class="part-header" id="part-c">Part C: Intentional information loss</div>
       <div class="section-body">
         <p>When you ask GenAI something, you type a prompt. But think about everything that shaped your question before you started typing. Your background knowledge. Your assumptions about what matters. Your emotional investment in the topic. The context you are working in. The criteria you have in your head but never spelled out.</p>
         <p>Most of that never makes it into the prompt. It can't. You would need to write pages just to capture what you already know without thinking about it.</p>
@@ -1176,6 +1196,33 @@ nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
   }, { passive: true });
 
   goTo(0);
+})();
+
+// ─── Scroll-tracking side nav ───
+(function() {
+  var navLinks = document.querySelectorAll('.side-nav a[data-section]');
+  var sections = [];
+  navLinks.forEach(function(link) {
+    var el = document.getElementById(link.getAttribute('data-section'));
+    if (el) sections.push({ id: link.getAttribute('data-section'), el: el, link: link });
+  });
+
+  function onScroll() {
+    var scrollY = window.scrollY + 120;
+    var current = null;
+    for (var i = sections.length - 1; i >= 0; i--) {
+      if (sections[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+        current = sections[i].id;
+        break;
+      }
+    }
+    navLinks.forEach(function(link) {
+      link.classList.toggle('active', link.getAttribute('data-section') === current);
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 </script>
 
