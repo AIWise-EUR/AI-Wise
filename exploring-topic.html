@@ -6,29 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-stage="exploring">
 <header class="main-header">
   <div class="header-inner">
+    <img src="erasmus-logo.png" alt="Erasmus University Rotterdam" class="header-logo">
     <h1>AI-Wise Module</h1>
+    <span class="header-step-badge" id="header_step_badge"></span>
   </div>
 </header>
-
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <hr class="nav-divider">
-  <a href="diagnostic-questionnaire-final.html" class="diagnostic-link">Diagnostic Questionnaire</a>
-  <a href="exploring-topic.html" class="active">Exploring a topic</a>
-  <a href="research-question.html">Formulating a central research question</a>
-  <a href="searching-literature.html">Searching for and selecting scientific literature</a>
-  <a href="organizing-literature.html">Organizing literature</a>
-  <a href="draft-outline.html">Creating a draft structure or outline</a>
-  <a href="writing-sections.html">Writing sections of the literature review</a>
-  <a href="finalizing-paper.html">Finalizing the paper</a></nav>
-
-
 
 <section>
   <div class="page-content pageShell">
@@ -44,70 +29,41 @@
       </p>
     </div>
 
-
     <section id="exploring-guide" style="max-width: 920px; line-height: 1.55; margin: 0 auto; color: #626c6e;">
-
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
-        <a href="https://canvas.eur.nl/courses/51313/pages/annex-3-topic-orientation-and-central-question?module_item_id=1415992" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-          <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Annex III: Topic orientation and central question</span>
-          <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
+      <div class="canvas-card-grid">
+        <a href="https://canvas.eur.nl/courses/51313/pages/annex-3-topic-orientation-and-central-question?module_item_id=1415992" target="_blank" rel="noopener" class="canvas-card">
+          <span class="canvas-card-title">Appendix III: Topic orientation and central question</span>
+          <span class="canvas-card-action">View on Canvas &rarr;</span>
         </a>
-        <a href="https://canvas.eur.nl/courses/51313/pages/infographics-how-to-read-research-articles?module_item_id=1415925" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-          <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Infographics - How to read research articles</span>
-          <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
-        </a>
-        <a href="https://canvas.eur.nl/courses/51313/pages/databases-search-engines-and-other-useful-links?module_item_id=1415923" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-          <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Tutorial meeting 1 activity</span>
-          <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
+        <a href="https://canvas.eur.nl/courses/51313/pages/infographics-how-to-read-research-articles?module_item_id=1415925" target="_blank" rel="noopener" class="canvas-card">
+          <span class="canvas-card-title">Infographics - How to read research articles</span>
+          <span class="canvas-card-action">View on Canvas &rarr;</span>
         </a>
       </div>
-
       <footer style="margin-top: 14px; font-size: 0.95em; opacity: 0.9;">
-        <p style="margin: 0;">
-          Tip: Your mind map and notes from the questions above are inputs for the next step, where you formulate one central research question.
-        </p>
+        <p style="margin: 0;">Tip: Your mind map and notes from the questions above are inputs for the next step, where you formulate one central research question.</p>
       </footer>
-
     </section>
 
     <div class="pre-prompt-space" id="pre_prompt_space"></div>
 
     <div class="genaiIntro softCard" id="genai_intro_card">
       <div class="genaiIntroHeader">
-        <div class="genaiIntroPill">GenAI support in AWS I</div>
+        <div class="genaiIntroPill">Using GenAI in AWS I</div>
         <h3 class="genaiIntroTitle">Using GenAI to clarify concepts and relationships in your topic map</h3>
       </div>
-<p class="genaiIntroText">
-  If you want to use GenAI at this stage, use it only after you have completed your topic map. The aim is not to generate the map itself, but to help you clarify selected concepts and relationships within it.
-</p>
-
-<p class="genaiIntroText">
-  This activity helps you make your topic map more explicit in words. In particular, it helps you identify what kind of concept something is and what kind of relationship exists between concepts. This can make it easier to move from broad topic exploration to a more focused research direction.
-</p>
-
-<p class="genaiIntroText">
-  At this stage, GenAI can help you clarify what you mean, suggest reasonable concept or relationship labels, and improve the wording of your own explanations without changing the meaning. It should not generate your full topic map, decide your research direction, or formulate your central research question for you.
-</p>
-
-<p class="promptGuideHint">
-  The preset prompts below are designed to support this process. Use them to make your reasoning more explicit, and always check whether the output matches your articles and your intended meaning.
-</p>
-
-        <p class="promptGuideHint">
-          If GenAI is enabled for you, you can use the preset prompts below.
-          They are designed to guide your reasoning through questions, not to produce a final answer for you.
-        </p>
-      </div>
+      <p class="genaiIntroText">If you want to use GenAI at this stage, use it only after you have completed your topic map. The aim is not to generate the map itself, but to help you clarify selected concepts and relationships within it.</p>
+      <p class="genaiIntroText">This activity helps you make your topic map more explicit in words. In particular, it helps you identify what kind of concept something is and what kind of relationship exists between concepts. This can make it easier to move from broad topic exploration to a more focused research direction.</p>
+      <p class="genaiIntroText">At this stage, GenAI can help you clarify what you mean, suggest reasonable concept or relationship labels, and improve the wording of your own explanations without changing the meaning. It should not generate your full topic map, decide your research direction, or formulate your central research question for you.</p>
+      <p class="promptGuideHint">The preset prompts below are designed to support this process. Use them to make your reasoning more explicit, and always check whether the output matches your articles and your intended meaning.</p>
+      <p class="promptGuideHint">If GenAI is enabled for you, you can use the preset prompts below. They are designed to guide your reasoning through questions, not to produce a final answer for you.</p>
     </div>
-            <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="max-width: 920px; margin: 16px auto 0 auto;">
+
+    <div id="section_prompt_panel" class="prompt-box section-prompt-panel" style="max-width: 920px; margin: 16px auto 0 auto;">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
-        <p class="prompt-box-intro">
-          The preset prompts are designed to structure your interaction with GenAI. They are not templates for a final answer, but tools to guide your reasoning process.
-        </p>
-        <p class="prompt-box-intro">
-          You will find two types of prompts below: a Course preset prompt and an Activity preset prompt. They serve different purposes.
-        </p>
+        <p class="prompt-box-intro">The preset prompts are designed to structure your interaction with GenAI. They are not templates for a final answer, but tools to guide your reasoning process.</p>
+        <p class="prompt-box-intro">You will find two types of prompts below: a Course preset prompt and an Activity preset prompt. They serve different purposes.</p>
         <p class="prompt-box-intro" style="margin-bottom: 0;">
           <strong>Practical use</strong><br>
           1. Copy the Course preset prompt first.<br>
@@ -116,7 +72,6 @@
           4. Use the output critically and refine your work based on the logic.
         </p>
       </div>
-
       <div class="promptGrid">
         <div class="promptBlock">
           <p class="promptBlockTitle">Course Preset Prompts:</p>
@@ -129,7 +84,6 @@
             <pre id="course_prompt_text" class="prompt-pre"></pre>
           </details>
         </div>
-
         <div id="section_activity_prompt" class="promptBlock activity-box">
           <p class="promptBlockTitle">Activity specific prompt for this section:</p>
           <div class="promptButtonRow">
@@ -149,75 +103,19 @@
 </section>
 
 <script src="preset-prompts.js"></script>
+<script src="activity-common.js"></script>
 <script>
 (function () {
-  const CURRENT_STAGE = "exploring";
+  var presets = window.AIWISE_PRESETS || {};
+  var course = presets.course || "";
+  var activity = (presets.activities || {}).exploring || "";
+  var C = window.AIWISE_COMMON;
 
-  const presets = window.AIWISE_PRESETS || {};
-  const coursePreset = presets.course || "";
-  const activityPresets = presets.activities || {};
-  const activityPreset = activityPresets[CURRENT_STAGE] || "";
-
-  const coursePromptText = document.getElementById("course_prompt_text");
-  const activityPromptText = document.getElementById("activity_prompt_text");
-
-  const btnCopyCoursePrompt = document.getElementById("btn_copy_course_prompt");
-  const btnDownloadCoursePrompt = document.getElementById("btn_download_course_prompt");
-  const btnCopyActivityPrompt = document.getElementById("btn_copy_activity_prompt");
-  const btnDownloadActivityPrompt = document.getElementById("btn_download_activity_prompt");
-
-  function setButtonFeedback(button, message) {
-    const original = button.textContent;
-    button.textContent = message;
-    window.setTimeout(() => {
-      button.textContent = original;
-    }, 1300);
-  }
-
-  function copyPrompt(text, button) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        setButtonFeedback(button, "Copied");
-      }).catch(() => {
-        setButtonFeedback(button, "Copy failed");
-      });
-      return;
-    }
-    setButtonFeedback(button, "Clipboard unavailable");
-  }
-
-  function downloadPrompt(text, filename) {
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-  }
-
-  if (coursePromptText) coursePromptText.textContent = coursePreset;
-  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
-
-  btnCopyCoursePrompt.addEventListener("click", () => {
-    copyPrompt(coursePreset, btnCopyCoursePrompt);
-  });
-
-  btnDownloadCoursePrompt.addEventListener("click", () => {
-    downloadPrompt(coursePreset, "course-preset-prompt.txt");
-  });
-
-  btnCopyActivityPrompt.addEventListener("click", () => {
-    copyPrompt(activityPreset, btnCopyActivityPrompt);
-  });
-
-  btnDownloadActivityPrompt.addEventListener("click", () => {
-    downloadPrompt(activityPreset, "activity-preset-prompt.txt");
-  });
+  C.wirePromptBlock(course, "course_prompt_text", "btn_copy_course_prompt", "btn_download_course_prompt", "course-preset-prompt.txt");
+  C.wirePromptBlock(activity, "activity_prompt_text", "btn_copy_activity_prompt", "btn_download_activity_prompt", "activity-preset-prompt.txt");
 })();
 </script>
+<script src="analytics.js"></script>
 <script src="ui-effects.js"></script>
 </body>
 </html>

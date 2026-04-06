@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI-Wise · C2: GenAI & Human Cognition</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>AI-Wise · C2: What is AI for us?</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #ffffff;
@@ -18,65 +18,93 @@
   --teal-pale: #f0f6f5;
   --teal-mid: #e2eeec;
   --gold: #c9a96e;
+  --gold-pale: #faf5ec;
   --radiusMd: 12px;
   --radiusLg: 16px;
+  --shadowSm: 0 1px 2px rgba(9,24,26,0.05);
   --shadowMd: 0 8px 24px rgba(9,24,26,0.08);
+  --shadowLg: 0 16px 48px rgba(9,24,26,0.12);
+  --green: #2a7a35;
+  --amber: #b07b1a;
+  --red: #8b3a1a;
+  --purple: #534AB7;
+  --teal-dark: #0F6E56;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scrollbar-gutter: stable; }
 body {
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
   background: var(--bg);
   color: var(--text);
   overflow-y: scroll;
 }
 
-.ui-transition-target { transition: opacity 0.38s ease, transform 0.58s ease; }
-.ui-transition-target.ui-entering { opacity: 0; transform: translateY(6px); }
-.ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
-
-nav {
-  position: fixed; top: 0; left: 0;
-  width: var(--nav-w); height: 100vh;
-  background: var(--nav-bg);
-  padding: 122px 14px 20px;
-  display: flex; flex-direction: column; gap: 8px;
-  overflow-y: auto; z-index: 50;
-}
-.nav-logo-wrap { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); }
-.nav-logo-sticker {
-  display: block; width: 128px; padding: 6px 8px;
-  border: 1px solid rgba(255,255,255,0.22); border-radius: 10px;
-  background: rgba(255,255,255,0.06); box-shadow: 0 4px 10px rgba(0,0,0,0.16);
-}
-.nav-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: rgba(255,255,255,0.3);
-  padding: 4px 10px 2px; margin-top: 10px;
-}
-nav a {
-  color: rgba(255,255,255,0.75); text-decoration: none;
-  font-size: 13px; padding: 7px 10px; border-radius: 6px;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
-}
-nav a:hover { background: #18474d; transform: translateX(2px); color: #fff; }
-nav a.active { background: #2b5d63; font-weight: 600; color: #fff; }
-nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
-hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 4px 0; }
-
+/* HEADER */
 .main-header {
-  margin-left: var(--nav-w); padding: 18px 40px;
+  padding: 18px 40px;
   background: #fff; border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 30;
   display: flex; align-items: center; gap: 16px;
 }
 .main-header h1 { font-size: 18px; font-weight: 700; color: var(--nav-bg); margin-right: auto; }
+
+/* RIGHT STICKY NAV */
+.side-nav {
+  position: fixed;
+  top: 80px;
+  right: 28px;
+  width: 200px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radiusMd);
+  box-shadow: var(--shadowMd);
+  padding: 20px 18px;
+  z-index: 40;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.side-nav-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 14px;
+}
+.side-nav a {
+  display: block;
+  font-size: 12.5px; color: var(--muted);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-left: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 2px;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+.side-nav a:hover { color: var(--text); background: var(--teal-pale); }
+.side-nav a.active {
+  color: var(--accent); font-weight: 600;
+  border-left-color: var(--accent);
+  background: var(--teal-pale);
+}
+.side-nav .side-nav-sub {
+  font-size: 11.5px;
+  padding-left: 18px;
+}
+.side-nav-home {
+  display: block; margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 11.5px; color: var(--accent);
+  text-decoration: none; font-weight: 600;
+  transition: opacity 0.2s;
+}
+.side-nav-home:hover { opacity: 0.7; }
 .breadcrumb { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
 .breadcrumb span { color: var(--border); }
 
-.page { margin-left: var(--nav-w); }
+/* PAGE */
+.page { margin-right: 240px; }
 
+/* HERO */
 .hero {
   background: var(--nav-bg); padding: 64px 40px 56px;
   position: relative; overflow: hidden;
@@ -86,6 +114,12 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
   background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
   background-size: 48px 48px;
+}
+.hero-glow {
+  position: absolute; width: 600px; height: 300px;
+  right: -120px; bottom: -60px;
+  background: radial-gradient(ellipse, rgba(201,169,110,0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
 .hero-inner { position: relative; z-index: 2; max-width: 640px; }
 .hero-tag {
@@ -100,16 +134,19 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
   font-weight: 700; color: #fff; line-height: 1.2;
   letter-spacing: -0.02em; margin-bottom: 16px;
 }
+.hero h2 em { font-style: normal; color: #fff; font-weight: inherit; }
 .hero-lead {
   font-size: 0.97rem; color: rgba(255,255,255,0.6);
   line-height: 1.75; font-weight: 400; max-width: 520px;
 }
 
+/* SECTIONS */
 .section {
   padding: 64px 40px;
   border-bottom: 1px solid var(--border);
 }
 .section-alt { background: #f8faf9; }
+
 .section-tag {
   font-size: 10.5px; font-weight: 700; letter-spacing: 0.15em;
   text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
@@ -126,45 +163,331 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
   line-height: 1.8; max-width: 680px;
   font-weight: 400;
 }
+.section-body p { margin-bottom: 1em; }
+.section-body p:last-child { margin-bottom: 0; }
+.section-body strong { color: var(--text); font-weight: 600; }
+.section-body, .callout, .sources-list p, .breadcrumb {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Center content lane */
 .section .section-tag,
 .section h3,
 .section .section-body,
-.section .placeholder-box,
-.section .anatomy-close {
+.section .part-block,
+.section .comparison-grid,
+.section .framework-text,
+.section .framework-heading,
+.section .diagram-wrap,
+.section .sources-block,
+.section .closing-callout {
   max-width: 960px;
   margin-left: auto;
   margin-right: auto;
 }
-.placeholder-box {
-  min-height: 320px;
-  border: 2px dashed var(--border);
-  border-radius: var(--radiusLg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--card);
-  margin-top: 24px;
-  margin-bottom: 48px;
-  padding: 24px;
-  text-align: center;
-  color: var(--muted);
+
+/* PART HEADERS */
+.part-header {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-top: 48px; margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--teal-mid);
 }
-.anatomy-close {
-  margin-top: 12px; padding: 24px 28px;
+
+/* TWO CARDS SIDE BY SIDE */
+.dual-cards {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  margin-top: 28px; margin-bottom: 32px;
+}
+.dual-card {
+  padding: 24px 26px;
+  border-radius: var(--radiusLg);
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: var(--shadowSm);
+}
+.dual-card-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.dual-card-label.human { color: var(--accent); }
+.dual-card-label.genai { color: var(--amber); }
+.dual-card p {
+  font-size: 0.9rem; color: var(--muted); line-height: 1.75;
+}
+
+/* GRADIENT ROWS */
+.gradient-rows { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; margin-bottom: 32px; }
+.gradient-row {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 20px 24px;
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  background: #fff;
+}
+.gradient-indicator {
+  flex-shrink: 0; width: 36px; height: 36px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: #fff; margin-top: 2px;
+}
+.gradient-indicator.green { background: var(--green); }
+.gradient-indicator.amber { background: var(--amber); }
+.gradient-indicator.red { background: var(--red); }
+.gradient-row-content { flex: 1; }
+.gradient-row-title {
+  font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 6px;
+}
+.gradient-row-desc {
+  font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+}
+
+/* CHAIN VISUALIZATION */
+.chain {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0; margin: 36px auto; max-width: 520px;
+}
+.chain-node {
+  width: 100%; padding: 18px 24px;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radiusMd);
+  text-align: center;
+  box-shadow: var(--shadowSm);
+}
+.chain-node-label {
+  font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px;
+}
+.chain-node-desc {
+  font-size: 0.82rem; color: var(--muted); line-height: 1.6;
+}
+.chain-arrow {
+  display: flex; align-items: center; justify-content: center;
+  height: 32px; color: var(--border);
+}
+.chain-arrow svg { width: 16px; height: 24px; }
+
+/* RESULT CARD */
+.result-card {
+  margin-top: 32px; padding: 24px 28px;
+  background: var(--gold-pale); border: 1px solid #e8dcc4;
+  border-radius: var(--radiusMd);
+  border-left: 4px solid var(--gold);
+}
+.result-card-title {
+  font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 8px;
+}
+.result-card-desc {
+  font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+}
+
+/* CAROUSEL */
+.carousel-wrapper {
+  position: relative;
+  margin: 36px auto;
+  max-width: 960px;
+  overflow: hidden;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+.carousel-slide {
+  min-width: 100%;
+  padding: 0 4px;
+}
+.carousel-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLg);
+  background: #fff;
+  box-shadow: var(--shadowMd);
+  overflow: hidden;
+}
+.carousel-card-header {
+  padding: 18px 24px;
+  background: var(--nav-bg);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.carousel-card-header .card-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); display: block;
+  margin-bottom: 4px;
+}
+.carousel-layers {
+  display: flex; flex-direction: column;
+}
+.carousel-layer {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.carousel-layer:last-child { border-bottom: none; }
+.carousel-layer-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.carousel-layer-label .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.layer-thinking .carousel-layer-label { color: var(--accent); }
+.layer-thinking .dot { background: var(--accent); }
+.layer-thinking { background: var(--teal-pale); }
+.layer-typing .carousel-layer-label { color: var(--amber); }
+.layer-typing .dot { background: var(--amber); }
+.layer-typing { background: var(--gold-pale); }
+.layer-processing .carousel-layer-label { color: var(--muted); }
+.layer-processing .dot { background: var(--muted); }
+.layer-processing { background: #f6f7f7; }
+.carousel-layer p {
+  font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+}
+.carousel-layer p em { font-style: italic; }
+
+.carousel-controls {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-top: 16px;
+}
+.carousel-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--border); background: #fff;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; color: var(--text);
+  box-shadow: var(--shadowSm);
+}
+.carousel-btn:hover { background: var(--teal-pale); border-color: var(--accent); }
+.carousel-btn:disabled { opacity: 0.3; cursor: default; }
+.carousel-btn:disabled:hover { background: #fff; border-color: var(--border); }
+.carousel-btn svg { width: 18px; height: 18px; }
+.carousel-dots {
+  display: flex; gap: 8px;
+}
+.carousel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); transition: background 0.3s;
+  cursor: pointer; border: none;
+}
+.carousel-dot.active { background: var(--accent); }
+
+/* COMPARISON GRID (Section 2) */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+.comparison-col { display: flex; flex-direction: column; gap: 14px; }
+.comparison-col-header {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 10px 14px;
+  border-radius: var(--radiusMd);
+  margin-bottom: 4px;
+}
+.comparison-col-icon {
+  font-size: 13px; font-weight: 700;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.col-human-leads {
+  background: rgba(43,93,99,0.08); color: var(--accent);
+  border: 1px solid rgba(43,93,99,0.18);
+}
+.col-human-leads .comparison-col-icon { background: rgba(43,93,99,0.15); color: var(--accent); }
+.col-both {
+  background: rgba(176,123,26,0.08); color: var(--amber);
+  border: 1px solid rgba(176,123,26,0.18);
+}
+.col-both .comparison-col-icon { background: rgba(176,123,26,0.15); color: var(--amber); }
+.col-genai-leads {
+  background: rgba(83,74,183,0.08); color: var(--purple);
+  border: 1px solid rgba(83,74,183,0.18);
+}
+.col-genai-leads .comparison-col-icon { background: rgba(83,74,183,0.15); color: var(--purple); }
+
+.fn-card {
+  padding: 20px 22px;
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: var(--shadowSm);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.fn-card:hover { box-shadow: var(--shadowMd); transform: translateY(-1px); }
+.fn-card.human-lead { border-left: 3px solid var(--accent); }
+.fn-card.both-capable { border-left: 3px solid var(--amber); }
+.fn-card.genai-lead { border-left: 3px solid var(--purple); }
+.fn-card-title {
+  font-size: 13.5px; font-weight: 700; color: var(--text); margin-bottom: 8px;
+}
+.fn-card-body {
+  font-size: 0.85rem; color: var(--muted); line-height: 1.7;
+}
+
+/* FRAMEWORK TEXT (Section 3) */
+.framework-text {
+  font-size: 0.95rem; color: var(--muted);
+  line-height: 1.8; max-width: 680px;
+  font-weight: 400;
+}
+.framework-text p { margin-bottom: 1em; }
+.framework-text p:last-child { margin-bottom: 0; }
+.framework-text strong { color: var(--text); font-weight: 600; }
+
+.framework-heading {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 700; color: var(--text);
+  margin-top: 48px; margin-bottom: 16px;
+}
+
+/* SVG DIAGRAM WRAPPER */
+.diagram-wrap {
+  margin: 36px auto;
+  max-width: 640px;
+}
+.diagram-wrap svg { width: 100%; height: auto; }
+
+/* CLOSING CALLOUT */
+.closing-callout {
+  margin-top: 40px; padding: 24px 28px;
   background: var(--nav-bg);
   border-radius: var(--radiusLg);
   color: rgba(255,255,255,0.75);
   font-size: 0.93rem; line-height: 1.75;
-  font-weight: 300;
+  font-weight: 400;
 }
-.anatomy-close strong { color: #fff; font-weight: 600; }
+.closing-callout strong { color: #fff; font-weight: 600; }
 
-.sources {
-  padding: 20px 40px; background: var(--teal-pale);
-  border-top: 1px solid var(--teal-mid);
+/* SOURCES */
+.sources-block {
+  margin-top: 40px;
 }
-.sources p { font-size: 11.5px; color: var(--muted); line-height: 1.7; max-width: 860px; }
+.sources-toggle {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; border: none; background: none;
+  font-family: inherit; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); padding: 10px 0;
+}
+.sources-toggle svg {
+  width: 14px; height: 14px;
+  transition: transform 0.3s;
+}
+.sources-toggle.open svg { transform: rotate(180deg); }
+.sources-list {
+  display: none; padding: 16px 0;
+}
+.sources-list.open { display: block; }
+.sources-list p {
+  font-size: 11.5px; color: var(--muted); line-height: 1.8;
+  margin-bottom: 4px;
+}
 
+/* NEXT BAR */
 .next-bar {
   background: var(--nav-bg); padding: 32px 40px;
   display: flex; align-items: center;
@@ -181,15 +504,21 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
   padding: 11px 22px; background: var(--accent);
   border: 1px solid var(--accent); border-radius: 10px;
   color: #fff; font-size: 14px; font-weight: 600;
-  cursor: pointer; font-family: inherit;
+  text-decoration: none; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  font-family: inherit;
 }
+.next-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); opacity: 0.92; }
 
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .side-nav { display: none; }
+  .page { margin-right: 0; }
+}
 @media (max-width: 900px) {
-  nav { position: sticky; width: 100%; height: auto; padding: 10px; flex-direction: row; overflow-x: auto; }
-  .nav-logo-wrap, .nav-label { display: none; }
-  nav a { white-space: nowrap; }
-  .page, .main-header { margin-left: 0; }
-  .hero, .section, .sources, .next-bar { padding-left: 20px; padding-right: 20px; }
+  .hero, .section, .next-bar { padding-left: 20px; padding-right: 20px; }
+  .dual-cards { grid-template-columns: 1fr; }
+  .comparison-grid { grid-template-columns: 1fr; }
 }
 
 @keyframes fadeUp {
@@ -201,84 +530,699 @@ hr.nav-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); marg
 </head>
 <body>
 
+<!-- RIGHT STICKY NAV -->
+<div class="side-nav" id="sideNav">
+  <div class="side-nav-title">On this page</div>
+  <a href="#section-1" data-section="section-1">1 · Why they differ</a>
+  <a href="#part-a" class="side-nav-sub" data-section="part-a">Input asymmetry</a>
+  <a href="#part-b" class="side-nav-sub" data-section="part-b">Distance from reality</a>
+  <a href="#part-c" class="side-nav-sub" data-section="part-c">Information loss</a>
+  <a href="#section-2" data-section="section-2">2 · Functional comparison</a>
+  <a href="#section-3" data-section="section-3">3 · Collaboration framework</a>
+  <a class="side-nav-home" href="lobby.html">← Back to Home</a>
+</div>
 
-
+<!-- HEADER -->
 <header class="main-header">
   <h1>AI-Wise</h1>
   <div class="breadcrumb">
-    <span>Core Blocks</span> › C2 · GenAI & Human Cognition
+    <span>Core Blocks</span> › C2 · What is AI for us?
   </div>
 </header>
 
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <a href="aiwise-c1-final.html">What is GenAI?</a>
-  <a href="aiwise-c2-final.html" class="active">GenAI & Human Cognition</a>
-  <a href="aiwise-c3-final.html">How to Engage</a>
-  <a class="diagnostic-link" href="diagnostic-questionnaire-final.html">GenAI in AWS I</a>
-</nav>
+<!-- PAGE -->
+<main class="page">
 
-<main class="page ui-transition-target">
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
     <div class="hero-inner fade-up">
       <div class="hero-tag"><div class="hero-tag-dot"></div>C2 · Core Block</div>
-      <h2>GenAI and Human Cognition</h2>
-      <p class="hero-lead">This page is ready. C2 content will be added next.</p>
+      <h2>What is AI for us?</h2>
+      <p class="hero-lead">
+        Knowing what GenAI is made of is a starting point. The next question is what it can and cannot do compared to you, and how to work with it effectively.
+      </p>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ============================================================ -->
+  <!-- SECTION 1: WHY THEY DIFFER                                   -->
+  <!-- ============================================================ -->
+  <section class="section" id="section-1">
     <div class="section-tag">Section 1</div>
-    <h3>Content Placeholder</h3>
+    <h3>Why they differ</h3>
+
     <div class="section-body">
-      <p>Section content for C2 will be added here.</p>
+      <p>Before comparing what humans and GenAI can do, it is necessary to understand why they differ in the first place. The differences are not superficial. They are structural, rooted in how each system receives and processes information.</p>
     </div>
-    <div class="placeholder-box">C2 Section 1 Placeholder</div>
+
+    <!-- PART A -->
+    <div class="part-block">
+      <div class="part-header" id="part-a">Part A: Input channel asymmetry</div>
+      <div class="section-body">
+        <p>Think about the last time you saw an elephant. Not in a photo, but in real life. You didn't just see it. You smelled it. You heard it breathe. You felt the ground vibrate slightly under its weight. All of that entered your brain at once, and all of it shaped what "elephant" means to you.</p>
+        <p>Now think about what happens when a language model encounters the word "elephant." It receives a token. A numerical code that represents the word. That's it. No smell, no sound, no sense of scale. Just a number in a sequence of numbers.</p>
+        <p>This is the most basic difference between human cognition and GenAI: <strong>the input is not the same.</strong></p>
+      </div>
+
+      <div class="dual-cards" style="max-width:960px;margin-left:auto;margin-right:auto;">
+        <div class="dual-card">
+          <div class="dual-card-label human">Human</div>
+          <p>Five senses, all at once. Smell, sound, scale, proximity, integrated into one layered experience. Your brain does not process these separately and stitch them together later. They arrive as a single, unified representation of the world.</p>
+        </div>
+        <div class="dual-card">
+          <div class="dual-card-label genai">GenAI</div>
+          <p>A token. A numerical code that stands for a word. By the time any input reaches the model, it has already been compressed and stripped down to symbolic structure. The model operates entirely at the level of abstracted language, with no connection to the sensory world the language describes.</p>
+        </div>
+      </div>
+
+      <div class="gradient-rows" style="max-width:960px;margin-left:auto;margin-right:auto;">
+        <div class="gradient-row">
+          <div class="gradient-indicator green">&#10003;</div>
+          <div class="gradient-row-content">
+            <div class="gradient-row-title">Nonsensory meaning: recovered at human level</div>
+            <div class="gradient-row-desc">Abstract, relational knowledge. Things like "elephants are mammals," "they live in herds," "they are associated with memory." These are patterns that exist fully in language itself, and LLMs pick them up about as well as humans do.</div>
+          </div>
+        </div>
+        <div class="gradient-row">
+          <div class="gradient-indicator amber">&#126;</div>
+          <div class="gradient-row-content">
+            <div class="gradient-row-title">Sensory features: partially recovered</div>
+            <div class="gradient-row-desc">What something looks, sounds, or feels like. Multimodal models that process images alongside text do better here, especially for vision. But "partially" is the key word: the gap narrows for what can be photographed, not for what can only be experienced.</div>
+          </div>
+        </div>
+        <div class="gradient-row">
+          <div class="gradient-indicator red">&#10007;</div>
+          <div class="gradient-row-content">
+            <div class="gradient-row-title">Motor and bodily features: not recovered</div>
+            <div class="gradient-row-desc">What it feels like to stand next to something enormous. The weight of an object in your hand. The muscle memory of a familiar movement. These dimensions of meaning are grounded in having a body, and no amount of text training has bridged this gap. There is no current pathway by which it would.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PART B -->
+    <div class="part-block">
+      <div class="part-header" id="part-b">Part B: Distance from reality</div>
+      <div class="section-body">
+        <p>The information GenAI learns from is not reality. It is a filtered, compressed, and unevenly sampled version of what people have written online.</p>
+        <p>Think of it like a chain. At each link, something gets lost.</p>
+      </div>
+
+      <div class="chain" style="max-width:960px;">
+        <div class="chain-node">
+          <div class="chain-node-label">Reality</div>
+          <div class="chain-node-desc">Everything that happens in the world.</div>
+        </div>
+        <div class="chain-arrow"><svg viewBox="0 0 16 24"><path d="M8 2 L8 18 M3 14 L8 20 L13 14" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="chain-node">
+          <div class="chain-node-label">What gets recorded</div>
+          <div class="chain-node-desc">Only the fraction that someone decides to write down.</div>
+        </div>
+        <div class="chain-arrow"><svg viewBox="0 0 16 24"><path d="M8 2 L8 18 M3 14 L8 20 L13 14" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="chain-node">
+          <div class="chain-node-label">What gets published online</div>
+          <div class="chain-node-desc">Only the fraction of that which makes it onto the internet.</div>
+        </div>
+        <div class="chain-arrow"><svg viewBox="0 0 16 24"><path d="M8 2 L8 18 M3 14 L8 20 L13 14" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="chain-node">
+          <div class="chain-node-label">What gets indexed</div>
+          <div class="chain-node-desc">Only what search engines and web crawlers can find and collect.</div>
+        </div>
+        <div class="chain-arrow"><svg viewBox="0 0 16 24"><path d="M8 2 L8 18 M3 14 L8 20 L13 14" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="chain-node">
+          <div class="chain-node-label">What gets selected for training data</div>
+          <div class="chain-node-desc">Only what dataset builders choose to include.</div>
+        </div>
+        <div class="chain-arrow"><svg viewBox="0 0 16 24"><path d="M8 2 L8 18 M3 14 L8 20 L13 14" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="chain-node" style="border-color:var(--gold);border-width:2px;">
+          <div class="chain-node-label" style="color:var(--amber);">What the model learns</div>
+          <div class="chain-node-desc">The statistical average of everything above.</div>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <p>At every step, noise enters and fidelity decreases. The result is a model trained on the statistical average of online text, which is itself a narrow and unrepresentative sample of human experience.</p>
+        <p>To give you a sense of scale: GPT 3 was trained on hundreds of billions of words. About 82% of those words came from a single source, a massive collection of web pages scraped automatically from the internet. Research has shown that this collection systematically overrepresents certain languages, cultures, and demographics. Some researchers argue that this is not simply a technical problem with a straightforward fix, but something more deeply tied to how large language models work: they predict text based on what they have seen, so the patterns in the training data inevitably shape the patterns in the output.</p>
+      </div>
+
+      <div class="result-card" style="max-width:960px;margin-left:auto;margin-right:auto;">
+        <div class="result-card-title">What this means for output</div>
+        <div class="result-card-desc">In creativity tasks, GenAI tends to raise the floor. It produces consistently competent results. But the ceiling is lower: the highest quality human outputs exceed what GenAI produces, and attempts to boost LLM creativity through prompt engineering have yielded mixed to negative results.</div>
+      </div>
+    </div>
+
+    <!-- PART C -->
+    <div class="part-block">
+      <div class="part-header" id="part-c">Part C: Intentional information loss</div>
+      <div class="section-body">
+        <p>When you ask GenAI something, you type a prompt. But think about everything that shaped your question before you started typing. Your background knowledge. Your assumptions about what matters. Your emotional investment in the topic. The context you are working in. The criteria you have in your head but never spelled out.</p>
+        <p>Most of that never makes it into the prompt. It can't. You would need to write pages just to capture what you already know without thinking about it.</p>
+        <p>GenAI has access only to what is explicitly provided. What is not typed does not exist for the model. This creates a structural gap between what you mean and what the model receives.</p>
+        <p>Here is what that looks like in practice.</p>
+      </div>
+
+      <!-- CAROUSEL -->
+      <div class="carousel-wrapper" id="carousel">
+        <div class="carousel-track" id="carouselTrack">
+
+          <!-- Card 1 -->
+          <div class="carousel-slide"><div class="carousel-card">
+            <div class="carousel-card-header">
+              <span class="card-num">Example 1 of 6</span>
+              Connecting studies in a literature review
+            </div>
+            <div class="carousel-layers">
+              <div class="carousel-layer layer-thinking">
+                <div class="carousel-layer-label"><span class="dot"></span>What you are actually thinking</div>
+                <p>I need to find a way to connect these two studies for my literature review. One is about social media and self esteem, the other is about screen time and sleep. My professor said the transition between paragraphs matters a lot. I tried linking them through "adolescent wellbeing" but it felt too vague. I want something more specific but I am not sure what that would look like.</p>
+              </div>
+              <div class="carousel-layer layer-typing">
+                <div class="carousel-layer-label"><span class="dot"></span>What you type</div>
+                <p><em>[uploads two PDFs]</em><br>"How do I connect these two studies in my literature review?"</p>
+              </div>
+              <div class="carousel-layer layer-processing">
+                <div class="carousel-layer-label"><span class="dot"></span>How the model actually processes this</div>
+                <p>Full text of both papers is processed. Themes, findings, methodologies, theoretical frameworks all extracted. The most statistically likely "helpful" response pattern for "connect these two studies" is activated. → Generate a comprehensive answer covering multiple possible connection points: shared constructs, overlapping populations, complementary findings, theoretical alignment. Present them as options. Sound confident and thorough.</p>
+              </div>
+            </div>
+          </div></div>
+
+          <!-- Card 2 -->
+          <div class="carousel-slide"><div class="carousel-card">
+            <div class="carousel-card-header">
+              <span class="card-num">Example 2 of 6</span>
+              Creating practice questions
+            </div>
+            <div class="carousel-layers">
+              <div class="carousel-layer layer-thinking">
+                <div class="carousel-layer-label"><span class="dot"></span>What you are actually thinking</div>
+                <p>My exam is next week and I want to test myself on chapter 4. The professor always writes tricky MCQs where two options look almost the same and you have to know the exact definition to tell them apart. I need questions that are at that level, not the easy ones where you can guess by elimination.</p>
+              </div>
+              <div class="carousel-layer layer-typing">
+                <div class="carousel-layer-label"><span class="dot"></span>What you type</div>
+                <p><em>[pastes chapter 4 text]</em><br>"Make me some MCQs on chapter 4."</p>
+              </div>
+              <div class="carousel-layer layer-processing">
+                <div class="carousel-layer-label"><span class="dot"></span>How the model actually processes this</div>
+                <p>Full chapter text is processed. Key concepts, definitions, and relationships identified. "MCQ" triggers a default format: one correct answer, three distractors, medium difficulty, recall focused. → Generate questions that cover the chapter evenly, make distractors plausible but clearly distinguishable from the correct answer.</p>
+              </div>
+            </div>
+          </div></div>
+
+          <!-- Card 3 -->
+          <div class="carousel-slide"><div class="carousel-card">
+            <div class="carousel-card-header">
+              <span class="card-num">Example 3 of 6</span>
+              Summarizing a paper
+            </div>
+            <div class="carousel-layers">
+              <div class="carousel-layer layer-thinking">
+                <div class="carousel-layer-label"><span class="dot"></span>What you are actually thinking</div>
+                <p>I read this paper but I am not sure I understood the method section. I think they used a between subjects design but the way they describe the groups is confusing. I do not need a full summary, I just need someone to explain the design so I can figure out whether their conclusion actually follows from it.</p>
+              </div>
+              <div class="carousel-layer layer-typing">
+                <div class="carousel-layer-label"><span class="dot"></span>What you type</div>
+                <p><em>[uploads PDF]</em><br>"Can you summarize this paper?"</p>
+              </div>
+              <div class="carousel-layer layer-processing">
+                <div class="carousel-layer-label"><span class="dot"></span>How the model actually processes this</div>
+                <p>Full paper is processed. All sections weighted. "Summarize" triggers a default structure: background, aim, method, key findings, conclusion. Roughly equal coverage across sections. → Produce something that reads like a complete, balanced overview. Sound clear and organized.</p>
+              </div>
+            </div>
+          </div></div>
+
+          <!-- Card 4 -->
+          <div class="carousel-slide"><div class="carousel-card">
+            <div class="carousel-card-header">
+              <span class="card-num">Example 4 of 6</span>
+              Understanding a concept
+            </div>
+            <div class="carousel-layers">
+              <div class="carousel-layer layer-thinking">
+                <div class="carousel-layer-label"><span class="dot"></span>What you are actually thinking</div>
+                <p>The professor used the term "ecological validity" in the lecture today and I kind of got it from context, but when I tried to explain it to my friend I couldn't. I think it has something to do with how realistic a study is, but I am not sure if it is about the setting, the task, or both. And I am confused about how it is different from external validity because they sound like they overlap.</p>
+              </div>
+              <div class="carousel-layer layer-typing">
+                <div class="carousel-layer-label"><span class="dot"></span>What you type</div>
+                <p>"What is ecological validity?"</p>
+              </div>
+              <div class="carousel-layer layer-processing">
+                <div class="carousel-layer-label"><span class="dot"></span>How the model actually processes this</div>
+                <p>A definition request. "Ecological validity" is a well represented concept in the training data. → Generate a clear, textbook style definition. Add an example. Possibly mention related terms. Present a self contained explanation, covering the concept broadly rather than targeting any specific point of confusion.</p>
+              </div>
+            </div>
+          </div></div>
+
+          <!-- Card 5 -->
+          <div class="carousel-slide"><div class="carousel-card">
+            <div class="carousel-card-header">
+              <span class="card-num">Example 5 of 6</span>
+              Asking for feedback on your writing
+            </div>
+            <div class="carousel-layers">
+              <div class="carousel-layer layer-thinking">
+                <div class="carousel-layer-label"><span class="dot"></span>What you are actually thinking</div>
+                <p>I spent two hours on this introduction and I think the argument flows okay, but the last sentence feels weak. My tutor told me last time that I tend to state things too broadly without committing to a clear position. I want to know if I am doing that again here, specifically in the last two sentences.</p>
+              </div>
+              <div class="carousel-layer layer-typing">
+                <div class="carousel-layer-label"><span class="dot"></span>What you type</div>
+                <p><em>[pastes paragraph]</em><br>"What do you think of this? Any feedback?"</p>
+              </div>
+              <div class="carousel-layer layer-processing">
+                <div class="carousel-layer-label"><span class="dot"></span>How the model actually processes this</div>
+                <p>A paragraph is provided. Feedback requested with no specific focus. → Scan for grammar, clarity, structure, and argument strength across the entire paragraph. Generate a balanced set of comments covering multiple aspects. Highlight positives first, then suggest improvements. Distribute attention evenly across the whole text.</p>
+              </div>
+            </div>
+          </div></div>
+
+          <!-- Card 6 -->
+          <div class="carousel-slide"><div class="carousel-card">
+            <div class="carousel-card-header">
+              <span class="card-num">Example 6 of 6</span>
+              Writing a motivation letter
+            </div>
+            <div class="carousel-layers">
+              <div class="carousel-layer layer-thinking">
+                <div class="carousel-layer-label"><span class="dot"></span>What you are actually thinking</div>
+                <p>I am applying for this internship at a research lab and I really want it because the supervisor published a paper I referenced in my thesis. I have some relevant experience from my stats course and a small project I did with a classmate, but I am not sure if that counts. The deadline is tomorrow and I saw that they value "independent thinkers" but I do not want to sound arrogant.</p>
+              </div>
+              <div class="carousel-layer layer-typing">
+                <div class="carousel-layer-label"><span class="dot"></span>What you type</div>
+                <p>"Help me write a motivation letter for a research internship."</p>
+              </div>
+              <div class="carousel-layer layer-processing">
+                <div class="carousel-layer-label"><span class="dot"></span>How the model actually processes this</div>
+                <p>A motivation letter for a research internship. No specific lab, no field, no applicant background, no deadline pressure, no tone preference. → Generate a polished, general purpose motivation letter template. Use broadly applicable language about "passion for research" and "eagerness to learn." Structure it in a standard format. Sound professional and enthusiastic.</p>
+              </div>
+            </div>
+          </div></div>
+
+        </div>
+
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="carouselPrev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel-dots" id="carouselDots"></div>
+          <button class="carousel-btn" id="carouselNext" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <p>In every one of these examples, the model did something reasonable with what it received. The problem is not that it did a bad job. The problem is that most of what mattered to you never reached the model in the first place.</p>
+        <p>This gap does not disappear as you get better at prompting. You can narrow it, but you cannot close it.</p>
+        <p>Research supports this. Studies have found that language models generate responses with significantly less conversational grounding than humans. Rather than actively checking whether they understood you correctly, they tend to assume that common ground already exists. And here is an interesting complication: the fine tuning that makes models more helpful and polished actually makes this worse. The more "assistant like" the model becomes, the less likely it is to pause and verify what you actually meant.</p>
+        <p>Across longer conversations, this adds up. Even for the most advanced models available today, average performance on generation tasks drops by about 39% in multi turn conversations compared to fully specified single turn instructions.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 1 SOURCES -->
+    <div class="sources-block">
+      <button class="sources-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open');">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+        Section 1 Sources
+      </button>
+      <div class="sources-list">
+        <p>Xu, Q. et al. (2025). Large language models without grounding recover non sensorimotor but not sensorimotor features of human concepts. <em>Nature Human Behaviour</em>, 9, 1871–1886.</p>
+        <p>Brown, T. B. et al. (2020). Language models are few shot learners. <em>Advances in Neural Information Processing Systems</em>, 33, 1877–1901.</p>
+        <p>Baack, S. (2024). A critical analysis of the largest source for generative AI training data: Common Crawl. <em>Proceedings of ACM FAccT 2024</em>, pp. 2194–2207.</p>
+        <p>Resnik, P. (2025). Large language models are biased because they are large language models. <em>Computational Linguistics</em>, 51(3), 885–906. [Position paper]</p>
+        <p>Wang, D. et al. (2025/2026). A large scale comparison of divergent creativity in humans and large language models. <em>Nature Human Behaviour</em>, 10, 531–540.</p>
+        <p>Koivisto, M. &amp; Grassini, S. (2023). Best humans still outperform artificial intelligence in a creative divergent thinking task. <em>Scientific Reports</em>, 13, 13601.</p>
+        <p>Shaikh, O. et al. (2024). Grounding gaps in language model generations. <em>Proceedings of NAACL 2024</em>, pp. 6279–6296.</p>
+        <p>Laban, P. et al. (2026). LLMs get lost in multi turn conversation. <em>Proceedings of ICLR 2026</em> (Oral). arXiv: 2505.06120.</p>
+      </div>
+    </div>
   </section>
 
-  <section class="section section-alt">
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: HUMAN vs GenAI                                    -->
+  <!-- ============================================================ -->
+  <section class="section section-alt" id="section-2">
     <div class="section-tag">Section 2</div>
-    <h3>Content Placeholder</h3>
+    <h3>Human vs GenAI: a functional comparison</h3>
+
     <div class="section-body">
-      <p>Section content for C2 will be added here.</p>
+      <p>Section 1 established why humans and GenAI differ. The input is different, the training data is distant from reality, and most of what you mean never reaches the model. But what do these structural differences actually look like when the two systems perform specific tasks?</p>
+      <p>This section compares ten cognitive functions, grouped into three categories based on where the advantage lies.</p>
     </div>
-    <div class="placeholder-box">C2 Section 2 Placeholder</div>
-    <div class="anatomy-close">
-      <strong>Placeholder.</strong> Closing takeaway for C2 will be added here.
+
+    <div class="comparison-grid">
+      <!-- Column 1: Human leads -->
+      <div class="comparison-col">
+        <div class="comparison-col-header col-human-leads">
+          <div class="comparison-col-icon">H</div>
+          Human leads
+        </div>
+        <div class="fn-card human-lead">
+          <div class="fn-card-title">Perception</div>
+          <div class="fn-card-body">Humans receive the world through five senses at once, integrated into one experience. GenAI receives tokens. The gap is largest for bodily, physical experience, and partially closed for vision in multimodal models.</div>
+        </div>
+        <div class="fn-card human-lead">
+          <div class="fn-card-title">Emotional processing</div>
+          <div class="fn-card-body">Humans experience emotion as a genuine internal state that shapes thinking, motivation, and behavior. GenAI recognizes and produces emotionally appropriate language, but has no internal feeling behind it.</div>
+        </div>
+        <div class="fn-card human-lead">
+          <div class="fn-card-title">Metacognition</div>
+          <div class="fn-card-body">Humans know what they know and what they don't. They monitor their own confidence and adjust. GenAI produces confidence estimates through probability distributions, but has no persistent self check. This is part of why it can say something false without hesitating.</div>
+        </div>
+        <div class="fn-card human-lead">
+          <div class="fn-card-title">Social cognition</div>
+          <div class="fn-card-body">Humans develop social understanding through real relationships, emotional resonance, and years of interaction. GenAI can pass structured social reasoning tests at high levels, but without the developmental grounding and relational stakes behind it.</div>
+        </div>
+      </div>
+
+      <!-- Column 2: Both capable -->
+      <div class="comparison-col">
+        <div class="comparison-col-header col-both">
+          <div class="comparison-col-icon">&#8596;</div>
+          Both capable, depends on the task
+        </div>
+        <div class="fn-card both-capable">
+          <div class="fn-card-title">Short term storage</div>
+          <div class="fn-card-body">Human working memory holds roughly four to seven chunks and actively manipulates them. GenAI context windows hold thousands of tokens passively. Studies show comparable limits under active maintenance conditions, but humans manipulate held information more flexibly.</div>
+        </div>
+        <div class="fn-card both-capable">
+          <div class="fn-card-title">Reasoning</div>
+          <div class="fn-card-body">Humans support causal, counterfactual, and analogical reasoning and adapt flexibly to new situations. GenAI outperforms humans on some structured reasoning tasks, but fails on tasks that require distinguishing observation from intervention, or deliberately exploring uncertain options.</div>
+        </div>
+        <div class="fn-card both-capable">
+          <div class="fn-card-title">Language processing</div>
+          <div class="fn-card-body">Humans integrate grammar with pragmatics, social intent, and contextual meaning. GenAI achieves strong grammatical competence but functional competence (using language appropriately in context) is uneven. The key insight: language ability and thinking ability are separate systems, and GenAI has acquired one without fully having the other.</div>
+        </div>
+        <div class="fn-card both-capable">
+          <div class="fn-card-title">Creativity</div>
+          <div class="fn-card-body">Humans produce highly variable creative output, with the best human work exceeding anything GenAI produces. GenAI raises the floor by producing consistently competent results, but the upper tail is smaller. Attempts to boost GenAI creativity through prompt engineering have yielded mixed to negative results.</div>
+        </div>
+      </div>
+
+      <!-- Column 3: GenAI leads -->
+      <div class="comparison-col">
+        <div class="comparison-col-header col-genai-leads">
+          <div class="comparison-col-icon">G</div>
+          GenAI leads on scale
+        </div>
+        <div class="fn-card genai-lead">
+          <div class="fn-card-title">Pattern recognition</div>
+          <div class="fn-card-body">GenAI detects statistical regularities across billions of examples with consistency and speed beyond human capacity. On structured analogy tasks, it has matched or surpassed human performance, though results vary significantly across model versions and task types.</div>
+        </div>
+        <div class="fn-card genai-lead">
+          <div class="fn-card-title">Long term storage</div>
+          <div class="fn-card-body">GenAI encodes patterns from its entire training corpus into billions of parameters, far exceeding human memory in raw volume. But this knowledge is frozen at the training cutoff and cannot be updated through conversation. Human memory holds less, but keeps learning from lived experience.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 SOURCES -->
+    <div class="sources-block">
+      <button class="sources-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open');">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+        Section 2 Sources
+      </button>
+      <div class="sources-list">
+        <p>Xu, Q. et al. (2025). <em>Nature Human Behaviour</em>, 9, 1871–1886.</p>
+        <p>Chemero, A. (2023). <em>Nature Human Behaviour</em>, 7(11), 1828–1829.</p>
+        <p>Schlegel, K. et al. (2025). <em>Communications Psychology</em>, 3, Article 80.</p>
+        <p>Cash, T. N. et al. (2025). <em>Memory &amp; Cognition</em>.</p>
+        <p>Strachan, J. W. A. et al. (2024). <em>Nature Human Behaviour</em>, 8(7), 1285–1295.</p>
+        <p>Gong, D., Wan, X. &amp; Wang, D. (2024). <em>Proceedings of AAAI 2024</em>, 38, 10048–10056.</p>
+        <p>Hagendorff, T., Fabi, S. &amp; Kosinski, M. (2023). <em>Nature Computational Science</em>, 3(10), 833–838.</p>
+        <p>Binz, M. &amp; Schulz, E. (2023). <em>PNAS</em>, 120(6), e2218523120.</p>
+        <p>Mahowald, K. et al. (2024). <em>Trends in Cognitive Sciences</em>, 28(6), 517–540.</p>
+        <p>Wang, D. et al. (2025/2026). <em>Nature Human Behaviour</em>, 10, 531–540.</p>
+        <p>Koivisto, M. &amp; Grassini, S. (2023). <em>Scientific Reports</em>, 13, 13601.</p>
+        <p>Webb, T., Holyoak, K. J. &amp; Lu, H. (2023). <em>Nature Human Behaviour</em>, 7(9), 1526–1541.</p>
+        <p>de Varda, A. G., Saponaro, S. &amp; Marelli, M. (2025). <em>Nature Human Behaviour</em> [Matters Arising].</p>
+      </div>
     </div>
   </section>
 
-  <div class="sources">
-    <p><strong>Sources:</strong> To be added.</p>
-  </div>
 
+  <!-- ============================================================ -->
+  <!-- SECTION 3: A FRAMEWORK FOR COLLABORATION                     -->
+  <!-- ============================================================ -->
+  <section class="section" id="section-3">
+    <div class="section-tag">Section 3</div>
+    <h3>A framework for collaboration</h3>
+
+    <div class="framework-heading">"The beginning is always yours"</div>
+    <div class="framework-text">
+      <p>Every intellectual task begins with something that cannot be generated. Not a prompt, not a structure, not a draft. It begins with a felt sense that something matters. A question that has not been asked yet. A problem noticed but not named. An intention that exists before any words have been found for it.</p>
+      <p>GenAI cannot produce this. Not because it lacks capability in any technical sense, but because it has no stake in the world. It does not feel the gap between what is and what could be. It responds to what is given, but it cannot generate the impulse to begin.</p>
+      <p>This is the ignition point. You bring a direction, however vague. A sense of what matters. The willingness to commit to a question before knowing how to answer it. None of this can be prompted into existence. It arrives with you, or it does not arrive at all.</p>
+    </div>
+
+    <div class="framework-heading">"GenAI's role: Operationalization"</div>
+    <div class="framework-text">
+      <p>Once you have that starting point, the next step is still yours. You sketch out an idea. A rough structure, a basic concept, a set of notes, a first attempt at putting your intention into words. It does not need to be polished. It does not need to be complete. But it needs to exist. Something on paper that reflects what you are trying to do.</p>
+      <p>This is where GenAI becomes useful. You hand it your rough draft, your notes, your half formed structure, and GenAI turns it into something more developed. It fills in gaps, suggests organization, produces a version that is concrete enough to react to. You judge that output, redirect, and GenAI produces again. Within minutes, work that might have taken hours to develop on your own has been shaped into a real draft.</p>
+      <p>This is what GenAI does best in collaboration: it operationalizes. Not from nothing, but from something you have already started. It takes your rough thinking and makes it tangible, fast. And the process accelerates. Each output gives you more to react to, which gives GenAI more to work with, which produces richer output.</p>
+      <p>GenAI is not thinking instead of you. It is making your thinking visible fast enough to work with.</p>
+    </div>
+
+    <!-- GenAI + Human loop diagram -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowP" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#534AB7"/></marker>
+          <marker id="arrowA" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#BA7517"/></marker>
+        </defs>
+        <rect x="40" y="40" width="160" height="72" rx="14" fill="#EEEDFE" stroke="#534AB7" stroke-width="2"/>
+        <text x="120" y="72" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#534AB7">GenAI</text>
+        <text x="120" y="92" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#534AB7" opacity="0.7">Operationalizes</text>
+        <rect x="280" y="40" width="160" height="72" rx="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
+        <text x="360" y="72" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#BA7517">You</text>
+        <text x="360" y="92" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#BA7517" opacity="0.7">Judge</text>
+        <rect x="280" y="200" width="160" height="72" rx="14" fill="#EEEDFE" stroke="#534AB7" stroke-width="2"/>
+        <text x="360" y="232" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#534AB7">GenAI</text>
+        <text x="360" y="252" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#534AB7" opacity="0.7">Feedback</text>
+        <rect x="40" y="200" width="160" height="72" rx="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
+        <text x="120" y="232" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#BA7517">You</text>
+        <text x="120" y="252" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#BA7517" opacity="0.7">Judge again</text>
+        <line x1="200" y1="66" x2="276" y2="66" stroke="#534AB7" stroke-width="2" marker-end="url(#arrowP)"/>
+        <line x1="370" y1="112" x2="370" y2="196" stroke="#BA7517" stroke-width="2" marker-end="url(#arrowA)"/>
+        <line x1="280" y1="236" x2="204" y2="236" stroke="#534AB7" stroke-width="2" marker-end="url(#arrowP)"/>
+        <line x1="110" y1="200" x2="110" y2="116" stroke="#BA7517" stroke-width="2" marker-end="url(#arrowA)"/>
+        <text x="240" y="160" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#5b6668" opacity="0.6">Repeat until ready</text>
+        <text x="240" y="174" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#5b6668" opacity="0.6">to move on</text>
+      </svg>
+    </div>
+
+    <div class="framework-heading">"How the loop works"</div>
+    <div class="framework-text">
+      <p>You start with an intention. GenAI operationalizes it into something concrete. You judge the output: is this what I meant? Is this useful? What is missing? You feed that judgment back, and GenAI produces again. Each cycle sharpens the work.</p>
+      <p>In this loop, you are doing something that GenAI cannot do for itself. You are supplying the intent, the quality criteria, the sense of direction. GenAI is doing something you cannot do as quickly on your own. It is generating structured output at a speed that lets you focus entirely on evaluation and steering.</p>
+    </div>
+
+    <div class="framework-heading">"When momentum drops"</div>
+    <div class="framework-text">
+      <p>But this loop does not run forever. At some point, you will notice the momentum dropping. The signs are specific:</p>
+      <p>The model keeps returning to assumptions it fixed early in the conversation, even though your requirements have shifted across turns.</p>
+      <p>The model delivers a "complete" answer without asking any clarifying questions.</p>
+      <p>The outputs are internally consistent, but you sense they might be wrong in ways the model cannot detect on its own.</p>
+      <p>These are not failures. They are the natural limits of what a single Human+GenAI session can produce. The work has been operationalized, but it has not yet been tested against reality.</p>
+    </div>
+
+    <div class="framework-heading">"The team's role: Expansion"</div>
+    <div class="framework-text">
+      <p>This is where the team comes in. When the GenAI loop stalls, you bring the work to people. Your classmates, your tutor, your project group. The team brings what GenAI structurally cannot: shared institutional context, social judgment, real world experience with the problem, and perspectives shaped by lives you have not lived.</p>
+      <p>The team does not just polish what you already have. It expands the scope. New ideas you had not considered. Constraints you did not know existed. Feedback that reshapes the direction of the work entirely. After this interaction, the work is no longer just yours and GenAI's. It belongs to a larger reality.</p>
+    </div>
+
+    <!-- Team + Human loop diagram -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowT" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#0F6E56"/></marker>
+          <marker id="arrowY" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#BA7517"/></marker>
+        </defs>
+        <rect x="40" y="40" width="160" height="72" rx="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
+        <text x="120" y="72" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#BA7517">You</text>
+        <text x="120" y="92" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#BA7517" opacity="0.7">Present the work</text>
+        <rect x="280" y="40" width="160" height="72" rx="14" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"/>
+        <text x="360" y="72" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#0F6E56">Team</text>
+        <text x="360" y="92" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#0F6E56" opacity="0.7">Feedback</text>
+        <rect x="280" y="200" width="160" height="72" rx="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
+        <text x="360" y="232" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#BA7517">You</text>
+        <text x="360" y="252" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#BA7517" opacity="0.7">Integrate feedback</text>
+        <rect x="40" y="200" width="160" height="72" rx="14" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"/>
+        <text x="120" y="232" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#0F6E56">Team</text>
+        <text x="120" y="252" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#0F6E56" opacity="0.7">Expands the scope</text>
+        <line x1="200" y1="66" x2="276" y2="66" stroke="#BA7517" stroke-width="2" marker-end="url(#arrowY)"/>
+        <line x1="370" y1="112" x2="370" y2="196" stroke="#0F6E56" stroke-width="2" marker-end="url(#arrowT)"/>
+        <line x1="280" y1="236" x2="204" y2="236" stroke="#BA7517" stroke-width="2" marker-end="url(#arrowY)"/>
+        <line x1="110" y1="200" x2="110" y2="116" stroke="#0F6E56" stroke-width="2" marker-end="url(#arrowT)"/>
+        <text x="240" y="160" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#5b6668" opacity="0.6">The work enters</text>
+        <text x="240" y="174" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#5b6668" opacity="0.6">a larger reality</text>
+      </svg>
+    </div>
+
+    <div class="framework-heading">"How this loop is different"</div>
+    <div class="framework-text">
+      <p>The team loop works differently from the GenAI loop. You present the work. The team gives feedback. You integrate that feedback, and in the process, new questions emerge, new angles open up, new things need to be considered. The scope does not just refine. It grows.</p>
+      <p>Where GenAI operationalizes what you already had in mind, the team introduces what you did not have in mind. This is the difference between acceleration and expansion.</p>
+    </div>
+
+    <div class="framework-heading">"Back to GenAI: a new cycle begins"</div>
+    <div class="framework-text">
+      <p>After the team interaction, you do not return to where you left off. You return to GenAI with new material. The team's feedback, revised constraints, new directions. And you initiate a new operationalization cycle. The same pattern repeats: rapid progress, visible output, accelerating momentum. But this time the starting point is higher. The work has already been tested against reality, and the new cycle builds on that foundation.</p>
+    </div>
+
+    <div class="framework-heading">"The full structure"</div>
+    <div class="framework-text">
+      <p>The full framework is a series of these cycles, connected by transitions between partners.</p>
+      <p>GenAI session → Team session → GenAI session → Team session.</p>
+      <p>Each GenAI session operationalizes rapidly. Each team session expands the scope. Each transition carries the gains of the previous cycle into the next one. The work never loses what it has gained. It only builds.</p>
+    </div>
+
+    <!-- Overall swing-by diagram -->
+    <div class="diagram-wrap" style="max-width:900px;">
+      <svg viewBox="0 0 820 340" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="16" width="250" height="56" rx="8" fill="#f8faf9" stroke="#d8dfde" stroke-width="1"/>
+        <text x="36" y="38" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#0f2f33">You are present throughout.</text>
+        <text x="36" y="56" font-family="DM Sans, sans-serif" font-size="10.5" fill="#5b6668">GenAI accelerates. The team expands. You steer.</text>
+        <text x="14" y="200" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#5b6668" opacity="0.5" transform="rotate(-90,14,200)">Substance of work</text>
+        <path d="M 80,280 C 140,260 160,200 220,180 C 280,160 320,140 380,120 C 440,100 480,90 540,75 C 600,60 640,55 700,45" stroke="#BA7517" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M 694,48 L 720,40 L 698,56" stroke="#BA7517" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="80" cy="280" r="8" fill="#BA7517"/>
+        <text x="80" y="302" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">You</text>
+        <circle cx="220" cy="180" r="8" fill="#534AB7"/>
+        <text x="220" y="210" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#534AB7">GenAI</text>
+        <line x1="220" y1="168" x2="220" y2="148" stroke="#d8dfde" stroke-width="1"/>
+        <text x="220" y="142" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#534AB7">Operationalizes</text>
+        <circle cx="380" cy="120" r="8" fill="#0F6E56"/>
+        <text x="380" y="150" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#0F6E56">Team</text>
+        <line x1="380" y1="108" x2="380" y2="92" stroke="#d8dfde" stroke-width="1"/>
+        <text x="380" y="86" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#0F6E56">Expands</text>
+        <circle cx="540" cy="75" r="8" fill="#534AB7"/>
+        <text x="540" y="105" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#534AB7">GenAI</text>
+        <line x1="540" y1="63" x2="540" y2="47" stroke="#d8dfde" stroke-width="1"/>
+        <text x="540" y="41" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#534AB7">Refines</text>
+        <circle cx="700" cy="45" r="8" fill="#0F6E56"/>
+        <text x="700" y="75" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#0F6E56">Team</text>
+        <line x1="700" y1="33" x2="700" y2="20" stroke="#d8dfde" stroke-width="1"/>
+        <text x="700" y="14" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#0F6E56">Expands further</text>
+        <text x="760" y="44" font-family="DM Sans, sans-serif" font-size="10" fill="#5b6668" opacity="0.5">The work</text>
+        <text x="760" y="56" font-family="DM Sans, sans-serif" font-size="10" fill="#5b6668" opacity="0.5">continues...</text>
+      </svg>
+    </div>
+
+    <div class="framework-heading">"The ending is also yours"</div>
+    <div class="framework-text">
+      <p>Just as the beginning cannot be generated, the ending cannot be delegated. By the time the work reaches its final form, it carries weight. It will be read, evaluated, acted upon, or built upon by others. It has consequences. And consequences require someone who stands behind the work.</p>
+      <p>GenAI has no identity, no reputation, no continuity across interactions. It cannot be held responsible. When the work is submitted, your name is attached. Your judgment is what the work represents.</p>
+      <p>At the end, you judge the final output against your original intent. You decide what stays and what goes. You take responsibility for every claim it makes. This is not a formality. It is the point where the work becomes yours.</p>
+    </div>
+
+    <div class="framework-heading">"Why this matters"</div>
+    <div class="framework-text">
+      <p>GenAI operates in the middle. It is extraordinarily capable in that space. It can accelerate, externalize, structure, and refine. But it cannot generate the reason to begin, and it cannot carry the responsibility of finishing.</p>
+      <p>The beginning and the end are where meaning enters and exits the process. At the start, you bring intent. At the end, you bring accountability. These belong to you, not by convention, but by the nature of what they are.</p>
+      <p><strong>GenAI accelerates. The team expands. You steer.</strong></p>
+      <p>In the context of this course, a slowdown is not a failure. It is a signal to switch partners.</p>
+    </div>
+
+    <!-- SECTION 3 SOURCES -->
+    <div class="sources-block">
+      <button class="sources-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open');">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+        Section 3 Sources
+      </button>
+      <div class="sources-list">
+        <p>Laird, J. E., Lebiere, C. &amp; Rosenbloom, P. S. (2017). AI Magazine, 38(4), 13–26.</p>
+        <p>Sumers, T. R. et al. (2024). Transactions on Machine Learning Research.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT BAR -->
   <div class="next-bar">
     <div class="next-bar-text">
       <h4>Next</h4>
-      <p>C3 · How to Engage</p>
+      <p>C3 · How to Engage with GenAI</p>
     </div>
-    <button class="next-btn">Continue to C3 →</button>
+    <a class="next-btn" href="aiwise-c3-final.html">
+      Continue
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 12l4-4-4-4"/></svg>
+    </a>
   </div>
+
 </main>
 
 <script>
-(function () {
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var targets = document.querySelectorAll('.ui-transition-target');
-  targets.forEach(function(t) { t.classList.add('ui-transition-target'); });
-  if (!reduceMotion) targets.forEach(function(t) { t.classList.add('ui-entering'); });
-  function mount() {
-    if (reduceMotion) { targets.forEach(function(t) { t.classList.add('ui-mounted'); }); return; }
-    window.requestAnimationFrame(function() {
-      targets.forEach(function(t) { t.classList.remove('ui-entering'); t.classList.add('ui-mounted'); });
+// ─── Carousel ───
+(function() {
+  const track = document.getElementById('carouselTrack');
+  const slides = track.querySelectorAll('.carousel-slide');
+  const dotsWrap = document.getElementById('carouselDots');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  let current = 0;
+  const total = slides.length;
+
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.addEventListener('click', function() { goTo(i); });
+    dotsWrap.appendChild(dot);
+  }
+
+  function goTo(n) {
+    current = Math.max(0, Math.min(n, total - 1));
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dotsWrap.querySelectorAll('.carousel-dot').forEach(function(d, i) { d.classList.toggle('active', i === current); });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+
+  prevBtn.addEventListener('click', function() { goTo(current - 1); });
+  nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+  // Swipe support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) goTo(current + 1);
+      else goTo(current - 1);
+    }
+  }, { passive: true });
+
+  goTo(0);
+})();
+
+// ─── Scroll-tracking side nav ───
+(function() {
+  var navLinks = document.querySelectorAll('.side-nav a[data-section]');
+  var sections = [];
+  navLinks.forEach(function(link) {
+    var el = document.getElementById(link.getAttribute('data-section'));
+    if (el) sections.push({ id: link.getAttribute('data-section'), el: el, link: link });
+  });
+
+  function onScroll() {
+    var scrollY = window.scrollY + 120;
+    var current = null;
+    for (var i = sections.length - 1; i >= 0; i--) {
+      if (sections[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+        current = sections[i].id;
+        break;
+      }
+    }
+    navLinks.forEach(function(link) {
+      link.classList.toggle('active', link.getAttribute('data-section') === current);
     });
   }
-  window.addEventListener('pageshow', mount);
-  mount();
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 </script>
 

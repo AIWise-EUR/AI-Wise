@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Diagnostic-specific layout */
     .lobby-layout {
       display: flex;
       gap: 24px;
@@ -15,131 +16,13 @@
       padding: 10px 12px 60px;
       position: relative;
     }
-
     .lobby-main {
       flex: 1 1 0;
       min-width: 0;
       padding-right: 0;
     }
-
-    /* Fast Track Sticky Panel */
-    .fast-track-panel {
-      position: sticky;
-      top: 24px;
-      width: 252px;
-      flex: 0 0 252px;
-      align-self: flex-start;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radiusLg);
-      box-shadow: var(--shadowMd);
-      padding: 16px 14px;
-      z-index: 20;
-      max-height: calc(100vh - 48px);
-      overflow-y: auto;
-    }
-
-    .fast-track-heading {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin: 0 0 3px 0;
-    }
-
-    .fast-track-desc {
-      font-size: 11.5px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 0 0 11px 0;
-    }
-
-    .fast-track-steps { display: grid; gap: 5px; margin-bottom: 12px; }
-
-    .fast-track-step {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 9px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: #fff;
-      cursor: pointer;
-      font-size: 11.5px;
-      color: var(--text);
-      text-align: left;
-      width: 100%;
-      transition: border-color 0.18s ease, background-color 0.18s ease;
-    }
-
-    .fast-track-step:hover { border-color: #9eb2b4; background: #f7faf9; }
-
-    .fast-track-step.is-selected {
-      border-color: var(--accent);
-      background: #f0f6f6;
-      font-weight: 600;
-    }
-
-    .fast-track-step-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 17px;
-      height: 17px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .fast-track-divider { height: 1px; background: var(--border); margin: 10px 0; }
-
-    .fast-track-ai-label {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--muted);
-      margin: 0 0 7px 0;
-    }
-
-    .fast-track-ai-options { display: grid; gap: 4px; margin-bottom: 9px; }
-
-    .fast-track-ai-options label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11.5px;
-      color: var(--text);
-      cursor: pointer;
-      padding: 5px 9px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: #fff;
-      transition: border-color 0.18s ease, background-color 0.18s ease;
-    }
-
-    .fast-track-ai-options label:has(input:checked) {
-      border-color: var(--accent);
-      background: #f0f6f6;
-    }
-
-    .fast-track-go {
-      width: 100%;
-      padding: 8px 0;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 7px;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .fast-track-go:hover { opacity: 0.9; transform: translateY(-1px); }
-    .fast-track-go:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .fast-track-steps { margin-bottom: 12px; }
+    .fast-track-panel { width: 252px; flex: 0 0 252px; }
 
     /* Page intro */
     .diag-page-title {
@@ -398,42 +281,20 @@
       .lobby-main { padding-right: 0; }
       .fast-track-panel { display: none; }
     }
-
     @media (max-width: 1200px) and (min-width: 901px) {
       .lobby-layout { gap: 16px; }
-      .fast-track-panel {
-        top: 16px;
-        width: 224px;
-        flex-basis: 224px;
-        padding: 12px 10px;
-        max-height: calc(100vh - 32px);
-      }
-      .fast-track-desc { font-size: 11px; }
+      .fast-track-panel { width: 224px; flex-basis: 224px; }
     }
   </style>
 </head>
 <body>
 <header class="main-header">
   <div class="header-inner">
+    <img src="erasmus-logo.png" alt="Erasmus University Rotterdam" class="header-logo">
     <h1>AI-Wise Module</h1>
+    <span class="header-step-badge">Diagnostic Questionnaire</span>
   </div>
 </header>
-
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <hr class="nav-divider">
-  <a class="diagnostic-link active" href="diagnostic-questionnaire-final.html">Diagnostic Questionnaire</a>
-  <a href="exploring-topic.html">Exploring a topic</a>
-  <a href="research-question.html">Formulating a central research question</a>
-  <a href="searching-literature.html">Searching for and selecting scientific literature</a>
-  <a href="organizing-literature.html">Organizing literature</a>
-  <a href="draft-outline.html">Creating a draft structure or outline</a>
-  <a href="writing-sections.html">Writing sections of the literature review</a>
-  <a href="finalizing-paper.html">Finalizing the paper</a>
-</nav>
 
 <section>
   <div class="lobby-layout">
@@ -443,6 +304,9 @@
       <h2 class="diag-page-title">Diagnostic Questionnaire</h2>
       <p class="diag-intro">Check all statements that currently apply to you. Be honest — this is not a test. The questionnaire identifies where you are in the process and recommends the most relevant steps to focus on right now.</p>
       <p id="diag_restore_note" class="diag-restore-note" style="display:none;">Your previous diagnostic state has been restored. Click <strong>Reset</strong> if you want to start fresh.</p>
+
+      <div class="diag-progress-bar"><div class="diag-progress-fill" id="diag_progress_fill"></div></div>
+      <p class="diag-progress-label" id="diag_progress_label">0 of 40 items checked</p>
 
       <div class="step-divider">
         <span class="step-divider-label">Step 1 — Exploring a Topic</span>
@@ -551,14 +415,6 @@
       </div>
 
       <div id="result_area">
-        <div class="result-ai-row">
-          <p class="result-ai-label">Are you planning to use GenAI for this step?</p>
-          <div class="result-ai-options">
-            <label><input type="radio" name="r_use_ai" value="yes"> Yes</label>
-            <label><input type="radio" name="r_use_ai" value="no"> No</label>
-          </div>
-        </div>
-
         <div id="tier_must" class="tier-block tier-must" style="display:none;">
           <span class="tier-label">Must</span>
           <div class="tier-steps" id="steps_must"></div>
@@ -610,13 +466,10 @@
 
       <div class="fast-track-divider"></div>
 
-      <p class="fast-track-ai-label">Are you planning to use GenAI?</p>
-      <div class="fast-track-ai-options">
-        <label><input type="radio" name="ft_use_ai" value="yes"> Yes</label>
-        <label><input type="radio" name="ft_use_ai" value="no"> No</label>
-      </div>
-
       <button class="fast-track-go" id="btn_fast_track_go" disabled>Go to step</button>
+
+      <div class="fast-track-divider"></div>
+      <a class="fast-track-diag-link" href="lobby.html">Home</a>
     </div>
 
   </div>
@@ -624,6 +477,23 @@
 
 <script>
 (function () {
+  /* ── PROGRESS BAR ─────────────────────────────────────── */
+  var progressFill = document.getElementById("diag_progress_fill");
+  var progressLabel = document.getElementById("diag_progress_label");
+  var allCheckboxes = document.querySelectorAll('input[name="node"]');
+  var totalItems = allCheckboxes.length;
+
+  function updateProgress() {
+    var checked = document.querySelectorAll('input[name="node"]:checked').length;
+    var pct = totalItems > 0 ? Math.round((checked / totalItems) * 100) : 0;
+    if (progressFill) progressFill.style.width = pct + "%";
+    if (progressLabel) progressLabel.textContent = checked + " of " + totalItems + " items checked";
+  }
+
+  allCheckboxes.forEach(function (cb) {
+    cb.addEventListener("change", updateProgress);
+  });
+
   var pageMap = {
     exploring:  "exploring-topic.html",
     rq:         "research-question.html",
@@ -752,13 +622,11 @@
   }
 
   function getUseAi() {
-    var el = document.querySelector('input[name="r_use_ai"]:checked');
-    return el ? el.value : "";
+    return "";
   }
 
   function getFtUseAi() {
-    var el = document.querySelector('input[name="ft_use_ai"]:checked');
-    return el ? el.value : "";
+    return "";
   }
 
   function buildGoUrl(stage, useAi) {
@@ -820,16 +688,6 @@
       el.checked = Boolean(checkedSet[el.value]);
     });
 
-    if (parsed.resultUseAi === "yes" || parsed.resultUseAi === "no") {
-      var resultRadio = document.querySelector('input[name="r_use_ai"][value="' + parsed.resultUseAi + '"]');
-      if (resultRadio) resultRadio.checked = true;
-    }
-
-    if (parsed.fastTrackUseAi === "yes" || parsed.fastTrackUseAi === "no") {
-      var ftRadio = document.querySelector('input[name="ft_use_ai"][value="' + parsed.fastTrackUseAi + '"]');
-      if (ftRadio) ftRadio.checked = true;
-    }
-
     if (parsed.selectedFtStage) {
       selectedFtStage = parsed.selectedFtStage;
       document.querySelectorAll(".fast-track-step").forEach(function(btn) {
@@ -848,6 +706,7 @@
 
     var restoreNote = document.getElementById("diag_restore_note");
     if (restoreNote) restoreNote.style.display = "block";
+    updateProgress();
   }
 
   function makeStepCard(stage, pct) {
@@ -910,16 +769,17 @@
     renderResults(scores, currentIdx, checked);
     persistUiState(true);
     document.getElementById("result_area").scrollIntoView({ behavior: "smooth", block: "start" });
-  });
 
-  document.querySelectorAll('input[name="r_use_ai"]').forEach(function(radio) {
-    radio.addEventListener("change", function() {
-      var checked    = getChecked();
-      var scores     = calcScores(checked);
-      var currentIdx = detectCurrentStep(scores);
-      renderResults(scores, currentIdx, checked);
-      persistUiState(document.getElementById("result_area").style.display === "block");
-    });
+    /* Analytics: dispatch event so analytics.js can track result */
+    var scoresForAnalytics = {};
+    stepOrder.forEach(function(s) { scoresForAnalytics[s] = scores[s] ? scores[s].pct : 0; });
+    var checkedKeys = Object.keys(checked);
+    document.dispatchEvent(new CustomEvent("aiwise:diagnostic", { detail: {
+      recommendedStage: stepOrder[currentIdx] || "",
+      checkedCount:     checkedKeys.length,
+      checkedNodes:     checkedKeys,
+      scores:           scoresForAnalytics
+    }}));
   });
 
   document.querySelectorAll('input[name="node"]').forEach(function(checkbox) {
@@ -928,21 +788,15 @@
     });
   });
 
-  document.querySelectorAll('input[name="ft_use_ai"]').forEach(function(radio) {
-    radio.addEventListener("change", function() {
-      persistUiState(document.getElementById("result_area").style.display === "block");
-    });
-  });
-
   document.getElementById("btn_reset_diag").addEventListener("click", function() {
     document.querySelectorAll('input[name="node"]').forEach(function(el){ el.checked = false; });
-    document.querySelectorAll('input[name="r_use_ai"]').forEach(function(el){ el.checked = false; });
     document.getElementById("result_area").style.display = "none";
     document.querySelectorAll(".fast-track-step").forEach(function(b){ b.classList.remove("is-selected"); });
     selectedFtStage = null;
     document.getElementById("btn_fast_track_go").disabled = true;
     var restoreNote = document.getElementById("diag_restore_note");
     if (restoreNote) restoreNote.style.display = "none";
+    updateProgress();
     try {
       sessionStorage.removeItem("aiwise-questionnaire-state");
       sessionStorage.removeItem(uiStateKey);
@@ -974,6 +828,7 @@
 
 })();
 </script>
+<script src="analytics.js"></script>
 <script src="ui-effects.js"></script>
 </body>
 </html>

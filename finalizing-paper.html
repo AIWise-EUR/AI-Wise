@@ -6,51 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-stage="finalizing">
 <header class="main-header">
   <div class="header-inner">
+    <img src="erasmus-logo.png" alt="Erasmus University Rotterdam" class="header-logo">
     <h1>AI-Wise Module</h1>
+    <span class="header-step-badge" id="header_step_badge"></span>
   </div>
 </header>
-
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <hr class="nav-divider">
-  <a href="diagnostic-questionnaire-final.html" class="diagnostic-link">Diagnostic Questionnaire</a>
-  <a href="exploring-topic.html">Exploring a topic</a>
-  <a href="research-question.html">Formulating a central research question</a>
-  <a href="searching-literature.html">Searching for and selecting scientific literature</a>
-  <a href="organizing-literature.html">Organizing literature</a>
-  <a href="draft-outline.html">Creating a draft structure or outline</a>
-  <a href="writing-sections.html">Writing sections of the literature review</a>
-  <a href="finalizing-paper.html" class="active">Finalizing the paper</a></nav>
-
-
 
 <section>
   <div class="page-content pageShell">
     <h2>Finalizing the Paper</h2>
     <div class="stage-intro">
-      <p>
-        At this stage, the goal is to finalize your paper by checking how well it meets the rubric. Rather than focusing only on improving language or making the text sound better, you review your work systematically to identify whether any important requirements are still missing or insufficiently developed.
-      </p>
-      <p style="margin-bottom: 0;">
-        If a clear issue is identified, you are expected to return to the relevant earlier step, gather or refine what is needed, and then come back to check again. This page supports an iterative process of checking and revising, helping you focus on the most important improvements before submission.
-      </p>
+      <p>At this stage, the goal is to finalize your paper by checking how well it meets the rubric. Rather than focusing only on improving language, you review your work systematically to identify whether any important requirements are still missing or insufficiently developed.</p>
+      <p style="margin-bottom: 0;">If a clear issue is identified, you are expected to return to the relevant earlier step, gather or refine what is needed, and then come back to check again.</p>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 920px; margin: 18px auto 16px auto;">
-      <a href="https://canvas.eur.nl/courses/51313/pages/rubric-and-minimum-requirements-literature-report?module_item_id=1415975" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-        <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Literature Report Review criteria</span>
-        <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
+    <div style="max-width: 920px; margin: 18px auto 16px auto;">
+      <a href="https://canvas.eur.nl/courses/51313/pages/rubric-and-minimum-requirements-literature-report?module_item_id=1415975" target="_blank" rel="noopener" class="canvas-card">
+        <span class="canvas-card-title">Literature Report Review criteria</span>
+        <span class="canvas-card-action">View on Canvas &rarr;</span>
       </a>
-      <div class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; margin: 0;">
-        <a href="UK_Rubric_Literature+Report+Review+criteria.docx" download="UK_Rubric_Literature_Report_Review_criteria.docx" class="rubric-download-btn" style="margin-bottom: 8px;">Download rubric (.docx)</a>
-        <p class="rubric-download-tip" style="margin: 0; font-size: 0.85em;">Tip: Attach the rubric to your GenAI chat session or paste relevant criteria into your prompt.</p>
-      </div>
     </div>
 
     <div id="genai_description_card" class="genaiIntro softCard" style="margin-top: 52px;">
@@ -58,35 +35,19 @@
         <div class="genaiIntroPill">Using GenAI in AWSI</div>
         <h3 class="genaiIntroTitle">Final Check of your paper using the Rubric</h3>
       </div>
-
-      <p class="genaiIntroText">
-        In this activity, you go through your paper using the rubric as a checklist. Instead of trying to improve everything at once, you focus on one criterion at a time and check whether your paper sufficiently meets that requirement.
-      </p>
-
-      <p class="genaiIntroText">
-        With GenAI, the goal is not to rewrite your work, but to support this checking process. For each criterion, you provide the relevant part of your paper and ask GenAI to determine whether a substantial issue is present. If a clear issue is identified, GenAI helps you understand why it matters and suggests possible revision directions. These may include returning to earlier steps such as exploring the topic, refining your draft structure, or revising specific sections of your writing.
-      </p>
-
-      <p class="genaiIntroText">
-        Importantly, GenAI's feedback is based on general patterns learned from large amounts of text. This means it is designed to produce responses that are typically reasonable or commonly acceptable, but not necessarily the most precise or context-specific judgment for your paper. For this reason, the final evaluation should be based on a combination of your own understanding of the rubric and GenAI's feedback. You are expected to compare both and decide whether a revision is needed and what kind of revision is most appropriate.
-      </p>
-
-      <p class="genaiIntroText" style="margin-bottom: 0;">
-        As a result, GenAI is particularly useful for detecting clear and substantial issues, rather than refining your paper to the highest possible level. For more nuanced improvements and higher-level quality decisions, it is recommended to discuss your work with peers, tutors, or the course coordinator.
-      </p>
+      <p class="genaiIntroText">In this activity, you go through your paper using the rubric as a checklist. Instead of trying to improve everything at once, you focus on one criterion at a time and check whether your paper sufficiently meets that requirement.</p>
+      <p class="genaiIntroText">With GenAI, the goal is not to rewrite your work, but to support this checking process. For each criterion, you provide the relevant part of your paper and ask GenAI to determine whether a substantial issue is present.</p>
+      <p class="genaiIntroText">Importantly, GenAI's feedback is based on general patterns. This means it produces responses that are typically reasonable, but not necessarily the most precise judgment for your paper. The final evaluation should be based on a combination of your own understanding of the rubric and GenAI's feedback.</p>
+      <p class="genaiIntroText" style="margin-bottom: 0;">GenAI is particularly useful for detecting clear and substantial issues, rather than refining your paper to the highest possible level. For more nuanced improvements, discuss your work with peers, tutors, or the course coordinator.</p>
     </div>
 
     <div class="pre-prompt-space genai-flow-gap" id="pre_prompt_space"></div>
 
-        <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
+    <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
-        <p class="prompt-box-intro">
-          The preset prompts are designed to structure your interaction with GenAI. They are not templates for a final answer, but tools to guide your reasoning process.
-        </p>
-        <p class="prompt-box-intro">
-          You will find two types of prompts below: a Course preset prompt and an Activity preset prompt. They serve different purposes.
-        </p>
+        <p class="prompt-box-intro">The preset prompts are designed to structure your interaction with GenAI. They are not templates for a final answer, but tools to guide your reasoning process.</p>
+        <p class="prompt-box-intro">You will find two types of prompts below: a Course preset prompt and an Activity preset prompt. They serve different purposes.</p>
         <p class="prompt-box-intro" style="margin-bottom: 0;">
           <strong>Practical use</strong><br>
           1. Copy the Course preset prompt first.<br>
@@ -95,7 +56,6 @@
           4. Use the output critically and refine your work based on the logic.
         </p>
       </div>
-
       <div class="promptGrid">
         <div class="promptBlock">
           <p class="promptBlockTitle">Course Preset Prompts:</p>
@@ -108,7 +68,6 @@
             <pre id="course_prompt_text" class="prompt-pre"></pre>
           </details>
         </div>
-
         <div id="section_activity_prompt" class="promptBlock activity-box">
           <p class="promptBlockTitle">Activity Preset Prompt for this section:</p>
           <div class="promptButtonRow">
@@ -128,96 +87,19 @@
 </section>
 
 <script src="preset-prompts.js"></script>
+<script src="activity-common.js"></script>
 <script>
 (function () {
-  const CURRENT_STAGE = "finalizing";
+  var presets = window.AIWISE_PRESETS || {};
+  var course = presets.course || "";
+  var activity = (presets.activities || {}).finalizing || "";
+  var C = window.AIWISE_COMMON;
 
-  const params = new URLSearchParams(window.location.search);
-  const fromQuery = params.get("from") === "questionnaire";
-  const stageFromQuery = params.get("stage") || "";
-  const useAiFromQuery = params.get("use_ai") || "";
-
-  let stored = null;
-  try {
-    stored = JSON.parse(sessionStorage.getItem("aiwise-questionnaire-state") || "null");
-  } catch (error) {
-    stored = null;
-  }
-
-  const recommendedStage = stageFromQuery || (stored && stored.stage) || "";
-  const useAi = useAiFromQuery || (stored && stored.useAi) || "";
-  const cameFromQuestionnaire = Boolean(fromQuery || (stored && stored.fromQuestionnaire));
-  const isMatchedRecommendation = cameFromQuestionnaire && recommendedStage === CURRENT_STAGE;
-
-  const recommendedInfo = document.getElementById("recommended_info");
-  const genaiDescriptionCard = document.getElementById("genai_description_card");
-  const promptPanel = document.getElementById("section_prompt_panel");
-  const activityPanel = document.getElementById("section_activity_prompt");
-  const coursePromptText = document.getElementById("course_prompt_text");
-  const activityPromptText = document.getElementById("activity_prompt_text");
-
-  const btnCopyCoursePrompt = document.getElementById("btn_copy_course_prompt");
-  const btnDownloadCoursePrompt = document.getElementById("btn_download_course_prompt");
-  const btnCopyActivityPrompt = document.getElementById("btn_copy_activity_prompt");
-  const btnDownloadActivityPrompt = document.getElementById("btn_download_activity_prompt");
-
-  const presets = window.AIWISE_PRESETS || {};
-  const coursePreset = presets.course || "";
-  const activityPresets = presets.activities || {};
-  const activityPreset = activityPresets[CURRENT_STAGE] || "";
-
-  function setButtonFeedback(button, message) {
-    const original = button.textContent;
-    button.textContent = message;
-    window.setTimeout(() => {
-      button.textContent = original;
-    }, 1300);
-  }
-
-  function copyPrompt(text, button) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        setButtonFeedback(button, "Copied");
-      }).catch(() => {
-        setButtonFeedback(button, "Copy failed");
-      });
-      return;
-    }
-    setButtonFeedback(button, "Clipboard unavailable");
-  }
-
-  function downloadPrompt(text, filename) {
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-  }
-
-  if (coursePromptText) coursePromptText.textContent = coursePreset;
-  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
-
-  btnCopyCoursePrompt.addEventListener("click", () => {
-    copyPrompt(coursePreset, btnCopyCoursePrompt);
-  });
-
-  btnDownloadCoursePrompt.addEventListener("click", () => {
-    downloadPrompt(coursePreset, "course-preset-prompt.txt");
-  });
-
-  btnCopyActivityPrompt.addEventListener("click", () => {
-    copyPrompt(activityPreset, btnCopyActivityPrompt);
-  });
-
-  btnDownloadActivityPrompt.addEventListener("click", () => {
-    downloadPrompt(activityPreset, "activity-preset-prompt.txt");
-  });
+  C.wirePromptBlock(course, "course_prompt_text", "btn_copy_course_prompt", "btn_download_course_prompt", "course-preset-prompt.txt");
+  C.wirePromptBlock(activity, "activity_prompt_text", "btn_copy_activity_prompt", "btn_download_activity_prompt", "activity-preset-prompt.txt");
 })();
 </script>
+<script src="analytics.js"></script>
 <script src="ui-effects.js"></script>
 </body>
 </html>

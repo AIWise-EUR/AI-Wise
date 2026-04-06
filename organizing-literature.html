@@ -6,29 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-stage="organizing">
 <header class="main-header">
   <div class="header-inner">
+    <img src="erasmus-logo.png" alt="Erasmus University Rotterdam" class="header-logo">
     <h1>AI-Wise Module</h1>
+    <span class="header-step-badge" id="header_step_badge"></span>
   </div>
 </header>
-
-<nav>
-  <div class="nav-logo-wrap">
-    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
-  </div>
-  <a href="lobby.html">Home</a>
-  <hr class="nav-divider">
-  <a href="diagnostic-questionnaire-final.html" class="diagnostic-link">Diagnostic Questionnaire</a>
-  <a href="exploring-topic.html">Exploring a topic</a>
-  <a href="research-question.html">Formulating a central research question</a>
-  <a href="searching-literature.html">Searching for and selecting scientific literature</a>
-  <a href="organizing-literature.html" class="active">Organizing literature</a>
-  <a href="draft-outline.html">Creating a draft structure or outline</a>
-  <a href="writing-sections.html">Writing sections of the literature review</a>
-  <a href="finalizing-paper.html">Finalizing the paper</a></nav>
-
-
 
 <section>
   <div class="page-content pageShell">
@@ -57,14 +42,14 @@
     </div>
 
     <section id="organizing-handout" style="max-width: 920px; line-height: 1.55; margin: 0 auto; color: #626c6e;">
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
-        <a href="https://canvas.eur.nl/courses/51313/pages/annex-8-required-reading-instructions-for-scientific-articles?module_item_id=1415997" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-          <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Annex VIII: Required Reading Instructions for Scientific Articles</span>
-          <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
+      <div class="canvas-card-grid">
+        <a href="https://canvas.eur.nl/courses/51313/pages/annex-8-required-reading-instructions-for-scientific-articles?module_item_id=1415997" target="_blank" rel="noopener" class="canvas-card">
+          <span class="canvas-card-title">Appendix VIII: Required Reading Instructions for Scientific Articles</span>
+          <span class="canvas-card-action">View on Canvas &rarr;</span>
         </a>
-        <a href="https://canvas.eur.nl/courses/51313/pages/templates-en?module_item_id=1415976" target="_blank" rel="noopener" class="softCard" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; text-decoration: none; margin: 0;">
-          <span style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Template Literature Overview</span>
-          <span style="color: #1b4c52; font-weight: 600; font-size: 0.9em;">View on Canvas &rarr;</span>
+        <a href="https://canvas.eur.nl/courses/51313/pages/templates-en?module_item_id=1415976" target="_blank" rel="noopener" class="canvas-card">
+          <span class="canvas-card-title">Template Literature Overview</span>
+          <span class="canvas-card-action">View on Canvas &rarr;</span>
         </a>
       </div>
     </section>
@@ -74,27 +59,17 @@
         <div class="genaiIntroPill">Using GenAI in AWSI</div>
         <h3 class="genaiIntroTitle">Formulating a Literature Overview Table</h3>
       </div>
-
-      <p class="genaiIntroText">
-        This step focuses on translating your reading into a structured overview of the literature. After selecting relevant articles, your task is to read each paper and extract its key components into the literature overview table. The purpose is not to produce perfect summaries, but to build a clear, organized "top view" of your sources. This overview serves as the foundation for later stages, where you will compare studies, identify patterns, and construct your argument. At this stage, the priority is to capture your understanding in a structured form, not to refine or evaluate it.
-      </p>
-
-      <p class="genaiIntroText" style="margin-bottom: 0;">
-        GenAI in this activity functions as a language support tool, not as a source of content. The informational process should remain: paper -> student -> (GenAI) -> table. You are responsible for understanding the article and deciding what information is relevant. GenAI supports you by helping you express that understanding more clearly, efficiently, and in an academically appropriate way. This reduces friction in writing and allows you to stay focused on the thinking process rather than wording or formatting. It helps you elaborate incomplete ideas, refine phrasing, and maintain flow, but it does not replace reading, interpretation, or decision making.
-      </p>
+      <p class="genaiIntroText">This step focuses on translating your reading into a structured overview of the literature. After selecting relevant articles, your task is to read each paper and extract its key components into the literature overview table. The purpose is not to produce perfect summaries, but to build a clear, organized "top view" of your sources.</p>
+      <p class="genaiIntroText" style="margin-bottom: 0;">GenAI in this activity functions as a language support tool, not as a source of content. The informational process should remain: paper -> student -> (GenAI) -> table. You are responsible for understanding the article and deciding what information is relevant. GenAI supports you by helping you express that understanding more clearly.</p>
     </div>
 
     <div class="pre-prompt-space genai-flow-gap" id="pre_prompt_space"></div>
 
-        <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
+    <div id="section_prompt_panel" class="prompt-box section-prompt-panel">
       <div class="promptHeader">
         <h3 class="promptTitle">Using the preset prompts</h3>
-        <p class="prompt-box-intro">
-          The preset prompts are designed to structure your interaction with GenAI. They are not templates for a final answer, but tools to guide your reasoning process.
-        </p>
-        <p class="prompt-box-intro">
-          You will find two types of prompts below: a Course preset prompt and an Activity preset prompt. They serve different purposes.
-        </p>
+        <p class="prompt-box-intro">The preset prompts are designed to structure your interaction with GenAI. They are not templates for a final answer, but tools to guide your reasoning process.</p>
+        <p class="prompt-box-intro">You will find two types of prompts below: a Course preset prompt and an Activity preset prompt. They serve different purposes.</p>
         <p class="prompt-box-intro" style="margin-bottom: 0;">
           <strong>Practical use</strong><br>
           1. Copy the Course preset prompt first.<br>
@@ -103,7 +78,6 @@
           4. Use the output critically and refine your work based on the logic.
         </p>
       </div>
-
       <div class="promptGrid">
         <div class="promptBlock">
           <p class="promptBlockTitle">Course Preset Prompts:</p>
@@ -116,7 +90,6 @@
             <pre id="course_prompt_text" class="prompt-pre"></pre>
           </details>
         </div>
-
         <div id="section_activity_prompt" class="promptBlock activity-box">
           <p class="promptBlockTitle">Activity specific prompt for this section:</p>
           <div class="promptButtonRow">
@@ -136,96 +109,19 @@
 </section>
 
 <script src="preset-prompts.js"></script>
+<script src="activity-common.js"></script>
 <script>
 (function () {
-  const CURRENT_STAGE = "organizing";
+  var presets = window.AIWISE_PRESETS || {};
+  var course = presets.course || "";
+  var activity = (presets.activities || {}).organizing || "";
+  var C = window.AIWISE_COMMON;
 
-  const params = new URLSearchParams(window.location.search);
-  const fromQuery = params.get("from") === "questionnaire";
-  const stageFromQuery = params.get("stage") || "";
-  const useAiFromQuery = params.get("use_ai") || "";
-
-  let stored = null;
-  try {
-    stored = JSON.parse(sessionStorage.getItem("aiwise-questionnaire-state") || "null");
-  } catch (error) {
-    stored = null;
-  }
-
-  const recommendedStage = stageFromQuery || (stored && stored.stage) || "";
-  const useAi = useAiFromQuery || (stored && stored.useAi) || "";
-  const cameFromQuestionnaire = Boolean(fromQuery || (stored && stored.fromQuestionnaire));
-  const isMatchedRecommendation = cameFromQuestionnaire && recommendedStage === CURRENT_STAGE;
-
-  const recommendedInfo = document.getElementById("recommended_info");
-  const genaiDescriptionCard = document.getElementById("genai_description_card");
-  const promptPanel = document.getElementById("section_prompt_panel");
-  const activityPanel = document.getElementById("section_activity_prompt");
-  const coursePromptText = document.getElementById("course_prompt_text");
-  const activityPromptText = document.getElementById("activity_prompt_text");
-
-  const btnCopyCoursePrompt = document.getElementById("btn_copy_course_prompt");
-  const btnDownloadCoursePrompt = document.getElementById("btn_download_course_prompt");
-  const btnCopyActivityPrompt = document.getElementById("btn_copy_activity_prompt");
-  const btnDownloadActivityPrompt = document.getElementById("btn_download_activity_prompt");
-
-  const presets = window.AIWISE_PRESETS || {};
-  const coursePreset = presets.course || "";
-  const activityPresets = presets.activities || {};
-  const activityPreset = activityPresets[CURRENT_STAGE] || "";
-
-  function setButtonFeedback(button, message) {
-    const original = button.textContent;
-    button.textContent = message;
-    window.setTimeout(() => {
-      button.textContent = original;
-    }, 1300);
-  }
-
-  function copyPrompt(text, button) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        setButtonFeedback(button, "Copied");
-      }).catch(() => {
-        setButtonFeedback(button, "Copy failed");
-      });
-      return;
-    }
-    setButtonFeedback(button, "Clipboard unavailable");
-  }
-
-  function downloadPrompt(text, filename) {
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-  }
-
-  if (coursePromptText) coursePromptText.textContent = coursePreset;
-  if (activityPromptText && activityPreset) activityPromptText.textContent = activityPreset;
-
-  btnCopyCoursePrompt.addEventListener("click", () => {
-    copyPrompt(coursePreset, btnCopyCoursePrompt);
-  });
-
-  btnDownloadCoursePrompt.addEventListener("click", () => {
-    downloadPrompt(coursePreset, "course-preset-prompt.txt");
-  });
-
-  btnCopyActivityPrompt.addEventListener("click", () => {
-    copyPrompt(activityPreset, btnCopyActivityPrompt);
-  });
-
-  btnDownloadActivityPrompt.addEventListener("click", () => {
-    downloadPrompt(activityPreset, "activity-preset-prompt.txt");
-  });
+  C.wirePromptBlock(course, "course_prompt_text", "btn_copy_course_prompt", "btn_download_course_prompt", "course-preset-prompt.txt");
+  C.wirePromptBlock(activity, "activity_prompt_text", "btn_copy_activity_prompt", "btn_download_activity_prompt", "activity-preset-prompt.txt");
 })();
 </script>
+<script src="analytics.js"></script>
 <script src="ui-effects.js"></script>
 </body>
 </html>

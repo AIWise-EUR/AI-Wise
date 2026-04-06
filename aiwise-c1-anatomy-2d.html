@@ -177,7 +177,7 @@ svg#diagram {
   <button class="tb-btn" onclick="setView('inference')">Inference Cycle</button>
   <div class="tb-sep"></div>
   <button class="tb-btn" onclick="resetView()">Reset</button>
-  <span class="tb-hint">Scroll to zoom · Drag to pan · Hover to inspect</span>
+  <span class="tb-hint">Scroll to zoom in · Drag to pan · Hover to inspect</span>
 </div>
 
 <!-- CANVAS -->
@@ -867,16 +867,37 @@ document.getElementById('nodes').addEventListener('mouseout', e => {
 // PAN + ZOOM
 // ─────────────────────────────────────────────────────────────
 
-let vx = -20, vy = 60, scale = 0.58;
+let vx = 0, vy = 0, scale = 1;
+let baseScale = 1; // the fit-to-view scale — zoom out floor
 let isDragging = false, lastX = 0, lastY = 0;
 
 function applyTransform() {
   root.setAttribute('transform', `translate(${vx},${vy}) scale(${scale})`);
 }
-applyTransform();
 
 const wrap = document.getElementById('wrap');
 
+// Fit-to-view: measure SVG content bbox, then scale/center to fill viewport
+function fitToView() {
+  // Temporarily reset transform so getBBox returns true content bounds
+  root.setAttribute('transform', 'translate(0,0) scale(1)');
+  const bbox = root.getBBox();
+  const rect = wrap.getBoundingClientRect();
+  const pad = 24; // px padding around edges
+  const sw = (rect.width  - pad * 2) / bbox.width;
+  const sh = (rect.height - pad * 2) / bbox.height;
+  baseScale = Math.min(sw, sh);
+  scale = baseScale;
+  vx = (rect.width  - bbox.width  * scale) / 2 - bbox.x * scale;
+  vy = (rect.height - bbox.height * scale) / 2 - bbox.y * scale;
+  applyTransform();
+}
+
+// Run fit after first paint so layout is ready
+requestAnimationFrame(() => requestAnimationFrame(fitToView));
+window.addEventListener('resize', fitToView);
+
+// Mouse drag pan
 wrap.addEventListener('mousedown', e => {
   if (e.button !== 0) return;
   isDragging = true; lastX = e.clientX; lastY = e.clientY;
@@ -889,18 +910,22 @@ window.addEventListener('mousemove', e => {
   applyTransform();
 });
 
+// Wheel: zoom in/out, but never below fit-to-view scale
 wrap.addEventListener('wheel', e => {
   e.preventDefault();
   const factor = e.deltaY < 0 ? 1.1 : 0.91;
   const rect = wrap.getBoundingClientRect();
   const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-  vx = mx - (mx - vx) * factor;
-  vy = my - (my - vy) * factor;
-  scale = Math.min(3, Math.max(0.25, scale * factor));
+  const newScale = Math.min(3, Math.max(baseScale, scale * factor));
+  if (newScale === scale) return;
+  const f = newScale / scale;
+  vx = mx - (mx - vx) * f;
+  vy = my - (my - vy) * f;
+  scale = newScale;
   applyTransform();
 }, { passive: false });
 
-// Touch pan
+// Touch pan (single finger)
 let lastTouchX = 0, lastTouchY = 0;
 wrap.addEventListener('touchstart', e => { lastTouchX = e.touches[0].clientX; lastTouchY = e.touches[0].clientY; });
 wrap.addEventListener('touchmove', e => {
@@ -932,7 +957,7 @@ function animateTo(tx, ty, ts, duration=500) {
 }
 
 const VIEWS = {
-  full:      () => animateTo(-20,  60,  0.58),
+  full:      () => { fitToView(); },
   training:  () => animateTo(-380, 100, 0.72),
   inference: () => animateTo(-380, -80, 0.72),
 };
