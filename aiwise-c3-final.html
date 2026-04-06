@@ -38,11 +38,25 @@ body {
 .ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
 .ui-transition-target.ui-leaving { opacity: 0; transform: translateY(4px); }
 
+/* PAGE LAYOUT: content + side nav */
+.page-layout {
+  display: flex;
+  align-items: flex-start;
+}
+.page-content {
+  flex: 1;
+  min-width: 0;
+}
+.side-nav-rail {
+  width: 228px;
+  flex-shrink: 0;
+  padding: 24px 14px 24px 0;
+}
+
 /* RIGHT STICKY NAV */
 .side-nav {
-  position: fixed;
+  position: sticky;
   top: 80px;
-  right: 28px;
   width: 200px;
   background: #fff;
   border: 1px solid var(--border);
@@ -99,7 +113,7 @@ body {
 .breadcrumb { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
 .breadcrumb span { color: var(--border); }
 
-.page { margin-right: 240px; }
+.page { }
 
 .hero {
   background: var(--nav-bg); padding: 64px 40px 56px;
@@ -209,8 +223,7 @@ body {
 }
 
 @media (max-width: 1100px) {
-  .side-nav { display: none; }
-  .page { margin-right: 0; }
+  .side-nav-rail { display: none; }
 }
 @media (max-width: 900px) {
   .hero, .section, .sources, .next-bar { padding-left: 20px; padding-right: 20px; }
@@ -227,14 +240,6 @@ body {
 
 
 
-<!-- RIGHT STICKY NAV -->
-<div class="side-nav" id="sideNav">
-  <a href="aiwise-c1-final.html">C1 · What is GenAI?</a>
-  <a href="aiwise-c2-final.html">C2 · What is AI for us?</a>
-  <a href="aiwise-c3-final.html" class="active">C3 · How to Engage</a>
-  <a href="diagnostic-questionnaire-final.html" style="color:#c97a3a;font-weight:600;">GenAI in AWS I</a>
-  <a class="side-nav-home" href="lobby.html">← Back to Home</a>
-</div>
 
 <header class="main-header">
   <a href="lobby.html" class="header-home-link">
@@ -246,7 +251,8 @@ body {
   </div>
 </header>
 
-<main class="page ui-transition-target">
+<div class="page-layout">
+<main class="page-content ui-transition-target">
   <section class="hero">
     <div class="hero-grid"></div>
     <div class="hero-inner fade-up">
@@ -290,6 +296,18 @@ body {
     <a class="next-btn" href="diagnostic-questionnaire-final.html">Continue →</a>
   </div>
 </main>
+
+<!-- RIGHT STICKY NAV -->
+<aside class="side-nav-rail">
+  <div class="side-nav" id="sideNav">
+    <a href="aiwise-c1-final.html">C1 · What is GenAI?</a>
+    <a href="aiwise-c2-final.html">C2 · What is AI for us?</a>
+    <a href="aiwise-c3-final.html" class="active">C3 · How to Engage</a>
+    <a href="diagnostic-questionnaire-final.html" style="color:#c97a3a;font-weight:600;">GenAI in AWS I</a>
+    <a class="side-nav-home" href="lobby.html">← Back to Home</a>
+  </div>
+</aside>
+</div><!-- /page-layout -->
 
 <script src="ui-effects.js"></script>
 
