@@ -69,6 +69,7 @@ body {
 .side-nav-rail {
   width: 228px;
   flex-shrink: 0;
+  align-self: stretch;
   padding: 24px 14px 24px 0;
 }
 
@@ -209,13 +210,19 @@ body {
   margin-right: auto;
 }
 
-/* PART HEADERS */
+/* PART BLOCKS — flowing sections with alternating backgrounds */
+.part-block {
+  margin-left: -40px; margin-right: -40px;
+  padding: 48px 40px;
+}
+.part-block:nth-child(odd) { background: #fff; }
+.part-block:nth-child(even) { background: var(--teal-pale); }
 .part-header {
-  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--accent);
-  margin-top: 48px; margin-bottom: 20px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--teal-mid);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 800; letter-spacing: 0.02em;
+  color: var(--accent);
+  margin-bottom: 24px;
 }
 
 /* TWO CARDS SIDE BY SIDE */
@@ -398,54 +405,80 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 24px;
   margin-top: 32px;
+  max-width: 100%;
 }
-.comparison-col { display: flex; flex-direction: column; gap: 14px; }
+.comparison-col {
+  display: flex; flex-direction: column;
+  border-radius: var(--radiusLg);
+  overflow: hidden;
+}
 .comparison-col-header {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; padding: 10px 14px;
-  border-radius: var(--radiusMd);
-  margin-bottom: 4px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px 18px;
 }
 .comparison-col-icon {
-  font-size: 13px; font-weight: 700;
-  width: 24px; height: 24px; border-radius: 50%;
+  font-size: 13px; font-weight: 800;
+  width: 30px; height: 30px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 .col-human-leads {
-  background: rgba(43,93,99,0.08); color: var(--accent);
-  border: 1px solid rgba(43,93,99,0.18);
+  background: var(--accent); color: #fff;
 }
-.col-human-leads .comparison-col-icon { background: rgba(43,93,99,0.15); color: var(--accent); }
+.col-human-leads .comparison-col-icon { background: rgba(255,255,255,0.2); color: #fff; }
 .col-both {
-  background: rgba(176,123,26,0.08); color: var(--amber);
-  border: 1px solid rgba(176,123,26,0.18);
+  background: var(--amber); color: #fff;
 }
-.col-both .comparison-col-icon { background: rgba(176,123,26,0.15); color: var(--amber); }
+.col-both .comparison-col-icon { background: rgba(255,255,255,0.2); color: #fff; }
 .col-genai-leads {
-  background: rgba(83,74,183,0.08); color: var(--purple);
-  border: 1px solid rgba(83,74,183,0.18);
+  background: var(--purple); color: #fff;
 }
-.col-genai-leads .comparison-col-icon { background: rgba(83,74,183,0.15); color: var(--purple); }
+.col-genai-leads .comparison-col-icon { background: rgba(255,255,255,0.2); color: #fff; }
+
+.comparison-col-body {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radiusLg) var(--radiusLg);
+}
 
 .fn-card {
-  padding: 20px 22px;
-  border-radius: var(--radiusMd);
-  border: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   background: #fff;
-  box-shadow: var(--shadowSm);
-  transition: box-shadow 0.2s, transform 0.2s;
+  overflow: hidden;
 }
-.fn-card:hover { box-shadow: var(--shadowMd); transform: translateY(-1px); }
+.fn-card:last-child { border-bottom: none; }
 .fn-card.human-lead { border-left: 3px solid var(--accent); }
 .fn-card.both-capable { border-left: 3px solid var(--amber); }
 .fn-card.genai-lead { border-left: 3px solid var(--purple); }
 .fn-card-title {
-  font-size: 13.5px; font-weight: 700; color: var(--text); margin-bottom: 8px;
+  font-size: 14px; font-weight: 600; color: var(--text);
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; margin: 0;
+  transition: background 0.2s;
+  user-select: none;
 }
+.fn-card-title:hover { background: #f8faf9; }
+.fn-card-title::after {
+  content: "+"; font-size: 16px; font-weight: 400;
+  color: var(--muted); flex-shrink: 0;
+}
+.fn-card.open .fn-card-title::after { content: "\2212"; }
 .fn-card-body {
-  font-size: 0.85rem; color: var(--muted); line-height: 1.7;
+  font-size: 0.84rem; color: var(--muted); line-height: 1.7;
+  padding: 0 18px;
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.fn-card.open .fn-card-body {
+  max-height: 300px;
+  padding: 0 18px 16px;
 }
 
 /* FRAMEWORK TEXT (Section 3) */
@@ -584,15 +617,16 @@ body {
   <!-- ============================================================ -->
   <section class="section" id="section-1">
     <div class="section-tag">Section 1</div>
-    <h3>Why they differ</h3>
+    <h3>Is Artifical Intelligence Same as Human Intelligence?
+    </h3>
 
     <div class="section-body">
       <p>Before comparing what humans and GenAI can do, it is necessary to understand why they differ in the first place. The differences are not superficial. They are structural, rooted in how each system receives and processes information.</p>
     </div>
 
     <!-- PART A -->
-    <div class="part-block">
-      <div class="part-header" id="part-a">Part A: Input channel asymmetry</div>
+    <div class="part-block" id="part-a">
+      <div class="part-header">Part A: Input channel asymmetry</div>
       <div class="section-body">
         <p>Think about the last time you saw an elephant. Not in a photo, but in real life. You didn't just see it. You smelled it. You heard it breathe. You felt the ground vibrate slightly under its weight. All of that entered your brain at once, and all of it shaped what "elephant" means to you.</p>
         <p>Now think about what happens when a language model encounters the word "elephant." It receives a token. A numerical code that represents the word. That's it. No smell, no sound, no sense of scale. Just a number in a sequence of numbers.</p>
@@ -636,8 +670,8 @@ body {
     </div>
 
     <!-- PART B -->
-    <div class="part-block">
-      <div class="part-header" id="part-b">Part B: Distance from reality</div>
+    <div class="part-block" id="part-b">
+      <div class="part-header">Part B: Distance from reality</div>
       <div class="section-body">
         <p>The information GenAI learns from is not reality. It is a filtered, compressed, and unevenly sampled version of what people have written online.</p>
         <p>Think of it like a chain. At each link, something gets lost.</p>
@@ -687,8 +721,8 @@ body {
     </div>
 
     <!-- PART C -->
-    <div class="part-block">
-      <div class="part-header" id="part-c">Part C: Intentional information loss</div>
+    <div class="part-block" id="part-c">
+      <div class="part-header">Part C: Intentional information loss</div>
       <div class="section-body">
         <p>When you ask GenAI something, you type a prompt. But think about everything that shaped your question before you started typing. Your background knowledge. Your assumptions about what matters. Your emotional investment in the topic. The context you are working in. The criteria you have in your head but never spelled out.</p>
         <p>Most of that never makes it into the prompt. It can't. You would need to write pages just to capture what you already know without thinking about it.</p>
@@ -892,21 +926,23 @@ body {
           <div class="comparison-col-icon">H</div>
           Human leads
         </div>
-        <div class="fn-card human-lead">
-          <div class="fn-card-title">Perception</div>
-          <div class="fn-card-body">Humans receive the world through five senses at once, integrated into one experience. GenAI receives tokens. The gap is largest for bodily, physical experience, and partially closed for vision in multimodal models.</div>
-        </div>
-        <div class="fn-card human-lead">
-          <div class="fn-card-title">Emotional processing</div>
-          <div class="fn-card-body">Humans experience emotion as a genuine internal state that shapes thinking, motivation, and behavior. GenAI recognizes and produces emotionally appropriate language, but has no internal feeling behind it.</div>
-        </div>
-        <div class="fn-card human-lead">
-          <div class="fn-card-title">Metacognition</div>
-          <div class="fn-card-body">Humans know what they know and what they don't. They monitor their own confidence and adjust. GenAI produces confidence estimates through probability distributions, but has no persistent self check. This is part of why it can say something false without hesitating.</div>
-        </div>
-        <div class="fn-card human-lead">
-          <div class="fn-card-title">Social cognition</div>
-          <div class="fn-card-body">Humans develop social understanding through real relationships, emotional resonance, and years of interaction. GenAI can pass structured social reasoning tests at high levels, but without the developmental grounding and relational stakes behind it.</div>
+        <div class="comparison-col-body">
+          <div class="fn-card human-lead">
+            <div class="fn-card-title">Perception</div>
+            <div class="fn-card-body">Humans receive the world through five senses at once, integrated into one experience. GenAI receives tokens. The gap is largest for bodily, physical experience, and partially closed for vision in multimodal models.</div>
+          </div>
+          <div class="fn-card human-lead">
+            <div class="fn-card-title">Emotional processing</div>
+            <div class="fn-card-body">Humans experience emotion as a genuine internal state that shapes thinking, motivation, and behavior. GenAI recognizes and produces emotionally appropriate language, but has no internal feeling behind it.</div>
+          </div>
+          <div class="fn-card human-lead">
+            <div class="fn-card-title">Metacognition</div>
+            <div class="fn-card-body">Humans know what they know and what they don't. They monitor their own confidence and adjust. GenAI produces confidence estimates through probability distributions, but has no persistent self check. This is part of why it can say something false without hesitating.</div>
+          </div>
+          <div class="fn-card human-lead">
+            <div class="fn-card-title">Social cognition</div>
+            <div class="fn-card-body">Humans develop social understanding through real relationships, emotional resonance, and years of interaction. GenAI can pass structured social reasoning tests at high levels, but without the developmental grounding and relational stakes behind it.</div>
+          </div>
         </div>
       </div>
 
@@ -916,21 +952,23 @@ body {
           <div class="comparison-col-icon">&#8596;</div>
           Both capable, depends on the task
         </div>
-        <div class="fn-card both-capable">
-          <div class="fn-card-title">Short term storage</div>
-          <div class="fn-card-body">Human working memory holds roughly four to seven chunks and actively manipulates them. GenAI context windows hold thousands of tokens passively. Studies show comparable limits under active maintenance conditions, but humans manipulate held information more flexibly.</div>
-        </div>
-        <div class="fn-card both-capable">
-          <div class="fn-card-title">Reasoning</div>
-          <div class="fn-card-body">Humans support causal, counterfactual, and analogical reasoning and adapt flexibly to new situations. GenAI outperforms humans on some structured reasoning tasks, but fails on tasks that require distinguishing observation from intervention, or deliberately exploring uncertain options.</div>
-        </div>
-        <div class="fn-card both-capable">
-          <div class="fn-card-title">Language processing</div>
-          <div class="fn-card-body">Humans integrate grammar with pragmatics, social intent, and contextual meaning. GenAI achieves strong grammatical competence but functional competence (using language appropriately in context) is uneven. The key insight: language ability and thinking ability are separate systems, and GenAI has acquired one without fully having the other.</div>
-        </div>
-        <div class="fn-card both-capable">
-          <div class="fn-card-title">Creativity</div>
-          <div class="fn-card-body">Humans produce highly variable creative output, with the best human work exceeding anything GenAI produces. GenAI raises the floor by producing consistently competent results, but the upper tail is smaller. Attempts to boost GenAI creativity through prompt engineering have yielded mixed to negative results.</div>
+        <div class="comparison-col-body">
+          <div class="fn-card both-capable">
+            <div class="fn-card-title">Short term storage</div>
+            <div class="fn-card-body">Human working memory holds roughly four to seven chunks and actively manipulates them. GenAI context windows hold thousands of tokens passively. Studies show comparable limits under active maintenance conditions, but humans manipulate held information more flexibly.</div>
+          </div>
+          <div class="fn-card both-capable">
+            <div class="fn-card-title">Reasoning</div>
+            <div class="fn-card-body">Humans support causal, counterfactual, and analogical reasoning and adapt flexibly to new situations. GenAI outperforms humans on some structured reasoning tasks, but fails on tasks that require distinguishing observation from intervention, or deliberately exploring uncertain options.</div>
+          </div>
+          <div class="fn-card both-capable">
+            <div class="fn-card-title">Language processing</div>
+            <div class="fn-card-body">Humans integrate grammar with pragmatics, social intent, and contextual meaning. GenAI achieves strong grammatical competence but functional competence (using language appropriately in context) is uneven. The key insight: language ability and thinking ability are separate systems, and GenAI has acquired one without fully having the other.</div>
+          </div>
+          <div class="fn-card both-capable">
+            <div class="fn-card-title">Creativity</div>
+            <div class="fn-card-body">Humans produce highly variable creative output, with the best human work exceeding anything GenAI produces. GenAI raises the floor by producing consistently competent results, but the upper tail is smaller. Attempts to boost GenAI creativity through prompt engineering have yielded mixed to negative results.</div>
+          </div>
         </div>
       </div>
 
@@ -940,13 +978,15 @@ body {
           <div class="comparison-col-icon">G</div>
           GenAI leads on scale
         </div>
-        <div class="fn-card genai-lead">
-          <div class="fn-card-title">Pattern recognition</div>
-          <div class="fn-card-body">GenAI detects statistical regularities across billions of examples with consistency and speed beyond human capacity. On structured analogy tasks, it has matched or surpassed human performance, though results vary significantly across model versions and task types.</div>
-        </div>
-        <div class="fn-card genai-lead">
-          <div class="fn-card-title">Long term storage</div>
-          <div class="fn-card-body">GenAI encodes patterns from its entire training corpus into billions of parameters, far exceeding human memory in raw volume. But this knowledge is frozen at the training cutoff and cannot be updated through conversation. Human memory holds less, but keeps learning from lived experience.</div>
+        <div class="comparison-col-body">
+          <div class="fn-card genai-lead">
+            <div class="fn-card-title">Pattern recognition</div>
+            <div class="fn-card-body">GenAI detects statistical regularities across billions of examples with consistency and speed beyond human capacity. On structured analogy tasks, it has matched or surpassed human performance, though results vary significantly across model versions and task types.</div>
+          </div>
+          <div class="fn-card genai-lead">
+            <div class="fn-card-title">Long term storage</div>
+            <div class="fn-card-body">GenAI encodes patterns from its entire training corpus into billions of parameters, far exceeding human memory in raw volume. But this knowledge is frozen at the training cutoff and cannot be updated through conversation. Human memory holds less, but keeps learning from lived experience.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1223,6 +1263,12 @@ body {
   goTo(0);
 })();
 
+// ─── Accordion cards ───
+document.querySelectorAll('.fn-card-title').forEach(function(title) {
+  title.addEventListener('click', function() {
+    this.parentElement.classList.toggle('open');
+  });
+});
 </script>
 <script src="ui-effects.js"></script>
 
