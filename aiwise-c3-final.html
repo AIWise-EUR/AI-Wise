@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI-Wise · C3: How to Engage</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
 :root {
   --bg: #ffffff;
@@ -32,9 +33,7 @@ body {
   overflow-y: scroll;
 }
 
-.ui-transition-target { transition: opacity 0.38s ease, transform 0.58s ease; }
-.ui-transition-target.ui-entering { opacity: 0; transform: translateY(6px); }
-.ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
+/* UI transitions provided by styles.css */
 
 /* RIGHT STICKY NAV */
 .side-nav {
@@ -220,19 +219,15 @@ body {
 
 <!-- RIGHT STICKY NAV -->
 <div class="side-nav" id="sideNav">
-  <div class="side-nav-title">On this page</div>
-  <a href="#section-1" data-section="section-1">1 · Content Placeholder</a>
-  <a href="#section-2" data-section="section-2">2 · Content Placeholder</a>
-  <div class="side-nav-title" style="margin-top:16px;">Core Blocks</div>
   <a href="aiwise-c1-final.html">C1 · What is GenAI?</a>
   <a href="aiwise-c2-final.html">C2 · What is AI for us?</a>
-  <a href="aiwise-c3-final.html" class="active" style="font-weight:600;color:var(--accent);">C3 · How to Engage</a>
+  <a href="aiwise-c3-final.html" class="active">C3 · How to Engage</a>
   <a href="diagnostic-questionnaire-final.html" style="color:#c97a3a;font-weight:600;">GenAI in AWS I</a>
   <a class="side-nav-home" href="lobby.html">← Back to Home</a>
 </div>
 
 <header class="main-header">
-  <h1>AI-Wise</h1>
+  <h1><a href="lobby.html" style="color:inherit;text-decoration:none;">AI-Wise</a></h1>
   <div class="breadcrumb">
     <span>Core Blocks</span> › C3 · How to Engage
   </div>
@@ -274,55 +269,16 @@ body {
   </div>
 
   <div class="next-bar">
-    <div class="next-bar-text">
+    <a class="next-btn" href="aiwise-c2-final.html" style="background:transparent;border-color:rgba(255,255,255,0.2);">← C2 · What is AI for us?</a>
+    <div class="next-bar-text" style="text-align:right;">
       <h4>Next</h4>
-      <p>B1 · In This Course</p>
+      <p>GenAI in AWS I</p>
     </div>
-    <button class="next-btn">Continue to B1 →</button>
+    <a class="next-btn" href="diagnostic-questionnaire-final.html">Continue →</a>
   </div>
 </main>
 
-<script>
-(function () {
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var targets = document.querySelectorAll('.ui-transition-target');
-  targets.forEach(function(t) { t.classList.add('ui-transition-target'); });
-  if (!reduceMotion) targets.forEach(function(t) { t.classList.add('ui-entering'); });
-  function mount() {
-    if (reduceMotion) { targets.forEach(function(t) { t.classList.add('ui-mounted'); }); return; }
-    window.requestAnimationFrame(function() {
-      targets.forEach(function(t) { t.classList.remove('ui-entering'); t.classList.add('ui-mounted'); });
-    });
-  }
-  window.addEventListener('pageshow', mount);
-  mount();
-})();
-
-// ─── Scroll-tracking side nav ───
-(function() {
-  var navLinks = document.querySelectorAll('.side-nav a[data-section]');
-  var sections = [];
-  navLinks.forEach(function(link) {
-    var el = document.getElementById(link.getAttribute('data-section'));
-    if (el) sections.push({ id: link.getAttribute('data-section'), el: el, link: link });
-  });
-  function onScroll() {
-    var scrollY = window.scrollY + 120;
-    var current = null;
-    for (var i = sections.length - 1; i >= 0; i--) {
-      if (sections[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
-        current = sections[i].id;
-        break;
-      }
-    }
-    navLinks.forEach(function(link) {
-      link.classList.toggle('active', link.getAttribute('data-section') === current);
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-</script>
+<script src="ui-effects.js"></script>
 
 </body>
 </html>
