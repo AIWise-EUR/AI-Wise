@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI-Wise · C3: How to Engage</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
 <style>
 :root {
   --bg: #ffffff;
@@ -33,7 +32,11 @@ body {
   overflow-y: scroll;
 }
 
-/* UI transitions provided by styles.css */
+/* UI TRANSITIONS */
+.ui-transition-target { transition: opacity 0.38s ease, transform 0.58s ease; }
+.ui-transition-target.ui-entering { opacity: 0; transform: translateY(6px); }
+.ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
+.ui-transition-target.ui-leaving { opacity: 0; transform: translateY(4px); }
 
 /* RIGHT STICKY NAV */
 .side-nav {
