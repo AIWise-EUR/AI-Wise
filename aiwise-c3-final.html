@@ -216,29 +216,29 @@ body {
 .section .section-body { max-width: 960px; margin-left: auto; margin-right: auto; }
 .section .wide-content { max-width: 960px; margin-left: auto; margin-right: auto; }
 
-/* QUOTE BLOCK */
-.quote-block {
-  max-width: 960px; margin: 36px auto;
-  padding: 28px 32px 24px;
-  background: var(--nav-bg);
-  border-radius: var(--radiusLg);
-  border-left: 4px solid var(--gold);
-  position: relative;
+/* HERO QUOTE — calligraphic, faded */
+.hero-quote {
+  max-width: 960px; margin: 40px auto 8px;
+  padding: 0;
 }
-.quote-mark {
-  font-size: 48px; line-height: 1; color: var(--gold);
-  opacity: 0.5; font-family: Georgia, serif;
-  position: absolute; top: 16px; left: 24px;
+.hero-quote-text {
+  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  font-size: 1.35rem;
+  font-style: italic;
+  font-weight: 400;
+  color: #a3b0b1;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
 }
-.quote-text {
-  font-size: 0.95rem; color: rgba(255,255,255,0.8);
-  line-height: 1.8; font-weight: 300; font-style: italic;
-  padding-left: 28px;
-}
-.quote-attr {
-  margin-top: 14px; padding-left: 28px;
-  font-size: 12px; color: rgba(255,255,255,0.45);
-  font-weight: 500; font-style: normal;
+.hero-quote-attr {
+  margin-top: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-style: normal;
+  font-weight: 500;
+  color: #c0cac9;
+  letter-spacing: 0.03em;
+  text-align: right;
 }
 
 /* SUBSECTION DIVIDER */
@@ -487,20 +487,17 @@ details.collapsible .collapsible-body { padding: 20px 22px; background: #f4f7f6;
 
     <div class="section-body">
       <p>
-        A prompt is a text input given to AI to instruct a task. Research defines prompt engineering as "the skill of articulating a problem, its context, and the constraints of the desired solution to an AI assistant" (Federiakin et al., 2024). A scoping review simplifies the components into four: role assignment, context provision, boundary determination, and result verification.
+        A prompt is a text input given to AI to instruct a task. Research defines prompt engineering as "the skill of articulating a problem, its context, and the constraints of the desired solution to an AI assistant" (Federiakin et al., 2024).
       </p>
       <p>
-        In this module, a prompt is not a command — it is <strong>calibration</strong>. It is the act of defining what you want to do, what you expect, what process to follow, and under what conditions. Think of it as designing a space for thought — a virtual workspace where your task takes shape before AI processes it. To write a good prompt, you need to understand GenAI, but you also need to understand yourself: your task, your intention, your current stage, and your boundaries.
+        In this module, prompting is <strong>calibration</strong>. It is the act of defining what you want to do, what you expect, what process to follow, and under what conditions. Think of it as designing a virtual workspace where AI operates on your terms. To write a good prompt, you need to understand GenAI, but you also need to understand yourself: your task, your intention, your current stage, and your boundaries.
       </p>
     </div>
 
-    <blockquote class="quote-block">
-      <span class="quote-mark">"</span>
-      <p class="quote-text">
-        Learning how to interact with AI is not unlike being someone who's really good at asking questions. Prompting AI is very similar. You can't just randomly ask a bunch of questions. Asking AI to be an assistant to you requires some expertise and artistry of how to prompt it.
-      </p>
-      <p class="quote-attr">— Jensen Huang, CEO of NVIDIA (Cleo Abram, "Huge Conversations", January 2025)</p>
-    </blockquote>
+    <div class="hero-quote">
+      <p class="hero-quote-text">"Learning how to interact with AI is not unlike being someone who's really good at asking questions. Prompting AI is very similar. You can't just randomly ask a bunch of questions. Asking AI to be an assistant to you requires some expertise and artistry of how to prompt it."</p>
+      <p class="hero-quote-attr">— Jensen Huang, CEO of NVIDIA (Cleo Abram, "Huge Conversations", January 2025)</p>
+    </div>
 
     <div class="sub-tag wide-content">Reinterpreting prompt technique research</div>
     <div class="framing-box">
