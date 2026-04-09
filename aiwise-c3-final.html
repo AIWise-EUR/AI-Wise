@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI-Wise · C3: How to Engage</title>
+<title>AI-Wise · C3: How Do We Use AI?</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -20,7 +20,11 @@
   --gold: #c9a96e;
   --radiusMd: 12px;
   --radiusLg: 16px;
+  --shadowSm: 0 1px 2px rgba(9,24,26,0.05);
   --shadowMd: 0 8px 24px rgba(9,24,26,0.08);
+  --green: #2a7a35;
+  --amber: #9a6d1a;
+  --red: #8b3a1a;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,90 +36,53 @@ body {
   overflow-y: scroll;
 }
 
-/* UI TRANSITIONS */
 .ui-transition-target { transition: opacity 0.38s ease, transform 0.58s ease; }
 .ui-transition-target.ui-entering { opacity: 0; transform: translateY(6px); }
 .ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
-.ui-transition-target.ui-leaving { opacity: 0; transform: translateY(4px); }
 
-/* PAGE LAYOUT: content + side nav */
-.page-layout {
-  display: flex;
-  align-items: flex-start;
+/* ── NAV ────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0;
+  width: var(--nav-w); height: 100vh;
+  background: var(--nav-bg);
+  padding: 122px 14px 20px;
+  display: flex; flex-direction: column; gap: 8px;
+  overflow-y: auto; z-index: 50;
 }
-.page-content {
-  flex: 1;
-  min-width: 0;
+.nav-logo-wrap { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); }
+.nav-logo-sticker {
+  display: block; width: 128px; padding: 6px 8px;
+  border: 1px solid rgba(255,255,255,0.22); border-radius: 10px;
+  background: rgba(255,255,255,0.06); box-shadow: 0 4px 10px rgba(0,0,0,0.16);
 }
-.side-nav-rail {
-  width: 228px;
-  flex-shrink: 0;
-  align-self: stretch;
-  padding: 24px 14px 24px 0;
-}
-
-/* RIGHT STICKY NAV */
-.side-nav {
-  position: sticky;
-  top: 80px;
-  width: 200px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radiusMd);
-  box-shadow: var(--shadowMd);
-  padding: 20px 18px;
-  z-index: 40;
-}
-.side-nav-title {
+.nav-label {
   font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--muted);
-  margin-bottom: 14px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+  padding: 4px 10px 2px; margin-top: 10px;
 }
-.side-nav a {
-  display: block;
-  font-size: 12.5px; color: var(--muted);
-  text-decoration: none;
-  padding: 6px 10px;
-  border-left: 2px solid transparent;
-  border-radius: 0 4px 4px 0;
-  margin-bottom: 2px;
-  transition: all 0.2s;
-  line-height: 1.4;
+nav a {
+  color: rgba(255,255,255,0.75); text-decoration: none;
+  font-size: 13px; padding: 7px 10px; border-radius: 6px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
-.side-nav a:hover { color: var(--text); background: var(--teal-pale); }
-.side-nav a.active {
-  color: var(--accent); font-weight: 600;
-  border-left-color: var(--accent);
-  background: var(--teal-pale);
-}
-.side-nav-home {
-  display: block; margin-top: 14px; padding-top: 12px;
-  border-top: 1px solid var(--border);
-  font-size: 11.5px; color: var(--accent);
-  text-decoration: none; font-weight: 600;
-  transition: opacity 0.2s;
-}
-.side-nav-home:hover { opacity: 0.7; }
+nav a:hover { background: #18474d; transform: translateX(2px); color: #fff; }
+nav a.active { background: #2b5d63; font-weight: 600; color: #fff; }
+nav a.diagnostic-link { color: #ffe4d1; font-weight: 600; }
 
+/* ── HEADER ─────────────────────────────────── */
 .main-header {
-  padding: 18px 40px;
+  margin-left: var(--nav-w); padding: 18px 40px;
   background: #fff; border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 30;
   display: flex; align-items: center; gap: 16px;
 }
-.main-header h1 { font-size: 18px; font-weight: 700; color: var(--nav-bg); margin: 0; }
-.header-home-link {
-  display: flex; align-items: center; gap: 10px;
-  text-decoration: none; color: inherit; margin-right: auto;
-  transition: opacity 0.2s;
-}
-.header-home-link:hover { opacity: 0.7; }
-.header-logo { height: 32px; flex-shrink: 0; }
+.main-header h1 { font-size: 18px; font-weight: 700; color: var(--nav-bg); margin-right: auto; }
 .breadcrumb { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
 .breadcrumb span { color: var(--border); }
 
-.page { }
+.page { margin-left: var(--nav-w); }
 
+/* ── HERO ───────────────────────────────────── */
 .hero {
   background: var(--nav-bg); padding: 64px 40px 56px;
   position: relative; overflow: hidden;
@@ -144,6 +111,32 @@ body {
   line-height: 1.75; font-weight: 400; max-width: 520px;
 }
 
+/* Cycle indicator */
+.cycle-bar {
+  display: inline-flex; align-items: center; gap: 0;
+  margin-top: 28px; flex-wrap: wrap;
+}
+.cycle-step {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 18px; border-radius: 8px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.cycle-step-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--gold); color: var(--nav-bg);
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.cycle-arrow {
+  color: rgba(255,255,255,0.25); font-size: 18px;
+  padding: 0 8px; line-height: 1;
+}
+
+/* ── SECTIONS (base) ────────────────────────── */
 .section {
   padding: 64px 40px;
   border-bottom: 1px solid var(--border);
@@ -165,45 +158,417 @@ body {
   line-height: 1.8; max-width: 680px;
   font-weight: 400;
 }
+.section-body p + p { margin-top: 14px; }
 .section .section-tag,
 .section h3,
-.section .section-body,
-.section .placeholder-box,
-.section .anatomy-close {
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.placeholder-box {
-  min-height: 320px;
-  border: 2px dashed var(--border);
+.section .section-body { max-width: 960px; margin-left: auto; margin-right: auto; }
+.section .wide-content { max-width: 960px; margin-left: auto; margin-right: auto; }
+
+/* ── QUOTE BLOCK ────────────────────────────── */
+.quote-block {
+  max-width: 960px; margin: 36px auto;
+  padding: 28px 32px 24px;
+  background: var(--nav-bg);
   border-radius: var(--radiusLg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--card);
-  margin-top: 24px;
-  margin-bottom: 48px;
-  padding: 24px;
-  text-align: center;
-  color: var(--muted);
+  border-left: 4px solid var(--gold);
+  position: relative;
 }
-.anatomy-close {
-  margin-top: 12px; padding: 24px 28px;
+.quote-mark {
+  font-size: 48px; line-height: 1; color: var(--gold);
+  opacity: 0.5; font-family: Georgia, serif;
+  position: absolute; top: 16px; left: 24px;
+}
+.quote-text {
+  font-size: 0.95rem; color: rgba(255,255,255,0.8);
+  line-height: 1.8; font-weight: 300; font-style: italic;
+  padding-left: 28px;
+}
+.quote-attr {
+  margin-top: 14px; padding-left: 28px;
+  font-size: 12px; color: rgba(255,255,255,0.45);
+  font-weight: 500; font-style: normal;
+}
+
+/* ── SUBSECTION DIVIDER ─────────────────────── */
+.sub-tag {
+  max-width: 960px; margin: 48px auto 12px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold);
+}
+
+/* ── FRAMING BOX (dark callout) ─────────────── */
+.framing-box {
+  max-width: 960px; margin: 24px auto;
+  padding: 24px 28px;
   background: var(--nav-bg);
   border-radius: var(--radiusLg);
   color: rgba(255,255,255,0.75);
   font-size: 0.93rem; line-height: 1.75;
   font-weight: 300;
 }
-.anatomy-close strong { color: #fff; font-weight: 600; }
+.framing-box strong { color: #fff; font-weight: 600; }
+.framing-box p + p { margin-top: 10px; }
 
+/* ── TECHNIQUE CARDS (6-card grid) ──────────── */
+.technique-grid {
+  max-width: 960px; margin: 32px auto 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.technique-card {
+  padding: 22px 22px 18px;
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: #fff;
+  box-shadow: var(--shadowSm);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.technique-card:hover { box-shadow: var(--shadowMd); transform: translateY(-1px); }
+.technique-card-head {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.technique-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.technique-title {
+  font-size: 14px; font-weight: 700; color: var(--text);
+}
+.technique-subtitle {
+  font-size: 11px; color: var(--muted); font-weight: 400;
+  margin-top: 1px;
+}
+.technique-body {
+  font-size: 12.5px; color: var(--muted); line-height: 1.65; font-weight: 300;
+}
+.technique-warn {
+  margin-top: 12px; padding: 10px 14px;
+  background: #fef9f3; border-radius: 8px;
+  border: 1px solid #f0dcc2;
+  font-size: 11.5px; color: #7a5a2e; line-height: 1.6;
+}
+.technique-warn strong { font-weight: 600; }
+.technique-example {
+  margin-top: 12px; font-size: 12px; line-height: 1.6;
+}
+.technique-example .ex-bad {
+  color: var(--red); padding: 6px 10px;
+  background: rgba(180,50,30,0.04); border-radius: 6px;
+  margin-bottom: 6px;
+}
+.technique-example .ex-good {
+  color: var(--green); padding: 6px 10px;
+  background: rgba(42,122,53,0.04); border-radius: 6px;
+}
+.technique-evidence {
+  margin-top: 10px; font-size: 10.5px; color: var(--muted);
+  font-style: italic; line-height: 1.5; opacity: 0.7;
+  padding-top: 8px; border-top: 1px solid var(--border);
+}
+
+/* ── MIND MAP ───────────────────────────────── */
+.mindmap { max-width: 960px; margin: 36px auto 0; }
+.mindmap-hub {
+  text-align: center; margin-bottom: 20px;
+}
+.mindmap-hub-pill {
+  display: inline-block;
+  padding: 12px 32px;
+  background: var(--nav-bg);
+  color: #fff; font-size: 15px; font-weight: 700;
+  border-radius: 40px;
+  letter-spacing: 0.03em;
+}
+.mindmap-hub-line {
+  width: 2px; height: 20px; background: var(--border);
+  margin: 0 auto;
+}
+.mindmap-branches {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+.mindmap-branch {
+  padding: 16px 18px;
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  background: #fff;
+}
+.mindmap-branch-title {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  margin-bottom: 8px; text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.mindmap-branch ul {
+  list-style: none; padding: 0;
+}
+.mindmap-branch li {
+  font-size: 12px; color: var(--muted); line-height: 1.55;
+  padding: 3px 0 3px 14px;
+  position: relative;
+}
+.mindmap-branch li::before {
+  content: ''; position: absolute; left: 0; top: 10px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--border);
+}
+
+/* ── TEMPLATE BLOCK ─────────────────────────── */
+.template-block {
+  max-width: 960px; margin: 28px auto 0;
+  padding: 24px 28px;
+  background: #f4f7f6; border-radius: var(--radiusLg);
+  border: 1px solid var(--border);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 13px; line-height: 1.7; color: var(--text);
+  white-space: pre-wrap;
+}
+.template-block .tpl-label {
+  color: var(--accent); font-weight: 700;
+}
+.template-block .tpl-fill {
+  color: var(--muted); font-style: italic;
+}
+
+/* ── CRITIQUE STEPS ─────────────────────────── */
+.critique-steps {
+  max-width: 960px; margin: 32px auto 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.critique-step {
+  padding: 22px;
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: var(--shadowSm);
+}
+.critique-step-head {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.critique-step-num {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.critique-step-title {
+  font-size: 15px; font-weight: 700; color: var(--text);
+}
+.critique-step-subtitle {
+  font-size: 11.5px; color: var(--muted); font-weight: 400;
+}
+.critique-checklist {
+  list-style: none; padding: 0; margin-bottom: 14px;
+}
+.critique-checklist li {
+  font-size: 12.5px; color: var(--muted); line-height: 1.6;
+  padding: 4px 0 4px 22px; position: relative;
+}
+.critique-checklist li::before {
+  content: '□'; position: absolute; left: 0; top: 4px;
+  color: var(--accent); font-size: 13px;
+}
+.critique-example {
+  padding: 12px 14px;
+  background: var(--teal-pale); border-radius: 8px;
+  font-size: 12px; color: var(--muted); line-height: 1.6;
+  border: 1px solid var(--teal-mid);
+}
+.critique-example strong { color: var(--text); font-weight: 600; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ── FORMAT TABLE ───────────────────────────── */
+.styled-table {
+  max-width: 960px; margin: 24px auto 0;
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+  border-radius: var(--radiusMd);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.styled-table thead th {
+  background: var(--nav-bg); color: #fff;
+  padding: 12px 18px; text-align: left;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.styled-table tbody td {
+  padding: 12px 18px; border-bottom: 1px solid var(--border);
+  color: var(--muted); line-height: 1.55;
+}
+.styled-table tbody tr:nth-child(even) { background: #f8faf9; }
+.styled-table tbody tr:last-child td { border-bottom: none; }
+.styled-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+.risk-high { color: var(--red); font-weight: 600; }
+
+/* ── AMD PROCESS ────────────────────────────── */
+.amd-steps { max-width: 960px; margin: 28px auto 0; }
+.amd-step {
+  display: flex; gap: 16px; padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+.amd-step:last-child { border-bottom: none; }
+.amd-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.amd-step-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.amd-step-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+.amd-example {
+  max-width: 960px; margin: 28px auto 0;
+  padding: 24px;
+  background: var(--teal-pale); border-radius: var(--radiusLg);
+  border: 1px solid var(--teal-mid);
+}
+.amd-example-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+}
+.amd-item { padding: 10px 0; border-bottom: 1px solid var(--teal-mid); }
+.amd-item:last-child { border-bottom: none; }
+.amd-item-text { font-size: 13px; color: var(--text); line-height: 1.6; margin-bottom: 4px; }
+.amd-tag {
+  display: inline-block; padding: 2px 10px; border-radius: 20px;
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.amd-tag-adopt { background: rgba(42,122,53,0.1); color: var(--green); }
+.amd-tag-modify { background: rgba(154,109,26,0.1); color: var(--amber); }
+.amd-tag-discard { background: rgba(180,50,30,0.08); color: var(--red); }
+.amd-reason { font-size: 12px; color: var(--muted); line-height: 1.55; margin-top: 4px; }
+
+/* ── CHECKLIST CARD ─────────────────────────── */
+.checklist-card {
+  max-width: 960px; margin: 36px auto 0;
+  padding: 28px 32px;
+  background: var(--nav-bg);
+  border-radius: var(--radiusLg);
+  border-left: 4px solid var(--gold);
+}
+.checklist-card-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+}
+.checklist-items { list-style: none; padding: 0; }
+.checklist-items li {
+  font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.7;
+  padding: 6px 0 6px 30px; position: relative;
+}
+.checklist-items li::before {
+  content: '☐'; position: absolute; left: 0; top: 6px;
+  color: var(--gold); font-size: 16px;
+}
+.checklist-source {
+  margin-top: 14px; padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 11px; color: rgba(255,255,255,0.35);
+  line-height: 1.5;
+}
+
+/* ── CODE COMPARISON ────────────────────────── */
+.code-compare {
+  max-width: 960px; margin: 28px auto 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.code-panel {
+  border-radius: var(--radiusMd);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.code-panel-header {
+  padding: 10px 18px;
+  background: var(--nav-bg);
+  font-size: 11px; font-weight: 700; color: #fff;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.code-panel-body {
+  padding: 18px;
+  background: #f4f7f6;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 12px; line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+.code-panel-body .tag { color: var(--accent); font-weight: 600; }
+.code-panel-body .heading { color: var(--accent); font-weight: 700; }
+.code-panel-body .comment { color: var(--muted); font-style: italic; }
+
+/* ── PRINCIPLES LIST ────────────────────────── */
+.principles-grid {
+  max-width: 960px; margin: 24px auto 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.principle-card {
+  padding: 16px 18px;
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  background: #fff;
+}
+.principle-card-title {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  margin-bottom: 6px;
+}
+.principle-card-body {
+  font-size: 12.5px; color: var(--muted); line-height: 1.6;
+}
+.principle-card .ex-inline {
+  display: block; margin-top: 6px; padding: 6px 10px;
+  background: #f4f7f6; border-radius: 6px;
+  font-size: 11.5px; font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ── COLLAPSIBLE ────────────────────────────── */
+details.collapsible {
+  max-width: 960px; margin: 28px auto 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLg);
+  overflow: hidden;
+}
+details.collapsible summary {
+  padding: 16px 22px;
+  font-size: 14px; font-weight: 600; color: var(--text);
+  cursor: pointer; background: #fff;
+  list-style: none;
+  display: flex; align-items: center; gap: 10px;
+}
+details.collapsible summary::-webkit-details-marker { display: none; }
+details.collapsible summary::before {
+  content: '▸'; font-size: 12px; color: var(--accent);
+  transition: transform 0.2s;
+}
+details.collapsible[open] summary::before { transform: rotate(90deg); }
+details.collapsible .collapsible-body {
+  padding: 20px 22px;
+  background: #f4f7f6;
+  border-top: 1px solid var(--border);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 12.5px; line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+.collapsible-body .tag { color: var(--accent); font-weight: 600; }
+.collapsible-body .comment { color: var(--muted); font-style: italic; }
+
+/* ── SOURCES ────────────────────────────────── */
 .sources {
   padding: 20px 40px; background: var(--teal-pale);
   border-top: 1px solid var(--teal-mid);
 }
 .sources p { font-size: 11.5px; color: var(--muted); line-height: 1.7; max-width: 860px; }
 
+/* ── NEXT BAR ───────────────────────────────── */
 .next-bar {
   background: var(--nav-bg); padding: 32px 40px;
   display: flex; align-items: center;
@@ -220,14 +585,29 @@ body {
   padding: 11px 22px; background: var(--accent);
   border: 1px solid var(--accent); border-radius: 10px;
   color: #fff; font-size: 14px; font-weight: 600;
-  cursor: pointer; font-family: inherit;
+  text-decoration: none; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  font-family: inherit;
 }
+.next-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); opacity: 0.92; }
 
-@media (max-width: 1100px) {
-  .side-nav-rail { display: none; }
-}
+/* ── RESPONSIVE ─────────────────────────────── */
 @media (max-width: 900px) {
+  nav { position: sticky; width: 100%; height: auto; padding: 10px; flex-direction: row; overflow-x: auto; }
+  .nav-logo-wrap, .nav-label { display: none; }
+  nav a { white-space: nowrap; }
+  .page, .main-header { margin-left: 0; }
   .hero, .section, .sources, .next-bar { padding-left: 20px; padding-right: 20px; }
+  .technique-grid { grid-template-columns: 1fr; }
+  .critique-steps { grid-template-columns: 1fr; }
+  .mindmap-branches { grid-template-columns: 1fr 1fr; }
+  .code-compare { grid-template-columns: 1fr; }
+  .principles-grid { grid-template-columns: 1fr; }
+  .cycle-bar { gap: 6px; }
+  .cycle-step { padding: 6px 12px; font-size: 11px; }
+}
+@media (max-width: 560px) {
+  .mindmap-branches { grid-template-columns: 1fr; }
 }
 
 @keyframes fadeUp {
@@ -239,111 +619,788 @@ body {
 </head>
 <body>
 
-
-
-
 <header class="main-header">
-  <a href="lobby.html" class="header-home-link">
-    <img src="erasmus-logo.png" alt="Erasmus University Rotterdam" class="header-logo">
-    <h1>AI-Wise</h1>
-  </a>
+  <h1>AI-Wise</h1>
   <div class="breadcrumb">
-    <span>Core Blocks</span> › C3 · How to Engage
+    <span>Core Blocks</span> › C3 · How Do We Use AI?
   </div>
 </header>
 
-<div class="page-layout">
-<main class="page-content ui-transition-target">
+<nav>
+  <div class="nav-logo-wrap">
+    <img class="nav-logo-sticker" src="erasmus-logo.png" alt="Erasmus University Logo">
+  </div>
+  <a href="lobby.html">Home</a>
+  <a href="aiwise-c1-final.html">What is GenAI?</a>
+  <a href="aiwise-c2-final.html">GenAI & Human Cognition</a>
+  <a href="aiwise-c3-final.html" class="active">How to Engage</a>
+  <a class="diagnostic-link" href="diagnostic-questionnaire-final.html">GenAI in AWS I</a>
+</nav>
+
+<main class="page ui-transition-target">
+
+  <!-- ════════════════════════════════════════ HERO ═══ -->
   <section class="hero">
     <div class="hero-grid"></div>
     <div class="hero-inner fade-up">
       <div class="hero-tag"><div class="hero-tag-dot"></div>C3 · Core Block</div>
-      <h2>How to Engage with GenAI</h2>
-      <p class="hero-lead">Knowing what GenAI can and cannot do is one thing. Using it well is another. This block covers three practical skills: how to prompt effectively, how to think critically about what you get back, and how to integrate AI output into your own work.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 1: PROMPTING -->
-  <section class="section" id="section-1">
-    <div class="section-tag">Section 1</div>
-    <h3>Prompting</h3>
-    <div class="section-body">
-      <p>How you ask determines what you get. This section covers the main prompting strategies and when each one works best.</p>
-    </div>
-    <div class="placeholder-box">
-      <div>
-        <strong>Topics to cover:</strong><br>
-        Zero shot, one shot, few shot strategies<br>
-        Choosing the right prompt type for the task<br>
-        Overarching principles across prompt engineering frameworks<br>
-        What the research says about whether these approaches actually work
+      <h2>How Do We Use AI?</h2>
+      <p class="hero-lead">
+        C1 covered what GenAI is. C2 covered what it is to us. C3 covers the operational layer: how we actually interact with it. This is not a collection of prompt tips — it is a framework built around one cycle.
+      </p>
+      <div class="cycle-bar">
+        <div class="cycle-step"><span class="cycle-step-num">1</span> Prompt</div>
+        <span class="cycle-arrow">→</span>
+        <div class="cycle-step"><span class="cycle-step-num">2</span> Critique</div>
+        <span class="cycle-arrow">→</span>
+        <div class="cycle-step"><span class="cycle-step-num">3</span> Integrate</div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 2: CRITICAL AI LITERACY -->
-  <section class="section section-alt" id="section-2">
-    <div class="section-tag">Section 2</div>
-    <h3>Critical AI Literacy</h3>
+
+  <!-- ════════════════════════════════════════ SECTION 1: PROMPT ═══ -->
+  <section class="section">
+    <div class="section-tag">Section 1 · Prompt</div>
+    <h3>Designing the input</h3>
+
+    <!-- 1-1 / 1-2: Definition + Calibration framing -->
     <div class="section-body">
-      <p>GenAI produces confident, fluent output. That does not mean it is correct. This section builds the skills to evaluate what you receive.</p>
+      <p>
+        A prompt is a text input given to AI to instruct a task. Research defines prompt engineering as "the skill of articulating a problem, its context, and the constraints of the desired solution to an AI assistant" (Federiakin et al., 2024). A scoping review simplifies the components into four: role assignment, context provision, boundary determination, and result verification.
+      </p>
+      <p>
+        In this module, a prompt is not a command — it is <strong>calibration</strong>. It is the act of defining what you want to do, what you expect, what process to follow, and under what conditions. Think of it as designing a space for thought — a virtual workspace where your task takes shape before AI processes it. To write a good prompt, you need to understand GenAI, but you also need to understand yourself: your task, your intention, your current stage, and your boundaries.
+      </p>
     </div>
-    <div class="placeholder-box">
-      <div>
-        <strong>Topics to cover:</strong><br>
-        Overarching principles across critical thinking frameworks<br>
-        Checking sources and verifying claims<br>
-        Biases relevant to academic writing: recognizing and working with them<br>
-        Assessing how relevant the AI output is to the assignment
+
+    <!-- 1-3: Jensen Huang quote -->
+    <blockquote class="quote-block">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">
+        Learning how to interact with AI is not unlike being someone who's really good at asking questions. Prompting AI is very similar. You can't just randomly ask a bunch of questions. Asking AI to be an assistant to you requires some expertise and artistry of how to prompt it.
+      </p>
+      <p class="quote-attr">— Jensen Huang, CEO of NVIDIA (Cleo Abram, "Huge Conversations", January 2025)</p>
+    </blockquote>
+
+    <!-- 1-4 framing: Reinterpreting prompt technique research -->
+    <div class="sub-tag wide-content">Reinterpreting prompt technique research</div>
+    <div class="framing-box">
+      <p>
+        When research shows a specific prompting technique improves model performance, it means <strong>that type of information was genuinely needed</strong> for AI's task processing. As models improve, they fill in this information themselves when the user does not provide it. But the information does not become unnecessary — the decision-maker shifts from user to model.
+      </p>
+      <p>
+        <strong>If you don't set it, AI sets it for you.</strong> And because AI's output looks plausible, you miss the fact that there was a choice to be made at all.
+      </p>
+    </div>
+
+    <!-- 1-4: Six technique cards -->
+    <div class="sub-tag wide-content">Six types of information AI uses to process a task</div>
+    <div class="technique-grid">
+
+      <!-- Card 1: Clear Instruction -->
+      <div class="technique-card">
+        <div class="technique-card-head">
+          <span class="technique-num">1</span>
+          <div>
+            <div class="technique-title">Clear Instruction</div>
+            <div class="technique-subtitle">Task Specification</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          Information about <strong>what needs to be done</strong>. The more you specify the purpose, scope, context, and conditions of a task, the narrower AI's working space becomes.
+        </div>
+        <div class="technique-warn">
+          <strong>If you don't set it:</strong> AI interprets the task in the most generic way possible. Whether it matches your intent is left to chance.
+        </div>
+        <div class="technique-example">
+          <div class="ex-bad">✗ "Summarize this paper"</div>
+          <div class="ex-good">✓ "Summarize this paper's main argument and research methodology in two sentences each. This is for an undergraduate psychology class presentation."</div>
+        </div>
+        <div class="technique-evidence">Consensus: treated as baseline across all major prompt engineering surveys</div>
+      </div>
+
+      <!-- Card 2: Role / Persona -->
+      <div class="technique-card">
+        <div class="technique-card-head">
+          <span class="technique-num">2</span>
+          <div>
+            <div class="technique-title">Role / Persona</div>
+            <div class="technique-subtitle">Perspective Assignment</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          Information about <strong>what perspective AI should operate from</strong>. Setting a role is not a technique to boost AI accuracy — it is the act of deciding what position you want AI to occupy for this task.
+        </div>
+        <div class="technique-warn">
+          <strong>If you don't set it:</strong> AI operates as a generic "helpful assistant."
+        </div>
+        <div class="technique-example">
+          <div class="ex-bad">✗ "Check my Boolean search string"</div>
+          <div class="ex-good">✓ "You are a search strategy advisor for academic databases. Review the Boolean search string I wrote. If there are logical errors, don't fix them directly — ask me questions about what went wrong."</div>
+        </div>
+        <div class="technique-evidence">Evidence: no measurable accuracy improvement on benchmarks (Zheng et al., 2024 EMNLP; 162 personas, 4 LLM families). Effective as a tone and framing tool.</div>
+      </div>
+
+      <!-- Card 3: Task Decomposition -->
+      <div class="technique-card">
+        <div class="technique-card-head">
+          <span class="technique-num">3</span>
+          <div>
+            <div class="technique-title">Task Decomposition</div>
+            <div class="technique-subtitle">Structure of a Task</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          Information about <strong>the structure of a task</strong>. When you throw a complex task at AI in one piece, you cannot tell which part of the output went wrong.
+        </div>
+        <div class="technique-warn">
+          <strong>If you don't set it:</strong> AI decomposes the task on its own, but you cannot know if its decomposition matches your intent.
+        </div>
+        <div class="technique-example">
+          <div class="ex-bad">✗ "Build my literature review outline"</div>
+          <div class="ex-good">✓ Step 1: "Extract the common themes from the five papers I read" → Step 2: "Map the relationships between those themes" → Step 3: "Suggest possible outline structures based on those relationships"</div>
+        </div>
+        <div class="technique-evidence">Evidence: Least-to-Most prompting showed 83.5pp gain on compositional benchmarks (Zhou et al., 2022 ICLR)</div>
+      </div>
+
+      <!-- Card 4: Few-shot -->
+      <div class="technique-card">
+        <div class="technique-card-head">
+          <span class="technique-num">4</span>
+          <div>
+            <div class="technique-title">Few-shot Examples</div>
+            <div class="technique-subtitle">Desired Output</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          Information about <strong>what the desired output looks like</strong>. The act of creating an example forces you to check: do I actually know what I want? Modern models can infer intent without examples, but that means the model interprets on its own.
+        </div>
+        <div class="technique-warn">
+          <strong>If you don't set it:</strong> AI responds in its most generic form. Without a standard, you cannot judge if it is right.
+        </div>
+        <div class="technique-example">
+          <div class="ex-good">✓ "Summarize each paper's core claim in one sentence, like this:<br>Smith (2022): Social media use is positively associated with anxiety in adolescents, mediated by sleep disruption.<br>Do the same for the remaining three papers."</div>
+        </div>
+        <div class="technique-evidence">Evidence: established in Brown et al. (2020, NeurIPS) GPT-3 paper. Few-shot CoT scored highest in Schulhoff et al. benchmarks.</div>
+      </div>
+
+      <!-- Card 5: Chain-of-Thought -->
+      <div class="technique-card">
+        <div class="technique-card-head">
+          <span class="technique-num">5</span>
+          <div>
+            <div class="technique-title">Chain-of-Thought</div>
+            <div class="technique-subtitle">Reasoning Steps</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          Information about <strong>the reasoning process</strong>. Asking AI to show its intermediate steps opens a window for you to check its logic.
+        </div>
+        <div class="technique-warn">
+          <strong>If you don't set it:</strong> You get only the conclusion, with no visibility into how it got there. If it sounds plausible, you just accept it.
+        </div>
+        <div class="technique-example">
+          <div class="ex-bad">✗ "Are the conclusions of these two papers contradictory?"</div>
+          <div class="ex-good">✓ "Determine whether the conclusions of these two papers contradict each other. First, summarize each paper's core claim. Then compare where they overlap and where they differ. Finally, explain step by step whether the difference is a genuine contradiction or a difference in scope or conditions."</div>
+        </div>
+        <div class="technique-evidence">Evidence: Wei et al. (2022, NeurIPS) GSM8K 18% → 58%. However, effects are limited outside math/symbolic reasoning (Sprague et al., 2024).</div>
+      </div>
+
+      <!-- Card 6: Output Format -->
+      <div class="technique-card">
+        <div class="technique-card-head">
+          <span class="technique-num">6</span>
+          <div>
+            <div class="technique-title">Output Format</div>
+            <div class="technique-subtitle">Shape of the Output</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          Information about <strong>the shape of the output</strong>. The same content delivered as a table, a list, a single sentence, or a set of questions changes how you can use it afterward. Specifying the format is not a convenience — it is designing how the output will integrate into your workflow.
+        </div>
+        <div class="technique-warn">
+          <strong>If you don't set it:</strong> AI defaults to its standard form (usually long paragraphs).
+        </div>
+        <div class="technique-example">
+          <div class="ex-bad">✗ "Compare these three papers"</div>
+          <div class="ex-good">✓ "Create a comparison table for these three papers. Columns: author/year, research question, methodology, key findings, limitations. One sentence per cell."</div>
+        </div>
+        <div class="technique-evidence">Revisited in Section 3 (Integrate) from the integration strategy perspective.</div>
+      </div>
+
+    </div><!-- /technique-grid -->
+
+    <!-- 1-5: Synthesis — Proactive GenAI Usage -->
+    <div class="sub-tag wide-content">Proactive GenAI Usage</div>
+    <div class="framing-box">
+      <p>
+        <strong>If you fill in these six components before using AI, that is proactive usage.</strong> GenAI is a speed tool. Speed means these decisions are made by the model before you even notice. Proactive GenAI usage means having your own ideas about these components before you let AI work.
+      </p>
+    </div>
+
+    <!-- Mind map -->
+    <div class="mindmap wide-content">
+      <div class="mindmap-hub">
+        <div class="mindmap-hub-pill">My Task</div>
+        <div class="mindmap-hub-line"></div>
+      </div>
+      <div class="mindmap-branches">
+        <div class="mindmap-branch">
+          <div class="mindmap-branch-title">1. Clear Instruction</div>
+          <ul>
+            <li>What exactly am I trying to do right now?</li>
+            <li>What is the purpose of this task?</li>
+            <li>What is the scope?</li>
+            <li>Which stage of my project does this task belong to?</li>
+          </ul>
+        </div>
+        <div class="mindmap-branch">
+          <div class="mindmap-branch-title">2. Role</div>
+          <ul>
+            <li>What perspective should AI operate from?</li>
+            <li>What should AI NOT do?</li>
+            <li>What tone and level of response do I need?</li>
+          </ul>
+        </div>
+        <div class="mindmap-branch">
+          <div class="mindmap-branch-title">3. Task Decomposition</div>
+          <ul>
+            <li>Can I break this task into smaller units?</li>
+            <li>Am I trying to ask for too much at once?</li>
+            <li>What order should the sub-tasks follow?</li>
+          </ul>
+        </div>
+        <div class="mindmap-branch">
+          <div class="mindmap-branch-title">4. Few-shot</div>
+          <ul>
+            <li>Do I know what the desired output looks like?</li>
+            <li>Can I create one example?</li>
+            <li>If I can't make an example, do I actually know what I want?</li>
+          </ul>
+        </div>
+        <div class="mindmap-branch">
+          <div class="mindmap-branch-title">5. Chain-of-Thought</div>
+          <ul>
+            <li>What reasoning process does this task require?</li>
+            <li>What steps should AI go through?</li>
+            <li>Do I need to see the intermediate process?</li>
+          </ul>
+        </div>
+        <div class="mindmap-branch">
+          <div class="mindmap-branch-title">6. Output Format</div>
+          <ul>
+            <li>What format do I need to actually use it?</li>
+            <li>Table? List? Single sentence? Questions?</li>
+            <li>Is this format easy to integrate into my workflow?</li>
+          </ul>
+        </div>
       </div>
     </div>
+
+    <!-- Simple template skeleton -->
+    <div class="sub-tag wide-content">Quick prompt skeleton</div>
+    <div class="template-block"><span class="tpl-label">[Role]</span>      <span class="tpl-fill">You are a _______ who _______.</span>
+<span class="tpl-label">[Task]</span>      <span class="tpl-fill">I need you to _______.</span>
+<span class="tpl-label">[Context]</span>   <span class="tpl-fill">I am currently working on _______. This task is part of _______.</span>
+<span class="tpl-label">[Constraints]</span><span class="tpl-fill"> Do not _______. Stay within _______.</span>
+<span class="tpl-label">[Reasoning]</span> <span class="tpl-fill">Approach this by first _______, then _______.</span>
+<span class="tpl-label">[Examples]</span>  <span class="tpl-fill">Here is an example of what I want: _______</span>
+<span class="tpl-label">[Format]</span>    <span class="tpl-fill">Respond in the form of a _______.</span></div>
+
   </section>
 
-  <!-- SECTION 3: INTEGRATING AI OUTPUT -->
-  <section class="section" id="section-3">
-    <div class="section-tag">Section 3</div>
-    <h3>Integrating AI Output</h3>
+
+  <!-- ════════════════════════════════════════ SECTION 2: CRITIQUE ═══ -->
+  <section class="section section-alt">
+    <div class="section-tag">Section 2 · Critique</div>
+    <h3>Output is not an answer — it is a candidate</h3>
+
     <div class="section-body">
-      <p>Once you have useful output, the question becomes how to bring it into your work responsibly and effectively.</p>
+      <p>
+        What AI gives you is not a final answer but a <strong>candidate</strong>: candidate structure, candidate wording, candidate comparison, candidate interpretation. Output is material to review, not material to adopt.
+      </p>
+      <p>
+        This connects directly to what you learned in C1. GenAI output is statistically likely, not factually verified. It is conditioned on prior tokens, not on reasoning. It is bounded by training data. It reflects a distribution, not authorship. Without your domain knowledge, critique is impossible (Zhu & Duan, 2025).
+      </p>
     </div>
-    <div class="placeholder-box">
-      <div>
-        <strong>Topics to cover:</strong><br>
-        Plagiarism considerations<br>
-        Suggestions for spelling, titles, sentence structure<br>
-        Evaluation: planning, strategic goal setting<br>
-        A step by step guide for integrating AI output into academic writing
+
+    <div class="sub-tag wide-content">Four steps: Read → Question → Verify → Decide</div>
+
+    <!-- Four critique steps -->
+    <div class="critique-steps wide-content">
+
+      <!-- Step 1: Read -->
+      <div class="critique-step">
+        <div class="critique-step-head">
+          <span class="critique-step-num">1</span>
+          <div>
+            <div class="critique-step-title">Read</div>
+            <div class="critique-step-subtitle">Identify what came out</div>
+          </div>
+        </div>
+        <ul class="critique-checklist">
+          <li>Is this a response to what I requested?</li>
+          <li>What structure did AI use? (list, paragraphs, table, etc.)</li>
+          <li>What overall claim or direction is it taking?</li>
+        </ul>
+        <div class="critique-example">
+          <strong>Example</strong><br>
+          Student asked "Extract the common themes from these three papers." AI returned three paragraphs. Observation: AI identified three themes, assigned papers to each, and wrote in paragraph form.
+        </div>
+      </div>
+
+      <!-- Step 2: Question -->
+      <div class="critique-step">
+        <div class="critique-step-head">
+          <span class="critique-step-num">2</span>
+          <div>
+            <div class="critique-step-title">Question</div>
+            <div class="critique-step-subtitle">Generate questions before judging</div>
+          </div>
+        </div>
+        <ul class="critique-checklist">
+          <li>Is this content factually verifiable?</li>
+          <li>Is anything missing?</li>
+          <li>Are any parts overly general or vague?</li>
+          <li>Does the output include claims I can't verify?</li>
+          <li>Did the output stay within my requested scope?</li>
+        </ul>
+        <div class="critique-example">
+          <strong>Example</strong><br>
+          Are these three themes actually from the papers, or did AI generalize? Is the third theme too broad? Paper B is assigned to two themes — is that accurate? I only asked for common themes, but AI added "implications" — did it exceed my request scope?
+        </div>
+      </div>
+
+      <!-- Step 3: Verify -->
+      <div class="critique-step">
+        <div class="critique-step-head">
+          <span class="critique-step-num">3</span>
+          <div>
+            <div class="critique-step-title">Verify</div>
+            <div class="critique-step-subtitle">Judge against criteria</div>
+          </div>
+        </div>
+        <ul class="critique-checklist">
+          <li>If facts, citations, or numbers are included — can the source be verified?</li>
+          <li>Does the output match the scope of my request?</li>
+          <li>Can I explain this content myself?</li>
+          <li>Does this output reflect my intent and context?</li>
+        </ul>
+        <div class="critique-example">
+          <strong>Example</strong><br>
+          Checking Paper A: AI's first theme is correct but was a secondary point, not the core finding. The third theme uses phrasing that doesn't appear in any original paper — AI generalized. The "implications" section covers a stage I haven't reached yet.
+        </div>
+      </div>
+
+      <!-- Step 4: Decide -->
+      <div class="critique-step">
+        <div class="critique-step-head">
+          <span class="critique-step-num">4</span>
+          <div>
+            <div class="critique-step-title">Decide</div>
+            <div class="critique-step-subtitle">Select, modify, or discard</div>
+          </div>
+        </div>
+        <ul class="critique-checklist">
+          <li>Which parts can I use and which should I discard?</li>
+          <li>Which parts need modification?</li>
+          <li>Is a re-prompt necessary?</li>
+        </ul>
+        <div class="critique-example">
+          <strong>Example</strong><br>
+          Themes 1 and 2 are usable as starting points. Theme 3 is discarded. The implications section is deleted. Theme 2's paper assignment needs verification — may re-prompt after checking the original.
+        </div>
+      </div>
+
+    </div><!-- /critique-steps -->
+  </section>
+
+
+  <!-- ════════════════════════════════════════ SECTION 3: INTEGRATE ═══ -->
+  <section class="section">
+    <div class="section-tag">Section 3 · Integrate</div>
+    <h3>How AI output enters your work</h3>
+
+    <!-- 3-1: Framing -->
+    <div class="section-body">
+      <p>
+        Integration does not start after you receive the output — it starts at the prompting stage. The moment you decide what format to receive the output in, you have already determined how safe and controllable the integration will be.
+      </p>
+      <p>
+        "Compare these papers" produces paragraphs that easily bleed into your writing. "Make a comparison table" keeps the output separate from your text, verifiable cell by cell. Choosing the output format is not a convenience — it is a <strong>safety mechanism</strong> for integration.
+      </p>
+    </div>
+
+    <!-- 3-2: Format-Integration table -->
+    <table class="styled-table wide-content">
+      <thead>
+        <tr>
+          <th>Requested Format</th>
+          <th>Integration Characteristics</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Comparison table</td>
+          <td>Verifiable and extractable cell by cell. Does not blend into your prose.</td>
+        </tr>
+        <tr>
+          <td>Question list</td>
+          <td>Serves as a thinking prompt. No copy-paste risk. You have to write the answers.</td>
+        </tr>
+        <tr>
+          <td>Single sentence summary</td>
+          <td>A single claim — easy to accept or reject clearly.</td>
+        </tr>
+        <tr>
+          <td>Keyword / term list</td>
+          <td>Easy to selectively adopt. You write the sentences.</td>
+        </tr>
+        <tr>
+          <td>Bullet point outline</td>
+          <td>Use the structure as reference; fill in the content yourself.</td>
+        </tr>
+        <tr>
+          <td class="risk-high">Full paragraph</td>
+          <td><span class="risk-high">Highest risk of blending into your writing. Use with caution.</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 3-3: Adopt / Modify / Discard -->
+    <div class="sub-tag wide-content">Adopt / Modify / Discard</div>
+
+    <div class="amd-steps wide-content">
+      <div class="amd-step">
+        <span class="amd-step-num">1</span>
+        <div>
+          <div class="amd-step-title">Segment</div>
+          <div class="amd-step-body">Break the output into units that can be judged independently. Rows for tables, items for lists, claims for paragraphs.</div>
+        </div>
+      </div>
+      <div class="amd-step">
+        <span class="amd-step-num">2</span>
+        <div>
+          <div class="amd-step-title">Tag</div>
+          <div class="amd-step-body">
+            Assign a tag to each unit:
+            <span class="amd-tag amd-tag-adopt">Adopt</span> accurate, matches my intent, ready to use —
+            <span class="amd-tag amd-tag-modify">Modify</span> direction is right, needs adjustment —
+            <span class="amd-tag amd-tag-discard">Discard</span> inaccurate, outside scope, or I cannot verify it.
+          </div>
+        </div>
+      </div>
+      <div class="amd-step">
+        <span class="amd-step-num">3</span>
+        <div>
+          <div class="amd-step-title">Execute</div>
+          <div class="amd-step-body">
+            <strong>Adopt →</strong> place in your work; confirm source and context.
+            <strong>Modify →</strong> define what to change; return to original source or re-prompt.
+            <strong>Discard →</strong> delete; record why in one line.
+          </div>
+        </div>
+      </div>
+      <div class="amd-step">
+        <span class="amd-step-num">4</span>
+        <div>
+          <div class="amd-step-title">Review</div>
+          <div class="amd-step-body">After integration, look at the whole: Does this reflect my thinking? Has AI's language remained unchanged in my text? Can I explain and defend every part?</div>
+        </div>
       </div>
     </div>
+
+    <!-- AMD Example -->
+    <div class="amd-example wide-content">
+      <div class="amd-example-title">Worked example — Common theme extraction</div>
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Student asked AI to extract common themes from three papers. AI presented three themes:</p>
+
+      <div class="amd-item">
+        <div class="amd-item-text">Theme 1: "Sleep disruption as a mediator between screen time and adolescent anxiety"</div>
+        <span class="amd-tag amd-tag-adopt">Adopt</span>
+        <div class="amd-reason">Matches the original papers. Usable as an outline starting point. Placed as starting point for first outline section.</div>
+      </div>
+      <div class="amd-item">
+        <div class="amd-item-text">Theme 2: "The role of parental monitoring in mitigating digital harm"</div>
+        <span class="amd-tag amd-tag-modify">Modify</span>
+        <div class="amd-reason">Direction is correct but AI generalized "social media exposure" into "digital harm." Corrected to "social media exposure." Original paper re-checked.</div>
+      </div>
+      <div class="amd-item">
+        <div class="amd-item-text">Theme 3: "Broader implications for public health policy"</div>
+        <span class="amd-tag amd-tag-discard">Discard</span>
+        <div class="amd-reason">I asked for common themes, not implications. This topic does not appear in the papers. AI fabricated it. Deleted. Record: "AI exceeded request scope by adding implications."</div>
+      </div>
+    </div>
+
+    <!-- 3-4: Human Accountability Checklist -->
+    <div class="checklist-card wide-content">
+      <div class="checklist-card-title">Human Accountability Checklist</div>
+      <ul class="checklist-items">
+        <li>Are the core ideas and judgments in this work my own?</li>
+        <li>Have I verified all AI-generated content that I adopted?</li>
+        <li>Can I explain and defend every part of this work?</li>
+        <li>Can I transparently disclose how AI was used?</li>
+      </ul>
+      <div class="checklist-source">
+        Based on the Author Checklist from Cheng, Calhoun, & Reedy (2025). Advances in Simulation, 10, 22.
+      </div>
+    </div>
+
   </section>
 
+
+  <!-- ════════════════════════════════════════ CLOSING: PROMPT TEMPLATE ═══ -->
+  <section class="section section-alt">
+    <div class="section-tag">Closing · Template</div>
+    <h3>Building your prompt</h3>
+
+    <!-- C-1: Markdown vs XML -->
+    <div class="section-body">
+      <p>
+        AI processes structured input more accurately than prose paragraphs. Formatting changes alone can shift accuracy by up to 76 percentage points (Sclar et al., ICLR 2024). Two common structuring formats are Markdown and XML.
+      </p>
+    </div>
+
+    <div class="code-compare wide-content">
+      <div class="code-panel">
+        <div class="code-panel-header">Markdown</div>
+        <div class="code-panel-body"><span class="heading"># Role</span>
+<span class="comment">You are a literature analysis assistant.</span>
+
+<span class="heading"># Task</span>
+<span class="comment">Identify common themes across three papers.</span>
+
+<span class="heading"># Context</span>
+<span class="comment">I am writing a literature review for AWS.</span>
+
+<span class="heading"># Constraints</span>
+<span class="comment">- Do not summarize each paper individually</span>
+<span class="comment">- Stay at theme identification only</span>
+
+<span class="heading"># Output Format</span>
+<span class="comment">Numbered list, one sentence per theme.</span></div>
+      </div>
+      <div class="code-panel">
+        <div class="code-panel-header">XML</div>
+        <div class="code-panel-body"><span class="tag">&lt;role&gt;</span>
+<span class="comment">You are a literature analysis assistant.</span>
+<span class="tag">&lt;/role&gt;</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="comment">Identify common themes across three papers.</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;context&gt;</span>
+<span class="comment">I am writing a literature review for AWS.</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="comment">Do not summarize each paper individually.
+Stay at theme identification only.</span>
+<span class="tag">&lt;/constraints&gt;</span>
+
+<span class="tag">&lt;output_format&gt;</span>
+<span class="comment">Numbered list, one sentence per theme.</span>
+<span class="tag">&lt;/output_format&gt;</span></div>
+      </div>
+    </div>
+
+    <div class="section-body" style="margin-top:20px;">
+      <p>
+        Markdown uses <code style="background:#f0f3f2;padding:2px 6px;border-radius:4px;font-size:12px;">#</code> for headings and <code style="background:#f0f3f2;padding:2px 6px;border-radius:4px;font-size:12px;">-</code> for lists — intuitive and easy for humans to read. XML uses explicit opening and closing tags, which models parse more precisely. XML is the only delimiter format recommended by all three major providers (OpenAI, Anthropic, Google), making it advantageous for complex prompts.
+      </p>
+    </div>
+
+    <!-- C-2: Final XML Template -->
+    <div class="sub-tag wide-content">Prompt template (XML)</div>
+    <div class="template-block wide-content"><span class="tpl-label">&lt;role&gt;</span>
+<span class="tpl-fill">[What perspective should AI operate from?]</span>
+<span class="tpl-label">&lt;/role&gt;</span>
+
+<span class="tpl-label">&lt;task&gt;</span>
+<span class="tpl-fill">[What specifically needs to be done? Include purpose and context]</span>
+<span class="tpl-label">&lt;/task&gt;</span>
+
+<span class="tpl-label">&lt;context&gt;</span>
+<span class="tpl-fill">[The situation this task sits in. Current stage, background, materials]</span>
+<span class="tpl-label">&lt;/context&gt;</span>
+
+<span class="tpl-label">&lt;constraints&gt;</span>
+<span class="tpl-fill">[What should AI NOT do? Scope limits. Conditions to respect]</span>
+<span class="tpl-label">&lt;/constraints&gt;</span>
+
+<span class="tpl-label">&lt;steps&gt;</span>
+<span class="tpl-fill">[The reasoning or work steps AI should follow]
+1. ...
+2. ...
+3. ...</span>
+<span class="tpl-label">&lt;/steps&gt;</span>
+
+<span class="tpl-label">&lt;examples&gt;</span>
+<span class="tpl-fill">[Examples of the desired output. 1–3]</span>
+<span class="tpl-label">&lt;/examples&gt;</span>
+
+<span class="tpl-label">&lt;output_format&gt;</span>
+<span class="tpl-fill">[Shape, length, and structure of the output]</span>
+<span class="tpl-label">&lt;/output_format&gt;</span></div>
+
+    <!-- C-3: Length guide -->
+    <div class="sub-tag wide-content">Prompt length guide</div>
+    <table class="styled-table wide-content">
+      <thead>
+        <tr><th>Task Complexity</th><th>Recommended Length</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Simple</td><td>50–100 words (summary, factual question)</td></tr>
+        <tr><td>Moderate</td><td>150–300 words (analysis, comparison, structured output)</td></tr>
+        <tr><td>Complex</td><td>300–500 words (multi-step reasoning, detailed generation)</td></tr>
+        <tr><td>Beyond 500 words</td><td>Split into multiple turns</td></tr>
+      </tbody>
+    </table>
+
+    <!-- C-4: Writing principles -->
+    <div class="sub-tag wide-content">Writing principles</div>
+    <div class="principles-grid wide-content">
+      <div class="principle-card">
+        <div class="principle-card-title">Use imperative verbs</div>
+        <div class="principle-card-body">
+          Start instructions with action words.
+          <span class="ex-inline">"Summarize", "Compare", "Identify"</span>
+        </div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-card-title">Skip politeness tokens</div>
+        <div class="principle-card-body">
+          "Please", "thank you", and "if you don't mind" are unnecessary and can reduce performance (Dobariya & Kumar, 2025).
+        </div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-card-title">Use affirmative instructions</div>
+        <div class="principle-card-body">
+          Affirmative instructions outperform negations.
+          <span class="ex-inline">"Use plain language" > "Don't use jargon"</span>
+        </div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-card-title">Place key instructions at the edges</div>
+        <div class="principle-card-body">
+          Put the most important instructions at the very beginning or very end of your prompt, countering the "Lost in the Middle" effect (Liu et al., 2024).
+        </div>
+      </div>
+    </div>
+
+    <!-- C-5: Connection to activity preset prompts -->
+    <div class="framing-box wide-content" style="margin-top:28px;">
+      <p>
+        <strong>This template is a general-purpose framework.</strong> The activity preset prompts in this module are instances of this template with each field pre-filled for a specific learning activity.
+      </p>
+    </div>
+
+    <!-- C-6: Expandable full example -->
+    <details class="collapsible wide-content">
+      <summary>Full worked example — Common theme extraction from three papers</summary>
+      <div class="collapsible-body"><span class="tag">&lt;role&gt;</span>
+<span class="comment">You are an academic literature analysis assistant
+for a first-year psychology student.</span>
+<span class="tag">&lt;/role&gt;</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="comment">Identify the common themes across the following
+three journal articles. Focus on overlapping
+research topics, not methodological similarities.</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;context&gt;</span>
+<span class="comment">I am writing a literature review for my Academic
+Writing Skills course. I have read all three papers.
+I am currently at the stage of organizing my sources
+before drafting an outline.</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="comment">Do not summarize each paper individually.
+Do not suggest an outline or structure.
+Stay at the level of theme identification only.</span>
+<span class="tag">&lt;/constraints&gt;</span>
+
+<span class="tag">&lt;steps&gt;</span>
+<span class="comment">1. Read the three abstracts I provide below.
+2. Identify recurring topics or constructs.
+3. Group them into distinct themes.</span>
+<span class="tag">&lt;/steps&gt;</span>
+
+<span class="tag">&lt;examples&gt;</span>
+<span class="comment">Example theme format:
+"Sleep disruption as a mediator between screen time
+and adolescent anxiety (Paper A, Paper C)"</span>
+<span class="tag">&lt;/examples&gt;</span>
+
+<span class="tag">&lt;output_format&gt;</span>
+<span class="comment">A numbered list of 3–5 common themes.
+Each theme in one sentence, with the relevant
+paper(s) noted in parentheses.</span>
+<span class="tag">&lt;/output_format&gt;</span></div>
+    </details>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════ SOURCES ═══ -->
   <div class="sources">
-    <p><strong>Sources:</strong> To be added.</p>
+    <p>
+      <strong>Sources:</strong>
+      Federiakin, D. et al. (2024). Prompt engineering as a new 21st century skill. <em>Frontiers in Education</em>, 9, 1366434. ·
+      Schulhoff, S. et al. (2024). The Prompt Report. <em>arXiv:2406.06608</em>. ·
+      Sahoo, P. et al. (2024). A Systematic Survey of Prompt Engineering in LLMs. <em>arXiv:2402.07927</em>. ·
+      Liu, D. et al. (2026). A comprehensive taxonomy of prompt engineering techniques. <em>Frontiers of Computer Science</em>, 20(3). ·
+      White, J. et al. (2023). A Prompt Pattern Catalog. <em>PLoP 2023, Vanderbilt</em>. ·
+      Bozkurt, A. & Sharma, R. (2023). <em>Open Praxis</em>. ·
+      Wei, J. et al. (2022). Chain-of-Thought Prompting. <em>NeurIPS 2022</em>. ·
+      Brown, T. et al. (2020). Language Models are Few-Shot Learners. <em>NeurIPS 2020</em>. ·
+      Yusuf, A. et al. (2024). <em>Thinking Skills and Creativity</em>, 54, 101619. ·
+      Wang, Z. & Wang, C. (2025). APSE Model. <em>Journal of Second Language Writing</em>, 67, 101187. ·
+      Zhu, J. & Duan, C. (2025). Pan-indexicality and prompt. <em>Language and Semiotic Studies</em>. ·
+      Cheng, A., Calhoun, A. & Reedy, G. (2025). <em>Advances in Simulation</em>, 10, 22. ·
+      Sclar, M. et al. (2024). Sensitivity to Spurious Features. <em>ICLR 2024</em>. ·
+      Bsharat, S. et al. (2023). 26 Principled Instructions. ·
+      Liu, N. et al. (2024). Lost in the Middle. <em>TACL</em>. ·
+      Levy, M., Jacoby, A. & Goldberg, Y. (2024). Same Task, More Tokens. <em>ACL 2024</em>. ·
+      Shanahan, M. (2024). <em>Communications of the ACM</em>, 67(2). ·
+      Huang, L. et al. (2025). <em>ACM Transactions on Information Systems</em>. ·
+      Naveed, H. et al. (2025). <em>ACM TIST</em>. ·
+      Yenduri, G. et al. (2024). <em>IEEE Access</em>, 12, 54608–54649.
+    </p>
   </div>
 
+
+  <!-- ════════════════════════════════════════ NEXT BAR ═══ -->
   <div class="next-bar">
-    <a class="next-btn" href="aiwise-c2-final.html" style="background:transparent;border-color:rgba(255,255,255,0.2);">← C2 · What is AI for us?</a>
-    <div class="next-bar-text" style="text-align:right;">
+    <div class="next-bar-text">
       <h4>Next</h4>
-      <p>GenAI in AWS I</p>
+      <p>GenAI in AWS I — apply these ideas to your Academic Writing Skills course</p>
     </div>
-    <a class="next-btn" href="diagnostic-questionnaire-final.html">Continue →</a>
+    <a href="diagnostic-questionnaire-final.html" class="next-btn">Continue →</a>
   </div>
+
 </main>
 
-<!-- RIGHT STICKY NAV -->
-<aside class="side-nav-rail">
-  <div class="side-nav" id="sideNav">
-    <a href="aiwise-c1-final.html">C1 · What is GenAI?</a>
-    <a href="aiwise-c2-final.html">C2 · What is AI for us?</a>
-    <a href="aiwise-c3-final.html" class="active">C3 · How to Engage</a>
-    <a href="diagnostic-questionnaire-final.html" style="color:#c97a3a;font-weight:600;">GenAI in AWS I</a>
-    <a class="side-nav-home" href="lobby.html">← Back to Home</a>
-  </div>
-</aside>
-</div><!-- /page-layout -->
-
-<script src="ui-effects.js"></script>
+<script>
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('.ui-transition-target');
+  targets.forEach(function(t) { t.classList.add('ui-transition-target'); });
+  if (!reduceMotion) targets.forEach(function(t) { t.classList.add('ui-entering'); });
+  function mount() {
+    if (reduceMotion) { targets.forEach(function(t) { t.classList.add('ui-mounted'); }); return; }
+    window.requestAnimationFrame(function() {
+      targets.forEach(function(t) { t.classList.remove('ui-entering'); t.classList.add('ui-mounted'); });
+    });
+  }
+  window.addEventListener('pageshow', mount);
+  mount();
+})();
+</script>
 
 </body>
 </html>
