@@ -640,6 +640,45 @@ body {
 }
 .diagram-wrap svg { width: 100%; height: auto; }
 
+/* SAT FRAMEWORK DIAGRAM */
+.sat-framework {
+  margin: 52px auto 40px;
+  max-width: 960px;
+}
+.sat-framework-title {
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.sat-framework-title .sat-subtitle {
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+.sat-framework-caption {
+  text-align: center;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.sat-framework-canvas {
+  background: #fbfcfb;
+  border-radius: var(--radiusLg);
+  padding: 20px 16px 12px;
+}
+.sat-framework-canvas svg { width: 100%; height: auto; display: block; }
+@media (max-width: 720px) {
+  .sat-framework-canvas { padding: 12px 8px 6px; }
+  .sat-framework-title { font-size: 11.5px; letter-spacing: 0.14em; }
+}
+
 /* CLOSING CALLOUT */
 .closing-callout {
   margin-top: 40px; padding: 24px 28px;
@@ -1200,34 +1239,6 @@ body {
       <p>GenAI is not thinking instead of you. It is making your thinking visible fast enough to work with.</p>
     </div>
 
-    <!-- GenAI + Human loop diagram -->
-    <div class="diagram-wrap">
-      <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arrowP" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#534AB7"/></marker>
-          <marker id="arrowA" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#BA7517"/></marker>
-        </defs>
-        <rect x="40" y="40" width="160" height="72" rx="14" fill="#EEEDFE" stroke="#534AB7" stroke-width="2"/>
-        <text x="120" y="72" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#534AB7">GenAI</text>
-        <text x="120" y="92" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#534AB7" opacity="0.7">Operationalizes</text>
-        <rect x="280" y="40" width="160" height="72" rx="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
-        <text x="360" y="72" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#BA7517">You</text>
-        <text x="360" y="92" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#BA7517" opacity="0.7">Judge</text>
-        <rect x="280" y="200" width="160" height="72" rx="14" fill="#EEEDFE" stroke="#534AB7" stroke-width="2"/>
-        <text x="360" y="232" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#534AB7">GenAI</text>
-        <text x="360" y="252" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#534AB7" opacity="0.7">Feedback</text>
-        <rect x="40" y="200" width="160" height="72" rx="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
-        <text x="120" y="232" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#BA7517">You</text>
-        <text x="120" y="252" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#BA7517" opacity="0.7">Judge again</text>
-        <line x1="200" y1="66" x2="276" y2="66" stroke="#534AB7" stroke-width="2" marker-end="url(#arrowP)"/>
-        <line x1="370" y1="112" x2="370" y2="196" stroke="#BA7517" stroke-width="2" marker-end="url(#arrowA)"/>
-        <line x1="280" y1="236" x2="204" y2="236" stroke="#534AB7" stroke-width="2" marker-end="url(#arrowP)"/>
-        <line x1="110" y1="200" x2="110" y2="116" stroke="#BA7517" stroke-width="2" marker-end="url(#arrowA)"/>
-        <text x="240" y="160" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#5b6668" opacity="0.6">Repeat until ready</text>
-        <text x="240" y="174" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#5b6668" opacity="0.6">to move on</text>
-      </svg>
-    </div>
-
     <div class="framework-heading">"How the loop works"</div>
     <div class="framework-text">
       <p>You start with an intention. GenAI operationalizes it into something concrete. You judge the output: is this what I meant? Is this useful? What is missing? You feed that judgment back, and GenAI produces again. Each cycle sharpens the work.</p>
@@ -1245,41 +1256,13 @@ body {
 
     <div class="framework-heading">"The team's role: Expansion"</div>
     <div class="framework-text">
-      <p>This is where the team comes in. When the GenAI loop stalls, you bring the work to people. Your classmates, your tutor, your project group. The team brings what GenAI structurally cannot: shared institutional context, social judgment, real world experience with the problem, and perspectives shaped by lives you have not lived.</p>
+      <p>This is where the team comes in. When the Self–AI loop stalls, you bring the work to people. Your classmates, your tutor, your project group. The team brings what GenAI structurally cannot: shared institutional context, social judgment, real world experience with the problem, and perspectives shaped by lives you have not lived.</p>
       <p>The team does not just polish what you already have. It expands the scope. New ideas you had not considered. Constraints you did not know existed. Feedback that reshapes the direction of the work entirely. After this interaction, the work is no longer just yours and GenAI's. It belongs to a larger reality.</p>
-    </div>
-
-    <!-- Team + Human loop diagram -->
-    <div class="diagram-wrap">
-      <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arrowT" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#0F6E56"/></marker>
-          <marker id="arrowY" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#BA7517"/></marker>
-        </defs>
-        <rect x="40" y="40" width="160" height="72" rx="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
-        <text x="120" y="72" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#BA7517">You</text>
-        <text x="120" y="92" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#BA7517" opacity="0.7">Present the work</text>
-        <rect x="280" y="40" width="160" height="72" rx="14" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"/>
-        <text x="360" y="72" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#0F6E56">Team</text>
-        <text x="360" y="92" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#0F6E56" opacity="0.7">Feedback</text>
-        <rect x="280" y="200" width="160" height="72" rx="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
-        <text x="360" y="232" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#BA7517">You</text>
-        <text x="360" y="252" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#BA7517" opacity="0.7">Integrate feedback</text>
-        <rect x="40" y="200" width="160" height="72" rx="14" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"/>
-        <text x="120" y="232" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="700" fill="#0F6E56">Team</text>
-        <text x="120" y="252" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#0F6E56" opacity="0.7">Expands the scope</text>
-        <line x1="200" y1="66" x2="276" y2="66" stroke="#BA7517" stroke-width="2" marker-end="url(#arrowY)"/>
-        <line x1="370" y1="112" x2="370" y2="196" stroke="#0F6E56" stroke-width="2" marker-end="url(#arrowT)"/>
-        <line x1="280" y1="236" x2="204" y2="236" stroke="#BA7517" stroke-width="2" marker-end="url(#arrowY)"/>
-        <line x1="110" y1="200" x2="110" y2="116" stroke="#0F6E56" stroke-width="2" marker-end="url(#arrowT)"/>
-        <text x="240" y="160" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#5b6668" opacity="0.6">The work enters</text>
-        <text x="240" y="174" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#5b6668" opacity="0.6">a larger reality</text>
-      </svg>
     </div>
 
     <div class="framework-heading">"How this loop is different"</div>
     <div class="framework-text">
-      <p>The team loop works differently from the GenAI loop. You present the work. The team gives feedback. You integrate that feedback, and in the process, new questions emerge, new angles open up, new things need to be considered. The scope does not just refine. It grows.</p>
+      <p>The Self–Team loop works differently from the Self–AI loop. You present the work. The team gives feedback. You integrate that feedback, and in the process, new questions emerge, new angles open up, new things need to be considered. The scope does not just refine. It grows.</p>
       <p>Where GenAI operationalizes what you already had in mind, the team introduces what you did not have in mind. This is the difference between acceleration and expansion.</p>
     </div>
 
@@ -1295,36 +1278,123 @@ body {
       <p>Each GenAI session operationalizes rapidly. Each team session expands the scope. Each transition carries the gains of the previous cycle into the next one. The work never loses what it has gained. It only builds.</p>
     </div>
 
-    <!-- Overall swing-by diagram -->
-    <div class="diagram-wrap" style="max-width:900px;">
-      <svg viewBox="0 0 820 340" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="16" width="250" height="56" rx="8" fill="#f8faf9" stroke="#d8dfde" stroke-width="1"/>
-        <text x="36" y="38" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#0f2f33">You are present throughout.</text>
-        <text x="36" y="56" font-family="DM Sans, sans-serif" font-size="10.5" fill="#5b6668">GenAI accelerates. The team expands. You steer.</text>
-        <text x="14" y="200" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#5b6668" opacity="0.5" transform="rotate(-90,14,200)">Substance of work</text>
-        <path d="M 80,280 C 140,260 160,200 220,180 C 280,160 320,140 380,120 C 440,100 480,90 540,75 C 600,60 640,55 700,45" stroke="#BA7517" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path d="M 694,48 L 720,40 L 698,56" stroke="#BA7517" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="80" cy="280" r="8" fill="#BA7517"/>
-        <text x="80" y="302" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">You</text>
-        <circle cx="220" cy="180" r="8" fill="#534AB7"/>
-        <text x="220" y="210" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#534AB7">GenAI</text>
-        <line x1="220" y1="168" x2="220" y2="148" stroke="#d8dfde" stroke-width="1"/>
-        <text x="220" y="142" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#534AB7">Operationalizes</text>
-        <circle cx="380" cy="120" r="8" fill="#0F6E56"/>
-        <text x="380" y="150" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#0F6E56">Team</text>
-        <line x1="380" y1="108" x2="380" y2="92" stroke="#d8dfde" stroke-width="1"/>
-        <text x="380" y="86" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#0F6E56">Expands</text>
-        <circle cx="540" cy="75" r="8" fill="#534AB7"/>
-        <text x="540" y="105" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#534AB7">GenAI</text>
-        <line x1="540" y1="63" x2="540" y2="47" stroke="#d8dfde" stroke-width="1"/>
-        <text x="540" y="41" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#534AB7">Refines</text>
-        <circle cx="700" cy="45" r="8" fill="#0F6E56"/>
-        <text x="700" y="75" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#0F6E56">Team</text>
-        <line x1="700" y1="33" x2="700" y2="20" stroke="#d8dfde" stroke-width="1"/>
-        <text x="700" y="14" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#0F6E56">Expands further</text>
-        <text x="760" y="44" font-family="DM Sans, sans-serif" font-size="10" fill="#5b6668" opacity="0.5">The work</text>
-        <text x="760" y="56" font-family="DM Sans, sans-serif" font-size="10" fill="#5b6668" opacity="0.5">continues...</text>
-      </svg>
+    <!-- SAT Framework (unified) diagram -->
+    <div class="sat-framework">
+      <div class="sat-framework-title">SAT Framework <span class="sat-subtitle">(Self–AI–Team)</span></div>
+      <div class="sat-framework-canvas">
+        <svg viewBox="0 0 1200 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SAT Framework: four alternating Self-AI and Self-Team cycles producing an accelerating growth curve, with human anchor icons at every transition">
+          <defs>
+            <!-- arrow markers -->
+            <marker id="sat-arrow-ai" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5" fill="#534AB7"/></marker>
+            <marker id="sat-arrow-team" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5" fill="#0F6E56"/></marker>
+            <marker id="sat-arrow-self" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5" fill="#BA7517"/></marker>
+            <marker id="sat-arrow-axis" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#a6b6b8"/></marker>
+
+            <!-- human icon: head + shoulders -->
+            <symbol id="sat-human" viewBox="-10 -14 20 20">
+              <circle cx="0" cy="-7" r="4.2" fill="#E8A87C"/>
+              <path d="M-7,0.5 Q0,-3 7,0.5 L7,3.5 Q0,5.8 -7,3.5 Z" fill="#E8A87C"/>
+            </symbol>
+
+            <!-- Self–AI sub-cycle loop (compact, 150×170) -->
+            <symbol id="sat-loop-ai" viewBox="0 0 150 170">
+              <rect x="2" y="12" width="62" height="28" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
+              <text x="33" y="30" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">Self</text>
+              <text x="33" y="56" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Intent</text>
+
+              <rect x="86" y="12" width="62" height="28" rx="7" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+              <text x="117" y="30" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#534AB7">AI</text>
+              <text x="117" y="56" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#534AB7" opacity="0.75">Operationalize</text>
+
+              <rect x="86" y="130" width="62" height="28" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
+              <text x="117" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">Self</text>
+              <text x="117" y="124" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Judge</text>
+
+              <rect x="2" y="130" width="62" height="28" rx="7" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+              <text x="33" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#534AB7">AI</text>
+              <text x="33" y="124" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#534AB7" opacity="0.75">Refine</text>
+
+              <line x1="64" y1="26" x2="84" y2="26" stroke="#534AB7" stroke-width="1.3" marker-end="url(#sat-arrow-ai)"/>
+              <line x1="117" y1="40" x2="117" y2="128" stroke="#BA7517" stroke-width="1.3" marker-end="url(#sat-arrow-self)"/>
+              <line x1="86" y1="144" x2="66" y2="144" stroke="#534AB7" stroke-width="1.3" marker-end="url(#sat-arrow-ai)"/>
+              <line x1="33" y1="130" x2="33" y2="42" stroke="#BA7517" stroke-width="1.3" marker-end="url(#sat-arrow-self)"/>
+            </symbol>
+
+            <!-- Self–Team sub-cycle loop (compact, 150×170) -->
+            <symbol id="sat-loop-team" viewBox="0 0 150 170">
+              <rect x="2" y="12" width="62" height="28" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
+              <text x="33" y="30" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">Self</text>
+              <text x="33" y="56" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Present</text>
+
+              <rect x="86" y="12" width="62" height="28" rx="7" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.3"/>
+              <text x="117" y="30" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#0F6E56">Team</text>
+              <text x="117" y="56" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#0F6E56" opacity="0.75">Feedback</text>
+
+              <rect x="86" y="130" width="62" height="28" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
+              <text x="117" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">Self</text>
+              <text x="117" y="124" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Integrate</text>
+
+              <rect x="2" y="130" width="62" height="28" rx="7" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.3"/>
+              <text x="33" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#0F6E56">Team</text>
+              <text x="33" y="124" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#0F6E56" opacity="0.75">Expand</text>
+
+              <line x1="64" y1="26" x2="84" y2="26" stroke="#0F6E56" stroke-width="1.3" marker-end="url(#sat-arrow-team)"/>
+              <line x1="117" y1="40" x2="117" y2="128" stroke="#BA7517" stroke-width="1.3" marker-end="url(#sat-arrow-self)"/>
+              <line x1="86" y1="144" x2="66" y2="144" stroke="#0F6E56" stroke-width="1.3" marker-end="url(#sat-arrow-team)"/>
+              <line x1="33" y1="130" x2="33" y2="42" stroke="#BA7517" stroke-width="1.3" marker-end="url(#sat-arrow-self)"/>
+            </symbol>
+          </defs>
+
+          <!-- cycle box tints (widths 1 : 1.3 : 1.6 : 2.0) -->
+          <rect x="50"  y="20" width="171" height="520" fill="#F0EEF7"/>
+          <rect x="221" y="20" width="223" height="520" fill="#EDF5EE"/>
+          <rect x="444" y="20" width="274" height="520" fill="#F0EEF7"/>
+          <rect x="718" y="20" width="342" height="520" fill="#EDF5EE"/>
+
+          <!-- axes -->
+          <line x1="50" y1="540" x2="50" y2="30" stroke="#cbd3d4" stroke-width="1" marker-end="url(#sat-arrow-axis)"/>
+          <text font-family="DM Sans, sans-serif" font-size="9.5" letter-spacing="2" fill="#5b6668" transform="rotate(-90 34 280)" x="34" y="280" text-anchor="middle">SCALE OF THE WORK</text>
+
+          <line x1="50" y1="540" x2="1184" y2="540" stroke="#cbd3d4" stroke-width="1" marker-end="url(#sat-arrow-axis)"/>
+          <text x="620" y="585" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" letter-spacing="2" fill="#5b6668">SESSION PROGRESSION</text>
+
+          <!-- cycle labels in mid band -->
+          <text x="135" y="288" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" letter-spacing="1.5" font-weight="700" fill="#534AB7">SELF–AI</text>
+          <text x="332" y="288" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" letter-spacing="1.5" font-weight="700" fill="#0F6E56">SELF–TEAM</text>
+          <text x="581" y="288" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" letter-spacing="1.5" font-weight="700" fill="#534AB7">SELF–AI</text>
+          <text x="889" y="288" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" letter-spacing="1.5" font-weight="700" fill="#0F6E56">SELF–TEAM</text>
+          <text x="135" y="306" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#5b6668" opacity="0.65">Cycle 1</text>
+          <text x="332" y="306" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#5b6668" opacity="0.65">Cycle 2</text>
+          <text x="581" y="306" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#5b6668" opacity="0.65">Cycle 3</text>
+          <text x="889" y="306" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#5b6668" opacity="0.65">Cycle 4</text>
+
+          <!-- growth curve: monotonic, smooth, each cycle's two cubic segments form concave-down then concave-up with slope increasing across cycles -->
+          <path d="M 50 230
+                   C 105 213 166 215 221 185
+                   C 281 152 384 178 444 130
+                   C 509 78 653 130 718 65
+                   C 768 15 1010 75 1060 15"
+                stroke="#1a3a3a" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- fade-out dotted tail (the work continues) -->
+          <path d="M 1060 15 C 1100 10 1145 7 1184 5"
+                stroke="#1a3a3a" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="1.5,6" opacity="0.45"/>
+
+          <!-- human anchor icons at cycle boundaries, centered on curve -->
+          <use href="#sat-human" x="211" y="171" width="20" height="20"/>
+          <use href="#sat-human" x="434" y="116" width="20" height="20"/>
+          <use href="#sat-human" x="708" y="51" width="20" height="20"/>
+
+          <!-- internal caption, upper right of growth band -->
+          <text x="1170" y="58" text-anchor="end" font-family="Lora, serif" font-size="14" font-style="italic" fill="#1a3a3a" opacity="0.7">&#8220;At every transition, you steer.&#8221;</text>
+
+          <!-- sub-cycle diagrams, same size, centered in each cycle box (bottom band ~ y=345 to y=515) -->
+          <use href="#sat-loop-ai"   x="60"  y="345" width="150" height="170"/>
+          <use href="#sat-loop-team" x="257" y="345" width="150" height="170"/>
+          <use href="#sat-loop-ai"   x="506" y="345" width="150" height="170"/>
+          <use href="#sat-loop-team" x="814" y="345" width="150" height="170"/>
+        </svg>
+      </div>
     </div>
 
     <div class="framework-heading">"The ending is also yours"</div>
