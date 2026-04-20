@@ -1295,58 +1295,67 @@ body {
             <marker id="sat-arrow-self" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5" fill="#BA7517"/></marker>
             <marker id="sat-arrow-axis" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#a6b6b8"/></marker>
 
-            <!-- human icon: head + shoulders -->
-            <symbol id="sat-human" viewBox="-10 -14 20 20">
-              <circle cx="0" cy="-7" r="4.2" fill="#E8A87C"/>
-              <path d="M-7,0.5 Q0,-3 7,0.5 L7,3.5 Q0,5.8 -7,3.5 Z" fill="#E8A87C"/>
+            <!-- human icon: head + shoulders, centered at symbol origin (0,0) -->
+            <symbol id="sat-human" viewBox="-10 -10 20 20">
+              <circle cx="0" cy="-4" r="4" fill="#E8A87C"/>
+              <path d="M-6,3 Q0,-1 6,3 L6,6 Q0,8 -6,6 Z" fill="#E8A87C"/>
             </symbol>
 
-            <!-- Self–AI sub-cycle loop (compact, 150×170) -->
-            <symbol id="sat-loop-ai" viewBox="0 0 150 170">
-              <rect x="2" y="12" width="62" height="28" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
-              <text x="33" y="30" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">Self</text>
-              <text x="33" y="56" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Intent</text>
+            <!-- Self-AI sub-cycle loop (170 x 210, labels inside nodes) -->
+            <symbol id="sat-loop-ai" viewBox="0 0 170 210">
+              <!-- TL: Self / Intent -->
+              <rect x="3" y="12" width="68" height="50" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.4"/>
+              <text x="37" y="34" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#BA7517">Self</text>
+              <text x="37" y="50" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Intent</text>
 
-              <rect x="86" y="12" width="62" height="28" rx="7" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
-              <text x="117" y="30" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#534AB7">AI</text>
-              <text x="117" y="56" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#534AB7" opacity="0.75">Operationalize</text>
+              <!-- TR: AI / Operationalize -->
+              <rect x="99" y="12" width="68" height="50" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.4"/>
+              <text x="133" y="34" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#534AB7">AI</text>
+              <text x="133" y="50" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#534AB7" opacity="0.75">Operationalize</text>
 
-              <rect x="86" y="130" width="62" height="28" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
-              <text x="117" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">Self</text>
-              <text x="117" y="124" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Judge</text>
+              <!-- BR: Self / Judge -->
+              <rect x="99" y="148" width="68" height="50" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.4"/>
+              <text x="133" y="170" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#BA7517">Self</text>
+              <text x="133" y="186" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Judge</text>
 
-              <rect x="2" y="130" width="62" height="28" rx="7" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
-              <text x="33" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#534AB7">AI</text>
-              <text x="33" y="124" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#534AB7" opacity="0.75">Refine</text>
+              <!-- BL: AI / Refine -->
+              <rect x="3" y="148" width="68" height="50" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.4"/>
+              <text x="37" y="170" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#534AB7">AI</text>
+              <text x="37" y="186" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#534AB7" opacity="0.75">Refine</text>
 
-              <line x1="64" y1="26" x2="84" y2="26" stroke="#534AB7" stroke-width="1.3" marker-end="url(#sat-arrow-ai)"/>
-              <line x1="117" y1="40" x2="117" y2="128" stroke="#BA7517" stroke-width="1.3" marker-end="url(#sat-arrow-self)"/>
-              <line x1="86" y1="144" x2="66" y2="144" stroke="#534AB7" stroke-width="1.3" marker-end="url(#sat-arrow-ai)"/>
-              <line x1="33" y1="130" x2="33" y2="42" stroke="#BA7517" stroke-width="1.3" marker-end="url(#sat-arrow-self)"/>
+              <!-- clockwise arrows between nodes (no text overlap) -->
+              <line x1="71" y1="37" x2="97" y2="37" stroke="#534AB7" stroke-width="1.4" marker-end="url(#sat-arrow-ai)"/>
+              <line x1="133" y1="62" x2="133" y2="146" stroke="#BA7517" stroke-width="1.4" marker-end="url(#sat-arrow-self)"/>
+              <line x1="99" y1="173" x2="73" y2="173" stroke="#534AB7" stroke-width="1.4" marker-end="url(#sat-arrow-ai)"/>
+              <line x1="37" y1="148" x2="37" y2="64" stroke="#BA7517" stroke-width="1.4" marker-end="url(#sat-arrow-self)"/>
             </symbol>
 
-            <!-- Self–Team sub-cycle loop (compact, 150×170) -->
-            <symbol id="sat-loop-team" viewBox="0 0 150 170">
-              <rect x="2" y="12" width="62" height="28" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
-              <text x="33" y="30" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">Self</text>
-              <text x="33" y="56" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Present</text>
+            <!-- Self-Team sub-cycle loop (170 x 210, labels inside nodes) -->
+            <symbol id="sat-loop-team" viewBox="0 0 170 210">
+              <!-- TL: Self / Present -->
+              <rect x="3" y="12" width="68" height="50" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.4"/>
+              <text x="37" y="34" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#BA7517">Self</text>
+              <text x="37" y="50" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Present</text>
 
-              <rect x="86" y="12" width="62" height="28" rx="7" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.3"/>
-              <text x="117" y="30" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#0F6E56">Team</text>
-              <text x="117" y="56" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#0F6E56" opacity="0.75">Feedback</text>
+              <!-- TR: Team / Feedback -->
+              <rect x="99" y="12" width="68" height="50" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.4"/>
+              <text x="133" y="34" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#0F6E56">Team</text>
+              <text x="133" y="50" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#0F6E56" opacity="0.75">Feedback</text>
 
-              <rect x="86" y="130" width="62" height="28" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
-              <text x="117" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#BA7517">Self</text>
-              <text x="117" y="124" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Integrate</text>
+              <!-- BR: Self / Integrate -->
+              <rect x="99" y="148" width="68" height="50" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.4"/>
+              <text x="133" y="170" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#BA7517">Self</text>
+              <text x="133" y="186" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#BA7517" opacity="0.75">Integrate</text>
 
-              <rect x="2" y="130" width="62" height="28" rx="7" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.3"/>
-              <text x="33" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#0F6E56">Team</text>
-              <text x="33" y="124" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#0F6E56" opacity="0.75">Expand</text>
+              <!-- BL: Team / Expand -->
+              <rect x="3" y="148" width="68" height="50" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.4"/>
+              <text x="37" y="170" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#0F6E56">Team</text>
+              <text x="37" y="186" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8.5" fill="#0F6E56" opacity="0.75">Expand</text>
 
-              <line x1="64" y1="26" x2="84" y2="26" stroke="#0F6E56" stroke-width="1.3" marker-end="url(#sat-arrow-team)"/>
-              <line x1="117" y1="40" x2="117" y2="128" stroke="#BA7517" stroke-width="1.3" marker-end="url(#sat-arrow-self)"/>
-              <line x1="86" y1="144" x2="66" y2="144" stroke="#0F6E56" stroke-width="1.3" marker-end="url(#sat-arrow-team)"/>
-              <line x1="33" y1="130" x2="33" y2="42" stroke="#BA7517" stroke-width="1.3" marker-end="url(#sat-arrow-self)"/>
+              <line x1="71" y1="37" x2="97" y2="37" stroke="#0F6E56" stroke-width="1.4" marker-end="url(#sat-arrow-team)"/>
+              <line x1="133" y1="62" x2="133" y2="146" stroke="#BA7517" stroke-width="1.4" marker-end="url(#sat-arrow-self)"/>
+              <line x1="99" y1="173" x2="73" y2="173" stroke="#0F6E56" stroke-width="1.4" marker-end="url(#sat-arrow-team)"/>
+              <line x1="37" y1="148" x2="37" y2="64" stroke="#BA7517" stroke-width="1.4" marker-end="url(#sat-arrow-self)"/>
             </symbol>
           </defs>
 
@@ -1373,31 +1382,40 @@ body {
           <text x="581" y="306" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#5b6668" opacity="0.65">Cycle 3</text>
           <text x="889" y="306" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#5b6668" opacity="0.65">Cycle 4</text>
 
-          <!-- growth curve: monotonic, smooth, each cycle's two cubic segments form concave-down then concave-up with slope increasing across cycles -->
-          <path d="M 50 230
-                   C 105 213 166 215 221 185
-                   C 281 152 384 178 444 130
-                   C 509 78 653 130 718 65
-                   C 768 15 1010 75 1060 15"
-                stroke="#1a3a3a" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- growth curve: monotonic, smooth.
+               Each cycle = two cubic Bezier segments forming
+               concave-up (∪) then concave-down (∩) in math terms:
+               shallow at both cycle boundaries, peak slope mid-cycle.
+               Peak slope grows from cycle 1 (~0.15) to cycle 4 (~0.65),
+               giving an overall accelerating, wave-like rhythm. -->
+          <path d="M 50 250
+                   C 78.5 249.43 107 246.78 135.5 242.5
+                   C 164 238.23 192.5 235.57 221 235
+                   C 258 234.26 295.5 229.25 332.5 220
+                   C 369.5 210.75 407 205.74 444 205
+                   C 490 204.08 535 194.4 581 176
+                   C 627 157.6 672 147.92 718 147
+                   C 775 145.86 832 126.55 889 89.5
+                   C 946 52.45 1003 33.14 1060 32"
+                stroke="#1a3a3a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 
           <!-- fade-out dotted tail (the work continues) -->
-          <path d="M 1060 15 C 1100 10 1145 7 1184 5"
-                stroke="#1a3a3a" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="1.5,6" opacity="0.45"/>
+          <path d="M 1060 32 C 1100 27 1145 20 1184 14"
+                stroke="#1a3a3a" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-dasharray="1.8,6" opacity="0.5"/>
 
-          <!-- human anchor icons at cycle boundaries, centered on curve -->
-          <use href="#sat-human" x="211" y="171" width="20" height="20"/>
-          <use href="#sat-human" x="434" y="116" width="20" height="20"/>
-          <use href="#sat-human" x="708" y="51" width="20" height="20"/>
+          <!-- human anchor icons at cycle boundaries, centered on curve (symbol origin = use top-left + 10) -->
+          <use href="#sat-human" x="211" y="225" width="20" height="20"/>
+          <use href="#sat-human" x="434" y="195" width="20" height="20"/>
+          <use href="#sat-human" x="708" y="137" width="20" height="20"/>
 
           <!-- internal caption, upper right of growth band -->
           <text x="1170" y="58" text-anchor="end" font-family="Lora, serif" font-size="14" font-style="italic" fill="#1a3a3a" opacity="0.7">&#8220;At every transition, you steer.&#8221;</text>
 
-          <!-- sub-cycle diagrams, same size 160×182, centered in each cycle box (bottom band ~ y=332 to y=514) -->
-          <use href="#sat-loop-ai"   x="55.5"  y="332" width="160" height="182"/>
-          <use href="#sat-loop-team" x="252.5" y="332" width="160" height="182"/>
-          <use href="#sat-loop-ai"   x="501"   y="332" width="160" height="182"/>
-          <use href="#sat-loop-team" x="809"   y="332" width="160" height="182"/>
+          <!-- sub-cycle diagrams, same size 170×210, centered in each cycle box (bottom band y=325 to y=535) -->
+          <use href="#sat-loop-ai"   x="51"  y="325" width="170" height="210"/>
+          <use href="#sat-loop-team" x="248" y="325" width="170" height="210"/>
+          <use href="#sat-loop-ai"   x="496" y="325" width="170" height="210"/>
+          <use href="#sat-loop-team" x="804" y="325" width="170" height="210"/>
         </svg>
       </div>
     </div>
