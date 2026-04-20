@@ -157,8 +157,8 @@ body.has-nav > section { margin-left: 260px; }
 .fast-track-panel {
   position: sticky;
   top: 72px;
-  width: 232px;
-  flex: 0 0 232px;
+  width: 264px;
+  flex: 0 0 264px;
   align-self: flex-start;
   background: #fff;
   border: 1px solid var(--border);
@@ -168,6 +168,7 @@ body.has-nav > section { margin-left: 260px; }
   z-index: 20;
   max-height: calc(100vh - 96px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .fast-track-heading {
@@ -1023,12 +1024,12 @@ button.pressFx { animation: tapGlow 0.32s ease; }
 }
 
 /* ── TRANSITIONS ──────────────────────────────────────── */
-.ui-transition-target {
-  transition: opacity 0.38s ease, transform 0.58s ease;
-}
-.ui-transition-target.ui-entering { opacity: 0; transform: translateY(6px); }
-.ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
-.ui-transition-target.ui-leaving { opacity: 0; transform: translateY(4px); }
+/* Opacity-only crossfade. Avoid transform so body-level targets do not
+   become a containing block for fixed descendants (e.g. feedback widget). */
+.ui-transition-target { transition: opacity 0.38s ease; }
+.ui-transition-target.ui-entering { opacity: 0; }
+.ui-transition-target.ui-mounted { opacity: 1; }
+.ui-transition-target.ui-leaving { opacity: 0; }
 .is-hidden { display: none !important; }
 
 /* ── OVERVIEW ─────────────────────────────────────────── */
@@ -1254,8 +1255,8 @@ button.pressFx { animation: tapGlow 0.32s ease; }
 @media (max-width: 1200px) and (min-width: 901px) {
   .activity-layout { gap: 16px; }
   .fast-track-panel {
-    width: 200px;
-    flex-basis: 200px;
+    width: 232px;
+    flex-basis: 232px;
     padding: 12px 10px;
   }
   .fast-track-desc { font-size: 11px; }

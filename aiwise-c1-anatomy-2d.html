@@ -33,6 +33,18 @@ body {
   flex-direction: column;
 }
 
+/* UI TRANSITIONS — opacity only so body can remain a viable containing-block root for fixed widgets */
+.ui-transition-target { transition: opacity 0.38s ease; }
+.ui-transition-target.ui-entering { opacity: 0; }
+.ui-transition-target.ui-mounted { opacity: 1; }
+.ui-transition-target.ui-leaving { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ui-transition-target,
+  .ui-transition-target.ui-entering,
+  .ui-transition-target.ui-mounted,
+  .ui-transition-target.ui-leaving { transition: none; opacity: 1; }
+}
+
 /* TOOLBAR */
 .toolbar {
   flex-shrink: 0;
@@ -177,7 +189,7 @@ svg#diagram {
   <button class="tb-btn" onclick="setView('inference')">Inference Cycle</button>
   <div class="tb-sep"></div>
   <button class="tb-btn" onclick="resetView()">Reset</button>
-  <span class="tb-hint">Scroll to zoom in · Drag to pan · Hover to inspect</span>
+  <span class="tb-hint">Pinch or ⌘ / Ctrl + scroll to zoom · Drag to pan · Hover to inspect</span>
 </div>
 
 <!-- CANVAS -->
@@ -910,10 +922,19 @@ window.addEventListener('mousemove', e => {
   applyTransform();
 });
 
-// Wheel: zoom in/out, but never below fit-to-view scale
+// Wheel: zoom only when the user signals intent to zoom
+//   • Cmd/Ctrl + scroll (on a physical mouse or trackpad)
+//   • Pinch on a trackpad (browsers emit wheel with ctrlKey = true)
+// A plain scroll is left alone so the page can scroll past the map naturally.
 wrap.addEventListener('wheel', e => {
+  if (!e.ctrlKey && !e.metaKey) return;   // plain scroll → let the page scroll
   e.preventDefault();
-  const factor = e.deltaY < 0 ? 1.1 : 0.91;
+
+  // Smooth, magnitude-aware factor. deltaY is clamped so one aggressive
+  // wheel tick can't jump the view; exp gives continuous trackpad zooming.
+  const delta = Math.max(-100, Math.min(100, e.deltaY));
+  const factor = Math.exp(-delta * 0.0015);
+
   const rect = wrap.getBoundingClientRect();
   const mx = e.clientX - rect.left, my = e.clientY - rect.top;
   const newScale = Math.min(3, Math.max(baseScale, scale * factor));
@@ -1005,5 +1026,6 @@ function animateLoop(ts) {
 }
 requestAnimationFrame(animateLoop);
 </script>
+<script src="ui-effects.js"></script>
 </body>
 </html>

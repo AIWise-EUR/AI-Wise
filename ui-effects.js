@@ -60,20 +60,32 @@
     return true;
   }
 
+  function runLeaveThenNavigate(url) {
+    if (reduceMotion) {
+      window.location.href = url;
+      return;
+    }
+    transitionTargets.forEach(function (target) {
+      target.classList.remove('ui-entering');
+      target.classList.add('ui-leaving');
+    });
+    window.setTimeout(function () {
+      window.location.href = url;
+    }, 380);
+  }
+
+  // Shared helper so scripts doing programmatic navigation (e.g. the
+  // diagnostic questionnaire's "Go to step" buttons) can opt into the
+  // same leave animation that anchor clicks get.
+  window.uiNavigate = runLeaveThenNavigate;
+
   if (!reduceMotion) {
     document.addEventListener('click', function (event) {
       var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
       if (!shouldHandleLink(link, event)) return;
 
       event.preventDefault();
-      transitionTargets.forEach(function (target) {
-        target.classList.remove('ui-entering');
-        target.classList.add('ui-leaving');
-      });
-
-      window.setTimeout(function () {
-        window.location.href = link.href;
-      }, 380);
+      runLeaveThenNavigate(link.href);
     });
   }
 

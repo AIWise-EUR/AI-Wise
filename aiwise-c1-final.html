@@ -37,10 +37,10 @@ body {
 }
 
 /* UI TRANSITIONS */
-.ui-transition-target { transition: opacity 0.38s ease, transform 0.58s ease; }
-.ui-transition-target.ui-entering { opacity: 0; transform: translateY(6px); }
-.ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
-.ui-transition-target.ui-leaving { opacity: 0; transform: translateY(4px); }
+.ui-transition-target { transition: opacity 0.38s ease; }
+.ui-transition-target.ui-entering { opacity: 0; }
+.ui-transition-target.ui-mounted { opacity: 1; }
+.ui-transition-target.ui-leaving { opacity: 0; }
 
 /* PAGE LAYOUT: content + side nav */
 .page-layout {
@@ -512,7 +512,7 @@ body {
   padding: 20px 40px; background: var(--teal-pale);
   border-top: 1px solid var(--teal-mid);
 }
-.sources p { font-size: 11.5px; color: var(--muted); line-height: 1.7; max-width: 860px; }
+.sources p { font-size: 11.5px; color: var(--muted); line-height: 1.7; }
 
 .mobile-core-nav-wrap {
   display: none;
@@ -887,15 +887,6 @@ body {
     </p>
   </div>
 
-  <!-- NEXT BAR -->
-  <div class="next-bar">
-    <a class="next-btn" href="lobby.html" style="background:transparent;border-color:rgba(255,255,255,0.2);">← Back to Home</a>
-    <div class="next-bar-text" style="text-align:right;">
-      <h4>Next</h4>
-      <p>C2 · What is AI for us?</p>
-    </div>
-    <a class="next-btn" href="aiwise-c2-final.html">Continue to C2 →</a>
-  </div>
 
 </main>
 
@@ -911,6 +902,16 @@ body {
   </div>
 </aside>
 </div><!-- /page-layout -->
+
+<!-- NEXT BAR: outside page-layout so the dark bar spans the full viewport width -->
+<div class="next-bar">
+  <a class="next-btn" href="lobby.html" style="background:transparent;border-color:rgba(255,255,255,0.2);">← Back to Home</a>
+  <div class="next-bar-text" style="text-align:right;">
+    <h4>Next</h4>
+    <p>C2 · What is AI for us?</p>
+  </div>
+  <a class="next-btn" href="aiwise-c2-final.html">Continue to C2 →</a>
+</div>
 
 <script>
 // Core block navigation with subsection awareness
@@ -1055,6 +1056,7 @@ document.querySelectorAll('.sl-item-title').forEach(function(title) {
 });
 </script>
 <script src="ui-effects.js"></script>
+<script src="feedback-widget.js" defer></script>
 
 </body>
 </html>
