@@ -40,10 +40,10 @@ body {
 }
 
 /* UI TRANSITIONS */
-.ui-transition-target { transition: opacity 0.38s ease, transform 0.58s ease; }
-.ui-transition-target.ui-entering { opacity: 0; transform: translateY(6px); }
-.ui-transition-target.ui-mounted { opacity: 1; transform: translateY(0); }
-.ui-transition-target.ui-leaving { opacity: 0; transform: translateY(4px); }
+.ui-transition-target { transition: opacity 0.38s ease; }
+.ui-transition-target.ui-entering { opacity: 0; }
+.ui-transition-target.ui-mounted { opacity: 1; }
+.ui-transition-target.ui-leaving { opacity: 0; }
 
 /* HEADER */
 .main-header {
@@ -537,13 +537,30 @@ body {
 
 /* TEMPLATE BLOCK */
 .template-block {
-  max-width: 960px; margin: 28px auto 0; padding: 24px 28px;
+  position: relative;
+  max-width: 960px; margin: 28px auto 0; padding: 52px 28px 24px;
   background: #f4f7f6; border-radius: var(--radiusLg); border: 1px solid var(--border);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: 13px; line-height: 1.7; color: var(--text); white-space: pre-wrap;
 }
 .template-block .tpl-label { color: var(--accent); font-weight: 700; }
 .template-block .tpl-fill { color: var(--muted); font-style: italic; }
+
+.template-copy {
+  position: absolute;
+  top: 14px; right: 14px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  font: inherit; font-size: 11.5px; font-weight: 600;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--accent); background: #fff;
+  border: 1px solid var(--border); border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.template-copy:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.template-copy.is-copied { background: var(--accent); color: #fff; border-color: var(--accent); }
+.template-copy svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* CRITIQUE STEPPER */
 .critique-stepper { max-width: 960px; margin: 32px auto 0; }
@@ -1116,7 +1133,7 @@ Stay at theme identification only.</span>
     </div>
 
     <div class="sub-tag wide-content">Prompt template (XML)</div>
-    <div class="template-block wide-content"><span class="tpl-label">&lt;role&gt;</span>
+    <div class="template-block wide-content" data-copyable><button class="template-copy" type="button" data-copy-template aria-label="Copy prompt template"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span class="template-copy-label">Copy</span></button><span class="tpl-label">&lt;role&gt;</span>
 <span class="tpl-fill">[What perspective should AI operate from?]</span>
 <span class="tpl-label">&lt;/role&gt;</span>
 
@@ -1240,15 +1257,6 @@ paper(s) noted in parentheses.</span>
     </p>
   </div>
 
-  <!-- NEXT BAR -->
-  <div class="next-bar">
-    <a class="next-btn" href="aiwise-c2-final.html" style="background:transparent;border-color:rgba(255,255,255,0.2);">← C2 · What is AI for us?</a>
-    <div class="next-bar-text" style="text-align:right;">
-      <h4>Next</h4>
-      <p>GenAI in AWS I</p>
-    </div>
-    <a class="next-btn" href="diagnostic-questionnaire-final.html">Continue →</a>
-  </div>
 
 </main>
 
@@ -1264,6 +1272,16 @@ paper(s) noted in parentheses.</span>
   </div>
 </aside>
 </div><!-- /page-layout -->
+
+<!-- NEXT BAR: outside page-layout so the dark bar spans the full viewport width -->
+<div class="next-bar">
+  <a class="next-btn" href="aiwise-c2-final.html" style="background:transparent;border-color:rgba(255,255,255,0.2);">← C2 · What is AI for us?</a>
+  <div class="next-bar-text" style="text-align:right;">
+    <h4>Next</h4>
+    <p>GenAI in AWS I</p>
+  </div>
+  <a class="next-btn" href="diagnostic-questionnaire-final.html">Continue →</a>
+</div>
 
 <script>
 // Core block navigation with subsection awareness
@@ -1458,7 +1476,48 @@ document.querySelectorAll('.technique-panel').forEach(function(panel) {
   });
 })();
 </script>
+<script>
+// Copy button for the XML prompt template: grab the block's plain text
+// (excluding the button itself), write to clipboard, give quick confirmation.
+(function(){
+  document.querySelectorAll('[data-copy-template]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var block = btn.closest('[data-copyable]');
+      if (!block) return;
+      var clone = block.cloneNode(true);
+      clone.querySelectorAll('[data-copy-template]').forEach(function(el){ el.remove(); });
+      var text = clone.textContent.replace(/^\s+/, '').replace(/\s+$/, '');
+      var label = btn.querySelector('.template-copy-label');
+      var done = function(){
+        btn.classList.add('is-copied');
+        if (label) label.textContent = 'Copied';
+        setTimeout(function(){
+          btn.classList.remove('is-copied');
+          if (label) label.textContent = 'Copy';
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function(){
+          // fallback
+          var ta = document.createElement('textarea');
+          ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); done(); } catch(_) {}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch(_) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+})();
+</script>
 <script src="ui-effects.js"></script>
+<script src="feedback-widget.js" defer></script>
 
 </body>
 </html>

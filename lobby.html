@@ -28,6 +28,18 @@ html, body {
   overflow-x: hidden;
 }
 
+/* UI TRANSITIONS — opacity only so body can remain a viable containing-block root for fixed widgets */
+.ui-transition-target { transition: opacity 0.38s ease; }
+.ui-transition-target.ui-entering { opacity: 0; }
+.ui-transition-target.ui-mounted { opacity: 1; }
+.ui-transition-target.ui-leaving { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ui-transition-target,
+  .ui-transition-target.ui-entering,
+  .ui-transition-target.ui-mounted,
+  .ui-transition-target.ui-leaving { transition: none; opacity: 1; }
+}
+
 .page {
   min-height: 100vh;
   display: flex;
@@ -69,11 +81,13 @@ html, body {
   pointer-events: none;
 }
 
+/* Erasmus calligraphy in the top-left, forced to pure white so it sits
+   directly on the dark hero background with no box. */
 .hero-logo {
   position: absolute;
-  top: 22px; left: 28px;
-  width: 108px;
-  opacity: 0.88;
+  top: 24px; left: 28px;
+  width: 170px;
+  filter: brightness(0) invert(1);
   z-index: 2;
 }
 
@@ -240,6 +254,14 @@ html, body {
   flex-shrink: 0;
 }
 
+.last-updated {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(91, 102, 104, 0.55);
+  margin: 28px auto 32px;
+}
+
 /* ── ANIMATIONS ─────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(11px); }
@@ -257,7 +279,7 @@ html, body {
 }
 @media (max-width: 540px) {
   .hero { padding: 56px 20px 36px; flex: 0 0 40vh; }
-  .hero-logo { left: 16px; top: 16px; width: 96px; }
+  .hero-logo { top: 16px; left: 16px; width: 128px; }
   .content { padding: 28px 16px 24px; }
   .cards { grid-template-columns: 1fr; }
   .site-footer { padding: 16px 20px; gap: 12px; }
@@ -326,6 +348,8 @@ html, body {
       </div>
     </div>
 
+    <div class="last-updated">Last updated: April 20, 2026</div>
+
     <!-- FOOTER -->
     <footer class="site-footer">
       <span>Community for Learning &amp; Innovation</span>
@@ -335,5 +359,7 @@ html, body {
   </div>
 
 </div>
+<script src="ui-effects.js"></script>
+<script src="feedback-widget.js" defer></script>
 </body>
 </html>

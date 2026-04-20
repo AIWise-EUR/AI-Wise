@@ -723,7 +723,7 @@
     card.querySelector('.result-step-go').addEventListener('click', function() {
       var ai = getUseAi();
       saveState(stage, ai);
-      window.location.href = buildGoUrl(stage, ai);
+      (window.uiNavigate || function(u){ window.location.href = u; })(buildGoUrl(stage, ai));
     });
     return card;
   }
@@ -758,7 +758,7 @@
       document.getElementById("btn_go_step7").onclick = function() {
         var ai = getUseAi();
         saveState("finalizing", ai);
-        window.location.href = buildGoUrl("finalizing", ai);
+        (window.uiNavigate || function(u){ window.location.href = u; })(buildGoUrl("finalizing", ai));
       };
     }
   }
@@ -823,7 +823,7 @@
     var useAi = getFtUseAi();
     persistUiState(document.getElementById("result_area").style.display === "block");
     saveState(selectedFtStage, useAi);
-    window.location.href = buildGoUrl(selectedFtStage, useAi);
+    (window.uiNavigate || function(u){ window.location.href = u; })(buildGoUrl(selectedFtStage, useAi));
   });
 
   restoreUiState();
@@ -832,5 +832,6 @@
 </script>
 <script src="analytics.js"></script>
 <script src="ui-effects.js"></script>
+<script src="feedback-widget.js" defer></script>
 </body>
 </html>
