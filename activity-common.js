@@ -37,11 +37,12 @@
   var currentStage = document.body.getAttribute("data-stage") || "";
   var currentIdx = STAGE_ORDER.indexOf(currentStage);
 
-  /* ── HEADER STEP BADGE ──────────────────────────────────── */
+  /* ── HEADER BREADCRUMB (right-side slot) ────────────────── */
   function initHeaderBadge() {
     var badge = document.getElementById("header_step_badge");
     if (!badge || currentIdx < 0) return;
-    badge.textContent = "Step " + (currentIdx + 1) + " of 7";
+    var stageLabel = STAGE_LABELS[currentStage] || "";
+    badge.innerHTML = '<span>Activities</span> &rsaquo; Step ' + (currentIdx + 1) + ' &middot; ' + stageLabel;
   }
 
   /* ── FAST-TRACK PANEL ───────────────────────────────────── */

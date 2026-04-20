@@ -30,11 +30,11 @@ body {
   overflow-y: scroll;
 }
 
-/* ── HEADER — dark branded bar ────────────────────────── */
+/* ── HEADER — unified white bar with breadcrumb ──────── */
 .main-header {
   padding: 0;
-  background: var(--dark);
-  border-bottom: 2px solid var(--signal);
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 30;
@@ -43,38 +43,44 @@ body {
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 12px 24px;
+  padding: 16px 32px;
 }
 
 .header-logo {
   height: 36px;
   flex-shrink: 0;
-  opacity: 0.92;
 }
 
 .header-inner h1 {
   margin: 0;
   font-size: 18px;
-  font-weight: 600;
-  color: #ffffff;
+  font-weight: 700;
+  color: var(--dark);
   letter-spacing: 0.01em;
 }
 
+/* breadcrumb-style slot on the right of the header
+   (matches .breadcrumb used on Core Blocks pages) */
 .header-step-badge {
   margin-left: auto;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--signal);
-  border: 1px solid rgba(125, 211, 252, 0.42);
-  border-radius: 999px;
-  padding: 4px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   white-space: nowrap;
 }
+.header-step-badge > span { color: var(--border); }
 
 /* ── NAV (c1/c2/c3 pages only) ────────────────────────── */
 body.has-nav > nav {
