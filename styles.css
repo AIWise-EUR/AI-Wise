@@ -30,11 +30,11 @@ body {
   overflow-y: scroll;
 }
 
-/* ── HEADER — dark branded bar ────────────────────────── */
+/* ── HEADER — unified white bar with breadcrumb ──────── */
 .main-header {
   padding: 0;
-  background: var(--dark);
-  border-bottom: 2px solid var(--signal);
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 30;
@@ -43,38 +43,44 @@ body {
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 12px 24px;
+  padding: 16px 32px;
 }
 
 .header-logo {
   height: 36px;
   flex-shrink: 0;
-  opacity: 0.92;
 }
 
 .header-inner h1 {
   margin: 0;
   font-size: 18px;
-  font-weight: 600;
-  color: #ffffff;
+  font-weight: 700;
+  color: var(--dark);
   letter-spacing: 0.01em;
 }
 
+/* breadcrumb-style slot on the right of the header
+   (matches .breadcrumb used on Core Blocks pages) */
 .header-step-badge {
   margin-left: auto;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--signal);
-  border: 1px solid rgba(125, 211, 252, 0.42);
-  border-radius: 999px;
-  padding: 4px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   white-space: nowrap;
 }
+.header-step-badge > span { color: var(--border); }
 
 /* ── NAV (c1/c2/c3 pages only) ────────────────────────── */
 body.has-nav > nav {
@@ -1181,6 +1187,71 @@ button.pressFx { animation: tapGlow 0.32s ease; }
   text-align: right;
 }
 
+/* ── MODULE HERO (Diagnostic + Activity pages) ────────── */
+.module-hero {
+  background: var(--dark);
+  padding: 56px 40px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.module-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
+}
+
+.module-hero-glow {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 420px;
+  background: radial-gradient(ellipse, rgba(201, 169, 110, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.module-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.module-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #c9a96e;
+  margin-bottom: 18px;
+}
+
+.module-hero-tag-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #c9a96e;
+  display: inline-block;
+}
+
+.module-hero-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0;
+  padding: 0;
+}
+
 /* ── RESPONSIVE ───────────────────────────────────────── */
 @media (max-width: 900px) {
   body.has-nav > nav {
@@ -1200,6 +1271,10 @@ button.pressFx { animation: tapGlow 0.32s ease; }
   .header-step-badge { display: none; }
   .header-logo { height: 28px; }
   .header-inner h1 { font-size: 16px; }
+
+  .module-hero { padding: 40px 20px 32px; }
+  .module-hero-title { font-size: 28px; }
+  .module-hero-tag { font-size: 10px; margin-bottom: 14px; }
 
   .pageShell { padding-left: 0; padding-right: 0; }
   .genaiIntroPill { font-size: 10px; }

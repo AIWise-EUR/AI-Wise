@@ -37,11 +37,12 @@
   var currentStage = document.body.getAttribute("data-stage") || "";
   var currentIdx = STAGE_ORDER.indexOf(currentStage);
 
-  /* ── HEADER STEP BADGE ──────────────────────────────────── */
+  /* ── HEADER BREADCRUMB (right-side slot) ────────────────── */
   function initHeaderBadge() {
     var badge = document.getElementById("header_step_badge");
     if (!badge || currentIdx < 0) return;
-    badge.textContent = "Step " + (currentIdx + 1) + " of 7";
+    var stageLabel = STAGE_LABELS[currentStage] || "";
+    badge.innerHTML = '<span>Activities</span> &rsaquo; Step ' + (currentIdx + 1) + ' &middot; ' + stageLabel;
   }
 
   /* ── FAST-TRACK PANEL ───────────────────────────────────── */
@@ -143,19 +144,33 @@
 
   /* ── (removed: genai collapse) ─────────────────────────── */
 
-  /* ── PAGE HERO (auto-generate from h2) ──────────────────── */
+  /* ── MODULE HERO (full-width dark band above content) ──── */
   function initPageHero() {
     if (currentIdx < 0) return;
 
-    var h2 = document.querySelector(".page-content h2");
+    var pageContent = document.querySelector(".page-content");
+    if (!pageContent) return;
+    var h2 = pageContent.querySelector("h2");
     if (!h2) return;
 
-    var hero = document.createElement("div");
-    hero.className = "page-hero";
-    hero.innerHTML = '<span class="page-hero-step">Step ' + (currentIdx + 1) + '</span>'
-      + '<h2 class="page-hero-title">' + h2.textContent + '</h2>';
+    var title = h2.textContent;
+    var stepNum = currentIdx + 1;
 
-    h2.parentNode.replaceChild(hero, h2);
+    var mainSection = pageContent.closest("section");
+    if (!mainSection || !mainSection.parentNode) return;
+
+    var hero = document.createElement("section");
+    hero.className = "module-hero";
+    hero.innerHTML =
+      '<div class="module-hero-grid"></div>'
+      + '<div class="module-hero-glow"></div>'
+      + '<div class="module-hero-inner">'
+      +   '<div class="module-hero-tag"><span class="module-hero-tag-dot"></span>Step ' + stepNum + ' · Activity Module</div>'
+      +   '<h2 class="module-hero-title">' + title + '</h2>'
+      + '</div>';
+
+    mainSection.parentNode.insertBefore(hero, mainSection);
+    h2.remove();
   }
 
   /* ── GENAI FULL-WIDTH BAND ────────────────────────────────── */
