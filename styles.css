@@ -1218,9 +1218,8 @@ button.pressFx { animation: tapGlow 0.32s ease; }
 .module-hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 1120px;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
 }
 
 .module-hero-tag {
