@@ -120,13 +120,25 @@
       transform: translateY(2px);
     }
 
-    /* ── Back link ── */
+    /* ── Top return strip (above intro) ── */
+    .materials-top-return {
+      margin: 0 0 18px;
+    }
+
+    /* ── Bottom action row (back + Start Diagnostic) ── */
     .materials-back {
       margin-top: 44px;
       padding-top: 22px;
       border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
     }
-    .materials-back a {
+
+    /* Shared "back to sub-lobby" link styling */
+    .materials-back-link {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -136,7 +148,29 @@
       text-decoration: none;
       transition: gap 0.18s ease;
     }
-    .materials-back a:hover { gap: 12px; }
+    .materials-back-link:hover { gap: 12px; }
+
+    /* "Start Diagnostic" CTA — solid teal, mirrors the sub-lobby CTA */
+    .materials-start-diag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 22px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: var(--shadowSm);
+    }
+    .materials-start-diag:hover {
+      background: var(--dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadowMd);
+    }
 
     @media (max-width: 900px) {
       .materials-grid,
@@ -176,6 +210,10 @@
 
 <section>
   <div class="materials-layout">
+
+    <div class="materials-top-return">
+      <a class="materials-back-link" href="sub-lobby.html">&larr; Back to GenAI in Academic Writing Skills&nbsp;I</a>
+    </div>
 
     <p class="materials-intro">
       Course materials from AWS&nbsp;I. Review these before working with GenAI in this module.
@@ -365,9 +403,10 @@
       </div>
     </div>
 
-    <!-- Back link -->
+    <!-- Bottom action row: return + Start Diagnostic -->
     <div class="materials-back">
-      <a href="sub-lobby.html">&larr; Back to GenAI in Academic Writing Skills&nbsp;I</a>
+      <a class="materials-back-link" href="sub-lobby.html">&larr; Back to GenAI in Academic Writing Skills&nbsp;I</a>
+      <a class="materials-start-diag" href="diagnostic-questionnaire-final.html">Start Diagnostic Questionnaire &rarr;</a>
     </div>
 
   </div>
