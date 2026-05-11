@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI-Wise Module - GenAI in Academic Writing Skills I</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Sub-lobby layout (single 760px column) ── */
+    .sublobby-layout {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+
+    .sublobby-intro {
+      font-size: 15px;
+      line-height: 1.72;
+      color: var(--muted);
+      margin: 0 0 28px 0;
+    }
+    .sublobby-intro strong { color: var(--text); font-weight: 600; }
+
+    /* ── Lighter-weight materials banner-link (recommended-first hint) ── */
+    .sublobby-materials-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radiusMd);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .sublobby-materials-link:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: var(--shadowSm);
+    }
+
+    .sublobby-materials-icon {
+      width: 36px; height: 36px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: #f0f6f5;
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sublobby-materials-body {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column;
+      gap: 2px;
+    }
+
+    .sublobby-materials-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0;
+    }
+
+    .sublobby-materials-sub {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .sublobby-materials-arrow {
+      flex-shrink: 0;
+      color: var(--muted);
+      font-size: 18px;
+      transition: color 0.18s ease, transform 0.18s ease;
+    }
+    .sublobby-materials-link:hover .sublobby-materials-arrow {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* ── Section divider with subtle "and then" cue ── */
+    .sublobby-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 30px 0 22px;
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .sublobby-divider::before,
+    .sublobby-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Diagnostic card (main visual weight) ── */
+    .sublobby-diag-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radiusLg);
+      box-shadow: var(--shadowMd);
+      padding: 30px 30px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sublobby-diag-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .sublobby-diag-card-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .sublobby-diag-card-eyebrow::before {
+      content: "";
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .sublobby-diag-card-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin: 0 0 12px 0;
+    }
+
+    .sublobby-diag-card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 22px 0;
+    }
+
+    .sublobby-diag-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: var(--shadowSm);
+    }
+    .sublobby-diag-cta:hover {
+      background: var(--dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadowMd);
+    }
+
+    @media (max-width: 560px) {
+      .sublobby-layout { padding: 24px 16px 48px; }
+      .sublobby-materials-link { padding: 14px 16px; gap: 12px; }
+      .sublobby-diag-card { padding: 24px 22px 22px; }
+      .sublobby-diag-card-title { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+<header class="main-header">
+  <div class="header-inner">
+    <a href="lobby.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;">
+      <img src="erasmus-logo.png" alt="Erasmus University Rotterdam" class="header-logo">
+      <h1>AI-Wise</h1>
+    </a>
+    <span class="header-step-badge"><span>AWS I</span> &rsaquo; Get started</span>
+  </div>
+</header>
+
+<section class="module-hero">
+  <div class="module-hero-grid"></div>
+  <div class="module-hero-glow"></div>
+  <div class="module-hero-inner">
+    <div class="module-hero-tag"><span class="module-hero-tag-dot"></span>Academic Writing Skills I</div>
+    <h2 class="module-hero-title">GenAI in Academic Writing Skills&nbsp;I</h2>
+  </div>
+</section>
+
+<section>
+  <div class="sublobby-layout">
+
+    <!-- 1. Intro -->
+    <p class="sublobby-intro">
+      Have you reviewed your AWS&nbsp;I course materials?
+      <strong>Knowing the course context is critical for using GenAI well in academic work.</strong>
+    </p>
+
+    <!-- 2. AWS I Materials banner link (lighter weight, recommended-first cue) -->
+    <a class="sublobby-materials-link" href="aws-i-materials.html">
+      <span class="sublobby-materials-icon" aria-hidden="true">&#x1F4DA;</span>
+      <span class="sublobby-materials-body">
+        <span class="sublobby-materials-title">Browse AWS I Materials &rarr;</span>
+        <span class="sublobby-materials-sub">slides, annexes, templates, rubrics</span>
+      </span>
+      <span class="sublobby-materials-arrow" aria-hidden="true">&rsaquo;</span>
+    </a>
+
+    <!-- Divider cue -->
+    <div class="sublobby-divider">When you're ready</div>
+
+    <!-- 3. Diagnostic Questionnaire main card -->
+    <div class="sublobby-diag-card">
+      <div class="sublobby-diag-card-eyebrow">GenAI in AWS&nbsp;I</div>
+      <h3 class="sublobby-diag-card-title">Diagnostic Questionnaire</h3>
+      <p class="sublobby-diag-card-desc">
+        Take the questionnaire to identify your current step in the literature review.
+        You'll get preset prompts you can use directly: structured AI prompts calibrated
+        to your stage, the course context, and the proper collaboration process with your own AI.
+      </p>
+      <a class="sublobby-diag-cta" href="diagnostic-questionnaire-final.html">
+        Start Diagnostic &rarr;
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script src="analytics.js"></script>
+<script src="ui-effects.js"></script>
+<script src="feedback-widget.js" defer></script>
+</body>
+</html>
