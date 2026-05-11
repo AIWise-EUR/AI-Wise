@@ -103,68 +103,57 @@
       background: var(--border);
     }
 
-    /* ── Diagnostic card (main visual weight) ── */
-    .sublobby-diag-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radiusLg);
-      box-shadow: var(--shadowMd);
-      padding: 30px 30px 28px;
-      position: relative;
-      overflow: hidden;
-    }
-    .sublobby-diag-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--accent);
+    /* ── Diagnostic block (page-dominant, no card framing) ── */
+    .sublobby-diag {
+      margin-top: 4px;
+      padding: 4px 0 8px;
     }
 
-    .sublobby-diag-card-eyebrow {
+    .sublobby-diag-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
-    .sublobby-diag-card-eyebrow::before {
+    .sublobby-diag-eyebrow::before {
       content: "";
       width: 5px; height: 5px;
       border-radius: 50%;
       background: var(--accent);
     }
 
-    .sublobby-diag-card-title {
-      font-size: 24px;
+    .sublobby-diag-title {
+      font-size: clamp(2rem, 4.2vw, 2.9rem);
       font-weight: 700;
       color: var(--text);
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-      margin: 0 0 12px 0;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin: 0 0 18px 0;
     }
 
-    .sublobby-diag-card-desc {
-      font-size: 14px;
+    .sublobby-diag-desc {
+      font-size: 15.5px;
       color: var(--muted);
       line-height: 1.7;
-      margin: 0 0 22px 0;
+      margin: 0 0 28px 0;
+      max-width: 660px;
     }
 
     .sublobby-diag-cta {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 22px;
+      gap: 10px;
+      padding: 15px 28px;
       background: var(--accent);
       color: #fff;
-      border-radius: 10px;
+      border-radius: 12px;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       letter-spacing: 0.01em;
       transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
@@ -179,8 +168,9 @@
     @media (max-width: 560px) {
       .sublobby-layout { padding: 24px 16px 48px; }
       .sublobby-materials-link { padding: 14px 16px; gap: 12px; }
-      .sublobby-diag-card { padding: 24px 22px 22px; }
-      .sublobby-diag-card-title { font-size: 21px; }
+      .sublobby-diag-title { font-size: 26px; }
+      .sublobby-diag-desc { font-size: 14.5px; }
+      .sublobby-diag-cta { padding: 13px 22px; font-size: 14px; }
     }
   </style>
 </head>
@@ -226,11 +216,11 @@
     <!-- Divider cue -->
     <div class="sublobby-divider">When you're ready</div>
 
-    <!-- 3. Diagnostic Questionnaire main card -->
-    <div class="sublobby-diag-card">
-      <div class="sublobby-diag-card-eyebrow">GenAI in AWS&nbsp;I</div>
-      <h3 class="sublobby-diag-card-title">Diagnostic Questionnaire</h3>
-      <p class="sublobby-diag-card-desc">
+    <!-- 3. Diagnostic Questionnaire — page-dominant, no card framing -->
+    <div class="sublobby-diag">
+      <div class="sublobby-diag-eyebrow">GenAI in AWS&nbsp;I</div>
+      <h3 class="sublobby-diag-title">Diagnostic Questionnaire</h3>
+      <p class="sublobby-diag-desc">
         Take the questionnaire to identify your current step in the literature review.
         You'll get preset prompts you can use directly: structured AI prompts calibrated
         to your stage, the course context, and the proper collaboration process with your own AI.
