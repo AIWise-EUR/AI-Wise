@@ -6,11 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Sub-lobby uses the shared .module-hero band at its default
-       dimensions; only the eyebrow tag is rendered (no h2), since
-       the page's main title is the centered "Diagnostic
-       Questionnaire" block below. */
-    .sublobby-hero .module-hero-tag { margin-bottom: 0; }
+    /* Sub-lobby uses the shared .module-hero band at default
+       dimensions; eyebrow + title render together just like every
+       activity page. */
 
     /* ── Sub-lobby layout (single 760px column) ── */
     .sublobby-layout {
@@ -111,38 +109,12 @@
       background: var(--border);
     }
 
-    /* ── Diagnostic block (page-dominant, no card framing, centered) ── */
+    /* ── Diagnostic block (under the hero, no card framing) ──
+       Title + eyebrow live in the hero band above. Below the
+       band we keep only the description and CTA. */
     .sublobby-diag {
       margin-top: 4px;
       padding: 4px 0 8px;
-      text-align: center;
-    }
-
-    .sublobby-diag-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 14px;
-    }
-    .sublobby-diag-eyebrow::before {
-      content: "";
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .sublobby-diag-title {
-      font-size: clamp(2rem, 4.2vw, 2.9rem);
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin: 0 0 18px 0;
     }
 
     .sublobby-diag-desc {
@@ -151,6 +123,11 @@
       line-height: 1.7;
       margin: 0 auto 28px;
       max-width: 660px;
+      /* block centered, text left-aligned (default) */
+    }
+
+    .sublobby-diag-cta-wrap {
+      text-align: center;
     }
 
     .sublobby-diag-cta {
@@ -177,7 +154,6 @@
     @media (max-width: 560px) {
       .sublobby-layout { padding: 24px 16px 48px; }
       .sublobby-materials-link { padding: 14px 16px; gap: 12px; }
-      .sublobby-diag-title { font-size: 26px; }
       .sublobby-diag-desc { font-size: 14.5px; }
       .sublobby-diag-cta { padding: 13px 22px; font-size: 14px; }
     }
@@ -199,24 +175,27 @@
   <div class="module-hero-glow"></div>
   <div class="module-hero-inner">
     <div class="module-hero-tag"><span class="module-hero-tag-dot"></span>GenAI in AWS&nbsp;I</div>
+    <h2 class="module-hero-title">Diagnostic Questionnaire</h2>
   </div>
 </section>
 
 <section>
   <div class="sublobby-layout">
 
-    <!-- 1. Diagnostic Questionnaire — page-dominant, no card framing.
-         (The "GenAI in AWS I" identity now lives in the hero eyebrow above.) -->
+    <!-- 1. Diagnostic body — description (block-centered, text left-
+         aligned) and the centered Start Diagnostic CTA below it.
+         The eyebrow + title both live in the dark hero band above. -->
     <div class="sublobby-diag">
-      <h3 class="sublobby-diag-title">Diagnostic Questionnaire</h3>
       <p class="sublobby-diag-desc">
         Take the questionnaire to identify your current step in the literature review.
         You'll get preset prompts you can use directly: structured AI prompts calibrated
         to your stage, the course context, and the proper collaboration process with your own AI.
       </p>
-      <a class="sublobby-diag-cta" href="diagnostic-questionnaire-final.html">
-        Start Diagnostic &rarr;
-      </a>
+      <div class="sublobby-diag-cta-wrap">
+        <a class="sublobby-diag-cta" href="diagnostic-questionnaire-final.html">
+          Start Diagnostic &rarr;
+        </a>
+      </div>
     </div>
 
     <!-- Divider cue -->
