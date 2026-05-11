@@ -6,14 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* ── Slim the shared module-hero on this page only ──
-       The main page title is the centered "Diagnostic Questionnaire"
-       block below; the hero only needs to carry the section eyebrow
-       and the dark-teal band identity, so it renders as a thin strip. */
-    .sublobby-hero { padding: 18px 40px 16px; }
-    @media (max-width: 900px) {
-      .sublobby-hero { padding: 14px 20px 12px; }
-    }
+    /* Sub-lobby uses the shared .module-hero band at its default
+       dimensions; only the eyebrow tag is rendered (no h2), since
+       the page's main title is the centered "Diagnostic
+       Questionnaire" block below. */
     .sublobby-hero .module-hero-tag { margin-bottom: 0; }
 
     /* ── Sub-lobby layout (single 760px column) ── */
@@ -202,16 +198,16 @@
   <div class="module-hero-grid"></div>
   <div class="module-hero-glow"></div>
   <div class="module-hero-inner">
-    <div class="module-hero-tag"><span class="module-hero-tag-dot"></span>Academic Writing Skills I</div>
+    <div class="module-hero-tag"><span class="module-hero-tag-dot"></span>GenAI in AWS&nbsp;I</div>
   </div>
 </section>
 
 <section>
   <div class="sublobby-layout">
 
-    <!-- 1. Diagnostic Questionnaire — page-dominant, no card framing -->
+    <!-- 1. Diagnostic Questionnaire — page-dominant, no card framing.
+         (The "GenAI in AWS I" identity now lives in the hero eyebrow above.) -->
     <div class="sublobby-diag">
-      <div class="sublobby-diag-eyebrow">GenAI in AWS&nbsp;I</div>
       <h3 class="sublobby-diag-title">Diagnostic Questionnaire</h3>
       <p class="sublobby-diag-desc">
         Take the questionnaire to identify your current step in the literature review.
