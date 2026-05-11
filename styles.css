@@ -451,7 +451,34 @@ h2 { margin-top: 0; }
   color: #1b4c52;
   font-weight: 600;
   font-size: 0.9em;
+  text-decoration: none;
 }
+
+.canvas-card-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.canvas-card-actions a { transition: color 0.18s ease; }
+.canvas-card-actions a:hover { text-decoration: underline; }
+
+.canvas-card-sep {
+  color: var(--border);
+  font-weight: 600;
+  font-size: 0.9em;
+  user-select: none;
+}
+
+.canvas-card-download {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9em;
+  text-decoration: none;
+}
+.canvas-card-download:hover { color: var(--accent); }
 
 /* ── SOFT CARD ────────────────────────────────────────── */
 .softCard {
