@@ -9,10 +9,10 @@
     /* ── Slim the shared module-hero on this page only ──
        The main page title is the centered "Diagnostic Questionnaire"
        block below; the hero only needs to carry the section eyebrow
-       and the dark-teal band identity. */
-    .sublobby-hero { padding: 28px 40px 26px; }
+       and the dark-teal band identity, so it renders as a thin strip. */
+    .sublobby-hero { padding: 18px 40px 16px; }
     @media (max-width: 900px) {
-      .sublobby-hero { padding: 22px 20px 20px; }
+      .sublobby-hero { padding: 14px 20px 12px; }
     }
     .sublobby-hero .module-hero-tag { margin-bottom: 0; }
 
@@ -27,7 +27,9 @@
       font-size: 15px;
       line-height: 1.72;
       color: var(--muted);
-      margin: 0 0 28px 0;
+      margin: 0 auto 22px;
+      max-width: 580px;
+      text-align: center;
     }
     .sublobby-intro strong { color: var(--text); font-weight: 600; }
 
