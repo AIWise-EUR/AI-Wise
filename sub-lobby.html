@@ -6,6 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* ── Slim the shared module-hero on this page only ──
+       The main page title is the centered "Diagnostic Questionnaire"
+       block below; the hero only needs to carry the section eyebrow
+       and the dark-teal band identity. */
+    .sublobby-hero { padding: 28px 40px 26px; }
+    @media (max-width: 900px) {
+      .sublobby-hero { padding: 22px 20px 20px; }
+    }
+    .sublobby-hero .module-hero-tag { margin-bottom: 0; }
+
     /* ── Sub-lobby layout (single 760px column) ── */
     .sublobby-layout {
       max-width: 760px;
@@ -186,12 +196,11 @@
   </div>
 </header>
 
-<section class="module-hero">
+<section class="module-hero sublobby-hero">
   <div class="module-hero-grid"></div>
   <div class="module-hero-glow"></div>
   <div class="module-hero-inner">
     <div class="module-hero-tag"><span class="module-hero-tag-dot"></span>Academic Writing Skills I</div>
-    <h2 class="module-hero-title">GenAI in Academic Writing Skills&nbsp;I</h2>
   </div>
 </section>
 
