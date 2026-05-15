@@ -266,26 +266,56 @@ html, body {
 /* ── VIDEO CTA (pill under hero, scrolls to video at bottom) ── */
 .video-cta-section {
   max-width: 900px;
-  margin: 32px auto;
+  margin: 36px auto 40px;
   padding: 0 16px;
   text-align: center;
 }
 .video-cta-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
+  gap: 14px;
+  padding: 16px 14px 16px 22px;
   background: var(--accent);
   color: #ffffff;
   text-decoration: none;
   border-radius: 999px;
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 500;
-  transition: background 0.2s ease, transform 0.2s ease;
+  letter-spacing: 0.005em;
+  line-height: 1.3;
+  box-shadow: 0 6px 18px rgba(2,47,53,0.16);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .video-cta-link:hover {
   background: var(--dark);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(2,47,53,0.22);
+}
+.video-cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  font-size: 13px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.video-cta-link:hover .video-cta-icon {
+  background: rgba(255,255,255,0.26);
+  transform: translateY(2px);
+}
+.video-cta-arrow {
+  font-size: 14px;
+  opacity: 0.75;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.video-cta-link:hover .video-cta-arrow {
+  transform: translateY(3px);
+  opacity: 1;
 }
 
 /* ── GUIDE VIDEO (at the bottom of the page, scroll target) ── */
@@ -350,8 +380,10 @@ html, body {
 
   <!-- VIDEO CTA (scrolls down to the guide video at the bottom) -->
   <section class="video-cta-section" aria-label="Tutorial video link">
-    <a href="#guide-video" class="video-cta-link">
-      Not sure where to start? Watch our quick tutorial &darr;
+    <a href="#guide-video" class="video-cta-link" id="video_cta_link">
+      <span class="video-cta-icon" aria-hidden="true">&#9654;</span>
+      <span>Not sure where to start? Watch our quick tutorial</span>
+      <span class="video-cta-arrow" aria-hidden="true">&darr;</span>
     </a>
   </section>
 
@@ -419,5 +451,25 @@ html, body {
 </div>
 <script src="ui-effects.js"></script>
 <script src="feedback-widget.js" defer></script>
+<script>
+  // Explicit smooth-scroll for the tutorial-video CTA.
+  // CSS `scroll-behavior: smooth` is best-effort and is silently
+  // disabled in some browsers / OS-level prefers-reduced-motion
+  // setups; calling scrollIntoView with a behavior option from JS
+  // is the most reliable path.
+  (function () {
+    var link = document.getElementById('video_cta_link');
+    var target = document.getElementById('guide-video');
+    if (!link || !target) return;
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Keep the anchor in the URL so reload / back nav still works.
+      if (history && history.replaceState) {
+        history.replaceState(null, '', '#guide-video');
+      }
+    });
+  })();
+</script>
 </body>
 </html>
