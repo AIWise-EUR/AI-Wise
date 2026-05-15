@@ -456,18 +456,10 @@ html, body {
 <script src="ui-effects.js"></script>
 <script src="feedback-widget.js" defer></script>
 <script>
-  // Slow, eased smooth-scroll for the tutorial-video CTA.
-  //
-  // Why the custom loop:
-  //   - native scrollIntoView({behavior:'smooth'}) is too fast on
-  //     long pages and is silently disabled when OS-level
-  //     prefers-reduced-motion is on.
-  //   - body { height:100%; overflow-x:hidden } in this layout
-  //     means the scrolling container can be either <body> or
-  //     <html> depending on the browser. window.scrollTo / pageY
-  //     don't always hit the correct one. We use
-  //     document.scrollingElement to write to whichever is actually
-  //     the root scroller, plus a window.scrollTo belt-and-suspenders.
+  // Tutorial-video CTA: scroll the page down to the video.
+  // Single-path implementation that writes to whichever element
+  // is currently the root scroller AND falls back to native
+  // scrollIntoView if rAF writes don't take effect.
   (function () {
     var link = document.getElementById('video_cta_link');
     var target = document.getElementById('guide-video');
@@ -476,44 +468,65 @@ html, body {
     var prefersReduced = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function getScroller() {
-      return document.scrollingElement || document.documentElement;
-    }
-
     function easeInOutCubic(t) {
-      return t < 0.5
-        ? 4 * t * t * t
-        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 
-    function smoothScrollTo(targetEl, duration) {
-      var scroller = getScroller();
-      var startY = scroller.scrollTop;
+    function getScrollY() {
+      return window.pageYOffset ||
+             document.documentElement.scrollTop ||
+             document.body.scrollTop || 0;
+    }
+
+    function setScrollY(y) {
+      // Spray across every possible root-scroller surface so this
+      // works regardless of which one the layout actually uses.
+      window.scrollTo(0, y);
+      if (document.scrollingElement) document.scrollingElement.scrollTop = y;
+      document.documentElement.scrollTop = y;
+      document.body.scrollTop = y;
+    }
+
+    function customScroll(targetEl, duration) {
+      var startY = getScrollY();
       var rectTop = targetEl.getBoundingClientRect().top;
       var endY = Math.max(0, startY + rectTop - 24);
       var distance = endY - startY;
-      if (distance === 0) return;
+      if (distance === 0) return false;
       var startTime = performance.now();
 
       function step(now) {
         var elapsed = now - startTime;
         var progress = Math.min(elapsed / duration, 1);
-        var eased = easeInOutCubic(progress);
-        var newY = startY + distance * eased;
-        scroller.scrollTop = newY;
-        window.scrollTo(0, newY);  // fallback for older WebKit
+        setScrollY(startY + distance * easeInOutCubic(progress));
         if (progress < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
+      return true;
     }
 
     link.addEventListener('click', function (e) {
       e.preventDefault();
+
       if (prefersReduced) {
         target.scrollIntoView({ block: 'start' });
-      } else {
-        smoothScrollTo(target, 1200);
+        return;
       }
+
+      // Snapshot current scroll position so we can detect whether
+      // the rAF loop actually moved anything after one frame.
+      var before = getScrollY();
+      customScroll(target, 1200);
+
+      // Native fallback: if the page hasn't budged a few frames
+      // after the click, hand off to the browser's own smooth
+      // scroll, which always targets the correct root scroller.
+      window.setTimeout(function () {
+        if (Math.abs(getScrollY() - before) < 4) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 80);
+
       if (history && history.replaceState) {
         history.replaceState(null, '', '#guide-video');
       }
