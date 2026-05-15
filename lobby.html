@@ -457,19 +457,28 @@ html, body {
 <script src="feedback-widget.js" defer></script>
 <script>
   // Slow, eased smooth-scroll for the tutorial-video CTA.
-  // The native scrollIntoView({behavior:'smooth'}) is too fast on
-  // long pages and is also silently disabled when prefers-reduced-
-  // motion is on. This custom animation gives a consistent ~1.2s
-  // ease-in-out drift to the video and writes the anchor into the
-  // URL so reload / back-nav still parks at the video.
+  //
+  // Why the custom loop:
+  //   - native scrollIntoView({behavior:'smooth'}) is too fast on
+  //     long pages and is silently disabled when OS-level
+  //     prefers-reduced-motion is on.
+  //   - body { height:100%; overflow-x:hidden } in this layout
+  //     means the scrolling container can be either <body> or
+  //     <html> depending on the browser. window.scrollTo / pageY
+  //     don't always hit the correct one. We use
+  //     document.scrollingElement to write to whichever is actually
+  //     the root scroller, plus a window.scrollTo belt-and-suspenders.
   (function () {
     var link = document.getElementById('video_cta_link');
     var target = document.getElementById('guide-video');
     if (!link || !target) return;
 
-    // Honor OS-level reduced-motion preference -- jump instantly.
     var prefersReduced = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function getScroller() {
+      return document.scrollingElement || document.documentElement;
+    }
 
     function easeInOutCubic(t) {
       return t < 0.5
@@ -478,17 +487,21 @@ html, body {
     }
 
     function smoothScrollTo(targetEl, duration) {
-      var startY = window.pageYOffset || document.documentElement.scrollTop;
+      var scroller = getScroller();
+      var startY = scroller.scrollTop;
       var rectTop = targetEl.getBoundingClientRect().top;
-      var endY = startY + rectTop - 24;  // 24px breathing room above
+      var endY = Math.max(0, startY + rectTop - 24);
       var distance = endY - startY;
+      if (distance === 0) return;
       var startTime = performance.now();
 
       function step(now) {
         var elapsed = now - startTime;
         var progress = Math.min(elapsed / duration, 1);
         var eased = easeInOutCubic(progress);
-        window.scrollTo(0, startY + distance * eased);
+        var newY = startY + distance * eased;
+        scroller.scrollTop = newY;
+        window.scrollTo(0, newY);  // fallback for older WebKit
         if (progress < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
@@ -497,7 +510,7 @@ html, body {
     link.addEventListener('click', function (e) {
       e.preventDefault();
       if (prefersReduced) {
-        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+        target.scrollIntoView({ block: 'start' });
       } else {
         smoothScrollTo(target, 1200);
       }
