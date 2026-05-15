@@ -262,6 +262,21 @@ html, body {
   margin: 28px auto 32px;
 }
 
+/* ── GUIDE VIDEO ────────────────────────────────────────────── */
+.guide-video-section {
+  max-width: 900px;
+  margin: 24px auto 32px;
+  padding: 0 16px;
+}
+.guide-video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  display: block;
+  background: #000;
+}
+
 /* ── ANIMATIONS ─────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(11px); }
@@ -270,8 +285,9 @@ html, body {
 .hero-eyebrow  { animation: fadeUp 0.42s ease 0.04s both; }
 .hero-title    { animation: fadeUp 0.42s ease 0.10s both; }
 .hero-desc     { animation: fadeUp 0.42s ease 0.16s both; }
-.section-label { animation: fadeUp 0.42s ease 0.24s both; }
-.cards         { animation: fadeUp 0.42s ease 0.29s both; }
+.guide-video-section { animation: fadeUp 0.42s ease 0.22s both; }
+.section-label { animation: fadeUp 0.42s ease 0.28s both; }
+.cards         { animation: fadeUp 0.42s ease 0.33s both; }
 
 /* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 860px) {
@@ -304,6 +320,18 @@ html, body {
       </p>
     </div>
   </div>
+
+  <!-- GUIDE VIDEO -->
+  <section class="guide-video-section" aria-label="AI-Wise guide video">
+    <video
+      class="guide-video"
+      controls
+      preload="metadata"
+      poster="assets/videos/ai-wise-guide-poster.png">
+      <source src="assets/videos/ai-wise-guide.mp4" type="video/mp4">
+      Your browser doesn't support the video tag.
+    </video>
+  </section>
 
   <!-- CONTENT -->
   <div class="content-wrap">
