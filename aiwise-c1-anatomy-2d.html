@@ -9,17 +9,17 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg:         #0c1a2e;
-  --panel:      rgba(255,255,255,0.03);
-  --border:     rgba(255,255,255,0.07);
-  --physical:   #60a5fa;
-  --training:   #4ade80;
-  --inference:  #fb923c;
-  --governance: #a78bfa;
-  --data-sub:   #fbbf24;
-  --bridge:     #c9a96e;
-  --muted:      rgba(255,255,255,0.38);
-  --text:       #ffffff;
+  --bg:         #fafbfb;
+  --panel:      rgba(15,47,51,0.04);
+  --border:     rgba(15,47,51,0.12);
+  --physical:   #2563eb;
+  --training:   #16a34a;
+  --inference:  #ea580c;
+  --governance: #7c3aed;
+  --data-sub:   #ca8a04;
+  --bridge:     #a07d39;
+  --muted:      rgba(15,47,51,0.55);
+  --text:       #0f2f33;
 }
 
 body {
@@ -52,7 +52,7 @@ body {
   align-items: center;
   gap: 6px;
   padding: 10px 16px;
-  background: rgba(12,26,46,0.95);
+  background: rgba(250,251,251,0.95);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(8px);
 }
@@ -77,8 +77,8 @@ body {
   font-family: inherit;
   letter-spacing: 0.02em;
 }
-.tb-btn:hover { color: var(--text); background: rgba(255,255,255,0.06); }
-.tb-btn.active { color: var(--text); border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.08); }
+.tb-btn:hover { color: var(--text); background: rgba(15,47,51,0.06); }
+.tb-btn.active { color: var(--text); border-color: rgba(15,47,51,0.18); background: rgba(15,47,51,0.08); }
 .tb-sep { width: 1px; height: 18px; background: var(--border); margin: 0 4px; }
 .tb-hint {
   margin-left: auto;
@@ -108,7 +108,7 @@ svg#diagram {
   position: absolute;
   bottom: 16px;
   left: 16px;
-  background: rgba(12,26,46,0.92);
+  background: rgba(250,251,251,0.92);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px 14px;
@@ -123,7 +123,7 @@ svg#diagram {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
+  color: rgba(15,47,51,0.42);
   margin-top: 6px;
   margin-bottom: 1px;
 }
@@ -196,21 +196,21 @@ svg#diagram {
 <div class="canvas-wrap" id="wrap">
   <svg id="diagram" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <!-- Arrow markers -->
+      <!-- Arrow markers (tuned for light background) -->
       <marker id="arr-physical" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
-        <polygon points="0 0, 7 3.5, 0 7" fill="#60a5fa" opacity="0.7"/>
+        <polygon points="0 0, 7 3.5, 0 7" fill="#2563eb" opacity="0.85"/>
       </marker>
       <marker id="arr-training" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
-        <polygon points="0 0, 7 3.5, 0 7" fill="#4ade80" opacity="0.7"/>
+        <polygon points="0 0, 7 3.5, 0 7" fill="#16a34a" opacity="0.85"/>
       </marker>
       <marker id="arr-inference" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
-        <polygon points="0 0, 7 3.5, 0 7" fill="#fb923c" opacity="0.7"/>
+        <polygon points="0 0, 7 3.5, 0 7" fill="#ea580c" opacity="0.85"/>
       </marker>
       <marker id="arr-feedback" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
-        <polygon points="0 0, 7 3.5, 0 7" fill="#86efac" opacity="0.8"/>
+        <polygon points="0 0, 7 3.5, 0 7" fill="#22c55e" opacity="0.9"/>
       </marker>
       <marker id="arr-governance" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
-        <polygon points="0 0, 7 3.5, 0 7" fill="#a78bfa" opacity="0.5"/>
+        <polygon points="0 0, 7 3.5, 0 7" fill="#7c3aed" opacity="0.7"/>
       </marker>
       <!-- Glow filter -->
       <filter id="glow-blue" x="-50%" y="-50%" width="200%" height="200%">
@@ -223,7 +223,7 @@ svg#diagram {
       </filter>
       <!-- Grid pattern -->
       <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.028)" stroke-width="1"/>
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(15,47,51,0.05)" stroke-width="1"/>
       </pattern>
     </defs>
 
@@ -239,40 +239,40 @@ svg#diagram {
 <div class="legend">
   <div class="leg-section">Nodes</div>
   <div class="leg-row">
-    <svg class="leg-shape" width="18" height="18"><rect x="2" y="2" width="14" height="14" rx="2" fill="none" stroke="#60a5fa" stroke-width="1.5"/></svg>
+    <svg class="leg-shape" width="18" height="18"><rect x="2" y="2" width="14" height="14" rx="2" fill="none" stroke="#2563eb" stroke-width="1.5"/></svg>
     Physical (cube)
   </div>
   <div class="leg-row">
-    <svg class="leg-shape" width="18" height="18"><rect x="2" y="2" width="14" height="14" rx="2" fill="none" stroke="#a78bfa" stroke-width="1.5"/></svg>
+    <svg class="leg-shape" width="18" height="18"><rect x="2" y="2" width="14" height="14" rx="2" fill="none" stroke="#7c3aed" stroke-width="1.5"/></svg>
     AI Company
   </div>
   <div class="leg-row">
-    <svg class="leg-shape" width="18" height="18"><circle cx="9" cy="9" r="6" fill="none" stroke="#4ade80" stroke-width="1.5"/></svg>
+    <svg class="leg-shape" width="18" height="18"><circle cx="9" cy="9" r="6" fill="none" stroke="#16a34a" stroke-width="1.5"/></svg>
     Training component
   </div>
   <div class="leg-row">
-    <svg class="leg-shape" width="18" height="18"><circle cx="9" cy="9" r="6" fill="none" stroke="#fb923c" stroke-width="1.5"/></svg>
+    <svg class="leg-shape" width="18" height="18"><circle cx="9" cy="9" r="6" fill="none" stroke="#ea580c" stroke-width="1.5"/></svg>
     Inference component
   </div>
   <div class="leg-row">
-    <svg class="leg-shape" width="18" height="18"><circle cx="9" cy="9" r="4" fill="none" stroke="#fbbf24" stroke-width="1.5"/></svg>
+    <svg class="leg-shape" width="18" height="18"><circle cx="9" cy="9" r="4" fill="none" stroke="#ca8a04" stroke-width="1.5"/></svg>
     Training data subtype
   </div>
   <div class="leg-row">
-    <svg class="leg-shape" width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="#c9a96e" stroke-width="2"/></svg>
+    <svg class="leg-shape" width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="#a07d39" stroke-width="2"/></svg>
     Algorithm (bridge)
   </div>
   <div class="leg-section">Connections</div>
   <div class="leg-row">
-    <svg class="leg-shape" width="22" height="10"><line x1="0" y1="5" x2="22" y2="5" stroke="#60a5fa" stroke-width="1.8"/></svg>
+    <svg class="leg-shape" width="22" height="10"><line x1="0" y1="5" x2="22" y2="5" stroke="#2563eb" stroke-width="1.8"/></svg>
     Physical / data flow
   </div>
   <div class="leg-row">
-    <svg class="leg-shape" width="22" height="10"><line x1="0" y1="5" x2="22" y2="5" stroke="#86efac" stroke-width="1.5" stroke-dasharray="4 3"/></svg>
+    <svg class="leg-shape" width="22" height="10"><line x1="0" y1="5" x2="22" y2="5" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="4 3"/></svg>
     Feedback loop
   </div>
   <div class="leg-row">
-    <svg class="leg-shape" width="22" height="10"><line x1="0" y1="5" x2="22" y2="5" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.6"/></svg>
+    <svg class="leg-shape" width="22" height="10"><line x1="0" y1="5" x2="22" y2="5" stroke="#7c3aed" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/></svg>
     Governance
   </div>
 </div>
@@ -347,56 +347,56 @@ const SZ = {
 // ─────────────────────────────────────────────────────────────
 const NODES = [
   // ── PHYSICAL ─────────────────────────────────────────────
-  { id:'user',    label:'User',              x:C.USER_X,    y:C.PHYS_Y,   type:'physical',   color:'#60a5fa', tag:'Physical',
+  { id:'user',    label:'User',              x:C.USER_X,    y:C.PHYS_Y,   type:'physical',   color:'#2563eb', tag:'Physical',
     desc:'The human who types prompts and receives responses. The starting and ending point of every inference cycle.' },
-  { id:'device',  label:'Local Device',      x:C.DEVICE_X,  y:C.PHYS_Y,   type:'physical',   color:'#60a5fa', tag:'Physical',
+  { id:'device',  label:'Local Device',      x:C.DEVICE_X,  y:C.PHYS_Y,   type:'physical',   color:'#2563eb', tag:'Physical',
     desc:'Your laptop or phone. Only the interface — sends prompts and displays responses. No computation happens here.' },
-  { id:'server',  label:'Cloud Server\nData Centre', x:C.SERVER_X, y:C.PHYS_Y, type:'physical', color:'#60a5fa', tag:'Physical',
+  { id:'server',  label:'Cloud Server\nData Centre', x:C.SERVER_X, y:C.PHYS_Y, type:'physical', color:'#2563eb', tag:'Physical',
     desc:'Remote GPU clusters in physical buildings. This is where all computation actually runs — vast electrical infrastructure.' },
-  { id:'company', label:'AI Company',        x:C.COMPANY_X, y:C.COMPANY_Y, type:'governance', color:'#a78bfa', tag:'AI Company',
+  { id:'company', label:'AI Company',        x:C.COMPANY_X, y:C.COMPANY_Y, type:'governance', color:'#7c3aed', tag:'AI Company',
     desc:'e.g. OpenAI, Anthropic, Google DeepMind. Controls training data selection, model architecture, and alignment decisions.' },
 
   // ── TRAINING ─────────────────────────────────────────────
-  { id:'tr_data',   label:'Training Data',       x:C.TR_DATA_X,   y:C.TR_Y,   type:'training', color:'#4ade80', tag:'Training',
+  { id:'tr_data',   label:'Training Data',       x:C.TR_DATA_X,   y:C.TR_Y,   type:'training', color:'#16a34a', tag:'Training',
     desc:'Billions of tokens from diverse sources, collected and curated before training begins.' },
-  { id:'tr_token',  label:'Tokenisation',        x:C.TR_TOKEN_X,  y:C.TR_Y,   type:'training', color:'#4ade80', tag:'Training',
+  { id:'tr_token',  label:'Tokenisation',        x:C.TR_TOKEN_X,  y:C.TR_Y,   type:'training', color:'#16a34a', tag:'Training',
     desc:'Text split into subword units and converted to numbers. Language becomes a numerical sequence.' },
-  { id:'tr_posenc', label:'Positional\nEncoding', x:C.TR_POSENC_X, y:C.TR_Y,   type:'training', color:'#4ade80', tag:'Training',
+  { id:'tr_posenc', label:'Positional\nEncoding', x:C.TR_POSENC_X, y:C.TR_Y,   type:'training', color:'#16a34a', tag:'Training',
     desc:'Transformers process tokens in parallel and have no inherent sense of order. Positional encodings inject sequence position into each token.' },
-  { id:'algorithm', label:'Algorithm\n+ Weights', x:C.ALGO_X,      y:C.PHYS_Y, type:'bridge',   color:'#c9a96e', tag:'Bridge',
+  { id:'algorithm', label:'Algorithm\n+ Weights', x:C.ALGO_X,      y:C.PHYS_Y, type:'bridge',   color:'#a07d39', tag:'Bridge',
     desc:'The transformer architecture. During training, weights adjust continuously. During inference, weights are frozen. Same architecture — different mode.' },
-  { id:'loss',      label:'Loss +\nBackprop',    x:C.LOSS_X,      y:C.TR_Y,   type:'training', color:'#4ade80', tag:'Training',
+  { id:'loss',      label:'Loss +\nBackprop',    x:C.LOSS_X,      y:C.TR_Y,   type:'training', color:'#16a34a', tag:'Training',
     desc:'Prediction error is calculated and propagated back through the network. Weights are adjusted. This loop repeats billions of times.' },
-  { id:'rlhf',      label:'Fine-tuning\n/ RLHF', x:C.RLHF_X,     y:C.RLHF_Y, type:'training', color:'#4ade80', tag:'Training',
+  { id:'rlhf',      label:'Fine-tuning\n/ RLHF', x:C.RLHF_X,     y:C.RLHF_Y, type:'training', color:'#16a34a', tag:'Training',
     desc:'Human evaluators rate outputs. The model is trained toward helpfulness and accuracy. Consented user input feeds here, shaping alignment.' },
 
   // ── TRAINING DATA SUB-NODES — arc fanning upward from tr_data ─
   // 6 nodes arranged in a semicircle above tr_data, radius ~130px
-  { id:'sub_web',      label:'Web Crawl',           x:C.TR_DATA_X-130, y:C.TR_Y-80,  type:'data_sub', color:'#fbbf24', tag:'Training Data',
+  { id:'sub_web',      label:'Web Crawl',           x:C.TR_DATA_X-130, y:C.TR_Y-80,  type:'data_sub', color:'#ca8a04', tag:'Training Data',
     desc:'Publicly indexed web pages. Common Crawl is the primary source — the majority of training volume by token count.' },
-  { id:'sub_books',    label:'Books',                x:C.TR_DATA_X-100, y:C.TR_Y-160, type:'data_sub', color:'#fbbf24', tag:'Training Data',
+  { id:'sub_books',    label:'Books',                x:C.TR_DATA_X-100, y:C.TR_Y-160, type:'data_sub', color:'#ca8a04', tag:'Training Data',
     desc:'Digitised books and long-form text. BooksCorpus, Project Gutenberg. Gives the model coherent long-range structure.' },
-  { id:'sub_papers',   label:'Academic\nPapers',     x:C.TR_DATA_X-10,  y:C.TR_Y-210, type:'data_sub', color:'#fbbf24', tag:'Training Data',
+  { id:'sub_papers',   label:'Academic\nPapers',     x:C.TR_DATA_X-10,  y:C.TR_Y-210, type:'data_sub', color:'#ca8a04', tag:'Training Data',
     desc:'arXiv, PubMed, academic databases. Domain-specific knowledge and scientific reasoning.' },
-  { id:'sub_code',     label:'Code\nRepositories',   x:C.TR_DATA_X+100, y:C.TR_Y-200, type:'data_sub', color:'#fbbf24', tag:'Training Data',
+  { id:'sub_code',     label:'Code\nRepositories',   x:C.TR_DATA_X+100, y:C.TR_Y-200, type:'data_sub', color:'#ca8a04', tag:'Training Data',
     desc:'GitHub and similar. Programming corpora giving the model structured logical reasoning ability.' },
-  { id:'sub_wiki',     label:'Encyclopaedic\nCurated', x:C.TR_DATA_X+170, y:C.TR_Y-130, type:'data_sub', color:'#fbbf24', tag:'Training Data',
+  { id:'sub_wiki',     label:'Encyclopaedic\nCurated', x:C.TR_DATA_X+170, y:C.TR_Y-130, type:'data_sub', color:'#ca8a04', tag:'Training Data',
     desc:'Wikipedia, news archives, structured reference material. High quality, reliable baseline knowledge.' },
-  { id:'sub_licensed', label:'Licensed\nData',       x:C.TR_DATA_X+50,  y:C.TR_Y-240, type:'data_sub', color:'#fbbf24', tag:'Training Data',
+  { id:'sub_licensed', label:'Licensed\nData',       x:C.TR_DATA_X+50,  y:C.TR_Y-240, type:'data_sub', color:'#ca8a04', tag:'Training Data',
     desc:'Data purchased or licensed from third-party publishers, news organisations, and data providers.' },
 
   // ── INFERENCE ────────────────────────────────────────────
-  { id:'inf_prompt',   label:'User Prompt',          x:C.INF_PROMPT_X,  y:C.INF_Y,  type:'inference', color:'#fb923c', tag:'Inference',
+  { id:'inf_prompt',   label:'User Prompt',          x:C.INF_PROMPT_X,  y:C.INF_Y,  type:'inference', color:'#ea580c', tag:'Inference',
     desc:'You type a message. Natural language enters the system. Your device sends it to the server via the internet.' },
-  { id:'inf_token',    label:'Tokenisation',         x:C.INF_TOKEN_X,   y:C.INF_Y,  type:'inference', color:'#fb923c', tag:'Inference',
+  { id:'inf_token',    label:'Tokenisation',         x:C.INF_TOKEN_X,   y:C.INF_Y,  type:'inference', color:'#ea580c', tag:'Inference',
     desc:'Your prompt is split using the same token format as training. From this point, your message is a sequence of numbers.' },
-  { id:'inf_posenc',   label:'Positional\nEncoding', x:C.INF_POSENC_X,  y:C.INF_Y,  type:'inference', color:'#fb923c', tag:'Inference',
+  { id:'inf_posenc',   label:'Positional\nEncoding', x:C.INF_POSENC_X,  y:C.INF_Y,  type:'inference', color:'#ea580c', tag:'Inference',
     desc:'Token order is encoded before entering the transformer. Same step as training.' },
-  { id:'inf_logits',   label:'Logits /\nSoftmax',    x:C.INF_LOGITS_X,  y:C.INF_Y,  type:'inference', color:'#fb923c', tag:'Inference',
+  { id:'inf_logits',   label:'Logits /\nSoftmax',    x:C.INF_LOGITS_X,  y:C.INF_Y,  type:'inference', color:'#ea580c', tag:'Inference',
     desc:'The final layer scores every token in the vocabulary. Softmax converts scores into a probability distribution — likelihoods, not answers.' },
-  { id:'inf_sampling', label:'Output\nSampling',     x:C.INF_SAMP_X,    y:C.INF_Y,  type:'inference', color:'#fb923c', tag:'Inference',
+  { id:'inf_sampling', label:'Output\nSampling',     x:C.INF_SAMP_X,    y:C.INF_Y,  type:'inference', color:'#ea580c', tag:'Inference',
     desc:'A token is selected probabilistically. Same prompt can produce different responses — generation is not deterministic by default.' },
-  { id:'inf_iface',    label:'Response /\nInterface',x:C.INF_IFACE_X,   y:C.INF_Y,  type:'inference', color:'#fb923c', tag:'Inference',
+  { id:'inf_iface',    label:'Response /\nInterface',x:C.INF_IFACE_X,   y:C.INF_Y,  type:'inference', color:'#ea580c', tag:'Inference',
     desc:'Tokens decoded back into language. This is the first moment language exists again — everything before this was numbers.' },
 ];
 
@@ -447,13 +447,13 @@ const EDGES = [
 
 // Edge style map
 const ESTYLES = {
-  physical:   { stroke:'#60a5fa', width:1.8, dash:'',       opacity:0.65, marker:'arr-physical' },
-  internet:   { stroke:'#60a5fa', width:2.2, dash:'',       opacity:0.8,  marker:'arr-physical' },
-  governance: { stroke:'#a78bfa', width:1.2, dash:'5,4',    opacity:0.38, marker:'arr-governance' },
-  training:   { stroke:'#4ade80', width:1.8, dash:'',       opacity:0.6,  marker:'arr-training' },
-  inference:  { stroke:'#fb923c', width:1.8, dash:'',       opacity:0.6,  marker:'arr-inference' },
-  feedback:   { stroke:'#86efac', width:1.4, dash:'5,3',    opacity:0.7,  marker:'arr-feedback' },
-  data_sub:   { stroke:'#fbbf24', width:1.1, dash:'',       opacity:0.4,  marker:'' },
+  physical:   { stroke:'#2563eb', width:1.8, dash:'',       opacity:0.75, marker:'arr-physical' },
+  internet:   { stroke:'#2563eb', width:2.2, dash:'',       opacity:0.85, marker:'arr-physical' },
+  governance: { stroke:'#7c3aed', width:1.2, dash:'5,4',    opacity:0.5,  marker:'arr-governance' },
+  training:   { stroke:'#16a34a', width:1.8, dash:'',       opacity:0.7,  marker:'arr-training' },
+  inference:  { stroke:'#ea580c', width:1.8, dash:'',       opacity:0.7,  marker:'arr-inference' },
+  feedback:   { stroke:'#22c55e', width:1.4, dash:'5,3',    opacity:0.8,  marker:'arr-feedback' },
+  data_sub:   { stroke:'#ca8a04', width:1.1, dash:'',       opacity:0.55, marker:'' },
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -687,12 +687,12 @@ inetG.setAttribute('transform', `translate(${internetMidX},${internetMidY - 22})
 const inetBg = document.createElementNS('http://www.w3.org/2000/svg','rect');
 inetBg.setAttribute('x','-30'); inetBg.setAttribute('y','-11');
 inetBg.setAttribute('width','60'); inetBg.setAttribute('height','18');
-inetBg.setAttribute('rx','5'); inetBg.setAttribute('fill','rgba(12,26,46,0.85)');
-inetBg.setAttribute('stroke','rgba(96,165,250,0.3)'); inetBg.setAttribute('stroke-width','1');
+inetBg.setAttribute('rx','5'); inetBg.setAttribute('fill','rgba(250,251,251,0.92)');
+inetBg.setAttribute('stroke','rgba(37,99,235,0.45)'); inetBg.setAttribute('stroke-width','1');
 const inetTxt = document.createElementNS('http://www.w3.org/2000/svg','text');
 inetTxt.setAttribute('text-anchor','middle'); inetTxt.setAttribute('y','3');
 inetTxt.setAttribute('font-size','10'); inetTxt.setAttribute('font-family','DM Sans,sans-serif');
-inetTxt.setAttribute('fill','#60a5fa'); inetTxt.setAttribute('font-weight','600');
+inetTxt.setAttribute('fill','#2563eb'); inetTxt.setAttribute('font-weight','600');
 inetTxt.setAttribute('letter-spacing','0.06em');
 inetTxt.textContent = 'Internet';
 inetG.appendChild(inetBg); inetG.appendChild(inetTxt);
@@ -704,17 +704,17 @@ bpG.setAttribute('transform', `translate(${C.ALGO_X + 26},${C.PHYS_Y})`);
 const bpBg = document.createElementNS('http://www.w3.org/2000/svg','rect');
 bpBg.setAttribute('x','0'); bpBg.setAttribute('y','-18');
 bpBg.setAttribute('width','120'); bpBg.setAttribute('height','34');
-bpBg.setAttribute('rx','6'); bpBg.setAttribute('fill','rgba(12,26,46,0.9)');
-bpBg.setAttribute('stroke','rgba(201,169,110,0.25)'); bpBg.setAttribute('stroke-width','1');
+bpBg.setAttribute('rx','6'); bpBg.setAttribute('fill','rgba(250,251,251,0.92)');
+bpBg.setAttribute('stroke','rgba(160,125,57,0.45)'); bpBg.setAttribute('stroke-width','1');
 const bpT1 = document.createElementNS('http://www.w3.org/2000/svg','text');
 bpT1.setAttribute('x','60'); bpT1.setAttribute('y','-3');
 bpT1.setAttribute('text-anchor','middle'); bpT1.setAttribute('font-size','9.5');
-bpT1.setAttribute('font-family','DM Sans,sans-serif'); bpT1.setAttribute('fill','#c9a96e');
+bpT1.setAttribute('font-family','DM Sans,sans-serif'); bpT1.setAttribute('fill','#a07d39');
 bpT1.setAttribute('font-weight','600'); bpT1.textContent = 'same architecture';
 const bpT2 = document.createElementNS('http://www.w3.org/2000/svg','text');
 bpT2.setAttribute('x','60'); bpT2.setAttribute('y','10');
 bpT2.setAttribute('text-anchor','middle'); bpT2.setAttribute('font-size','9.5');
-bpT2.setAttribute('font-family','DM Sans,sans-serif'); bpT2.setAttribute('fill','rgba(201,169,110,0.6)');
+bpT2.setAttribute('font-family','DM Sans,sans-serif'); bpT2.setAttribute('fill','rgba(160,125,57,0.7)');
 bpT2.textContent = 'different mode';
 bpG.appendChild(bpBg); bpG.appendChild(bpT1); bpG.appendChild(bpT2);
 root.appendChild(bpG);
@@ -734,8 +734,8 @@ function trackLabel(text, x, y, color) {
   g.appendChild(t);
   root.appendChild(g);
 }
-trackLabel('TRAINING CYCLE', (C.TR_DATA_X + C.LOSS_X) / 2, C.TR_Y - 265, '#4ade80');
-trackLabel('INFERENCE CYCLE', (C.INF_PROMPT_X + C.INF_IFACE_X) / 2, C.INF_Y + 90, '#fb923c');
+trackLabel('TRAINING CYCLE', (C.TR_DATA_X + C.LOSS_X) / 2, C.TR_Y - 265, '#16a34a');
+trackLabel('INFERENCE CYCLE', (C.INF_PROMPT_X + C.INF_IFACE_X) / 2, C.INF_Y + 90, '#ea580c');
 
 // ── NODES ──────────────────────────────────────────────────
 
