@@ -274,48 +274,51 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  padding: 16px 14px 16px 22px;
-  background: var(--accent);
-  color: #ffffff;
+  padding: 14px 24px 14px 14px;
+  background: #ffffff;
+  color: var(--dark);
   text-decoration: none;
+  border: 1px solid var(--border);
   border-radius: 999px;
   font-size: 15.5px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.005em;
   line-height: 1.3;
-  box-shadow: 0 6px 18px rgba(2,47,53,0.16);
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(2,47,53,0.04);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .video-cta-link:hover {
-  background: var(--dark);
+  border-color: rgba(2,47,53,0.22);
   transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(2,47,53,0.22);
+  box-shadow: 0 10px 28px rgba(2,47,53,0.10);
 }
 .video-cta-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.18);
-  font-size: 13px;
+  background: var(--dark);
+  color: #ffffff;
+  font-size: 11px;
   line-height: 1;
   flex-shrink: 0;
+  padding-left: 2px;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 .video-cta-link:hover .video-cta-icon {
-  background: rgba(255,255,255,0.26);
-  transform: translateY(2px);
+  background: var(--accent);
+  transform: scale(1.06);
 }
 .video-cta-arrow {
   font-size: 14px;
-  opacity: 0.75;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  color: var(--muted);
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 .video-cta-link:hover .video-cta-arrow {
   transform: translateY(3px);
-  opacity: 1;
+  color: var(--dark);
 }
 
 /* ── GUIDE VIDEO (at the bottom of the page, scroll target) ── */
@@ -432,8 +435,8 @@ html, body {
 
     <!-- GUIDE VIDEO (scroll target for the pill CTA above) -->
     <section id="guide-video" class="guide-video-section" aria-label="AI-Wise guide video">
-      <video class="guide-video" controls preload="metadata">
-        <source src="assets/videos/ai-wise-guide.mp4" type="video/mp4">
+      <video class="guide-video" controls preload="metadata" playsinline>
+        <source src="assets/videos/AIWise-finalversion.mov" type="video/mp4">
         Your browser doesn't support the video tag.
       </video>
     </section>
