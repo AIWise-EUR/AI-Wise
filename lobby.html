@@ -266,7 +266,9 @@ html, body {
 /* ── VIDEO CTA (pill under hero, scrolls to video at bottom) ── */
 .video-cta-section {
   max-width: 900px;
-  margin: 36px auto 40px;
+  /* Slightly more headroom above and a tighter gap below so the
+     pill sits centered between the hero and the cards block. */
+  margin: 64px auto 28px;
   padding: 0 16px;
   text-align: center;
 }
@@ -455,19 +457,51 @@ html, body {
 <script src="ui-effects.js"></script>
 <script src="feedback-widget.js" defer></script>
 <script>
-  // Explicit smooth-scroll for the tutorial-video CTA.
-  // CSS `scroll-behavior: smooth` is best-effort and is silently
-  // disabled in some browsers / OS-level prefers-reduced-motion
-  // setups; calling scrollIntoView with a behavior option from JS
-  // is the most reliable path.
+  // Slow, eased smooth-scroll for the tutorial-video CTA.
+  // The native scrollIntoView({behavior:'smooth'}) is too fast on
+  // long pages and is also silently disabled when prefers-reduced-
+  // motion is on. This custom animation gives a consistent ~1.2s
+  // ease-in-out drift to the video and writes the anchor into the
+  // URL so reload / back-nav still parks at the video.
   (function () {
     var link = document.getElementById('video_cta_link');
     var target = document.getElementById('guide-video');
     if (!link || !target) return;
+
+    // Honor OS-level reduced-motion preference -- jump instantly.
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function easeInOutCubic(t) {
+      return t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function smoothScrollTo(targetEl, duration) {
+      var startY = window.pageYOffset || document.documentElement.scrollTop;
+      var rectTop = targetEl.getBoundingClientRect().top;
+      var endY = startY + rectTop - 24;  // 24px breathing room above
+      var distance = endY - startY;
+      var startTime = performance.now();
+
+      function step(now) {
+        var elapsed = now - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = easeInOutCubic(progress);
+        window.scrollTo(0, startY + distance * eased);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Keep the anchor in the URL so reload / back nav still works.
+      if (prefersReduced) {
+        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      } else {
+        smoothScrollTo(target, 1200);
+      }
       if (history && history.replaceState) {
         history.replaceState(null, '', '#guide-video');
       }
