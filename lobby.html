@@ -20,6 +20,7 @@
   --radius:  14px;
 }
 
+html { scroll-behavior: smooth; }
 html, body {
   height: 100%;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -262,20 +263,37 @@ html, body {
   margin: 28px auto 32px;
 }
 
-/* ── GUIDE VIDEO ────────────────────────────────────────────── */
+/* ── VIDEO CTA (pill under hero, scrolls to video at bottom) ── */
+.video-cta-section {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 0 16px;
+  text-align: center;
+}
+.video-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: var(--accent);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.video-cta-link:hover {
+  background: var(--dark);
+  transform: translateY(-1px);
+}
+
+/* ── GUIDE VIDEO (at the bottom of the page, scroll target) ── */
 .guide-video-section {
   max-width: 900px;
-  margin: 24px auto 32px;
+  margin: 48px auto 64px;
   padding: 0 16px;
-}
-.guide-video-title {
-  margin: 0 0 14px;
-  text-align: center;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.005em;
-  line-height: 1.4;
+  scroll-margin-top: 24px;
 }
 .guide-video {
   width: 100%;
@@ -291,12 +309,12 @@ html, body {
   from { opacity: 0; transform: translateY(11px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.hero-eyebrow  { animation: fadeUp 0.42s ease 0.04s both; }
-.hero-title    { animation: fadeUp 0.42s ease 0.10s both; }
-.hero-desc     { animation: fadeUp 0.42s ease 0.16s both; }
-.guide-video-section { animation: fadeUp 0.42s ease 0.22s both; }
-.section-label { animation: fadeUp 0.42s ease 0.28s both; }
-.cards         { animation: fadeUp 0.42s ease 0.33s both; }
+.hero-eyebrow      { animation: fadeUp 0.42s ease 0.04s both; }
+.hero-title        { animation: fadeUp 0.42s ease 0.10s both; }
+.hero-desc         { animation: fadeUp 0.42s ease 0.16s both; }
+.video-cta-section { animation: fadeUp 0.42s ease 0.22s both; }
+.section-label     { animation: fadeUp 0.42s ease 0.28s both; }
+.cards             { animation: fadeUp 0.42s ease 0.33s both; }
 
 /* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 860px) {
@@ -330,17 +348,11 @@ html, body {
     </div>
   </div>
 
-  <!-- GUIDE VIDEO -->
-  <section class="guide-video-section" aria-label="AI-Wise guide video">
-    <h2 class="guide-video-title">Check the guided video to learn about AI-Wise Module</h2>
-    <video
-      class="guide-video"
-      controls
-      preload="metadata"
-      poster="assets/videos/ai-wise-guide-poster.png">
-      <source src="assets/videos/ai-wise-guide.mp4" type="video/mp4">
-      Your browser doesn't support the video tag.
-    </video>
+  <!-- VIDEO CTA (scrolls down to the guide video at the bottom) -->
+  <section class="video-cta-section" aria-label="Tutorial video link">
+    <a href="#guide-video" class="video-cta-link">
+      Not sure where to start? Watch our quick tutorial &darr;
+    </a>
   </section>
 
   <!-- CONTENT -->
@@ -385,6 +397,14 @@ html, body {
 
       </div>
     </div>
+
+    <!-- GUIDE VIDEO (scroll target for the pill CTA above) -->
+    <section id="guide-video" class="guide-video-section" aria-label="AI-Wise guide video">
+      <video class="guide-video" controls preload="metadata">
+        <source src="assets/videos/ai-wise-guide.mp4" type="video/mp4">
+        Your browser doesn't support the video tag.
+      </video>
+    </section>
 
     <div class="last-updated">Last updated: May 11, 2026</div>
 
