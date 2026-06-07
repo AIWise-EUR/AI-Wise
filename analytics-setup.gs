@@ -27,6 +27,11 @@
  *    C  Checked items count
  *    D  Checked node IDs  (comma-separated, e.g. RQ11,RQ12,RU21)
  *    E  Stage scores JSON (e.g. {"exploring":100,"rq":60,…})
+ *
+ *  Sheet "Feedback"
+ *    A  Date    (YYYY-MM-DD)
+ *    B  Page    (path of the page the feedback was submitted from)
+ *    C  Text    (free-form feedback text from the widget textarea)
  */
 
 function doGet(e) {
@@ -67,6 +72,13 @@ function doPost(e) {
         (data.checkedNodes    || []).join(","),
         JSON.stringify(data.scores || {})
       ]);
+    }
+
+    if (eventType === "feedback") {
+      var fSheet = getOrCreateSheet(ss, "Feedback", [
+        "Date", "Page", "Text"
+      ]);
+      fSheet.appendRow([date, data.path || "", data.text || ""]);
     }
 
   } catch (err) {
