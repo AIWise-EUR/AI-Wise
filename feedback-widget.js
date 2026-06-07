@@ -1,8 +1,16 @@
 // Sticky feedback widget: a chat-bubble launcher pinned to the bottom-right
 // that opens a small popup with a textarea. Injects its own styles and
 // markup so any page can use it by including this single script.
+//
+// Submissions are POSTed to the same Google Apps Script endpoint that
+// powers analytics.js, but with eventType "feedback" so they land in
+// a dedicated "Feedback" sheet (see analytics-setup.gs). Feedback is
+// user-initiated and bypasses the analytics consent gate -- the act
+// of typing and clicking Send IS the consent.
 (function () {
   if (document.querySelector('.fb-widget')) return;
+
+  var FEEDBACK_ENDPOINT = "https://script.google.com/macros/s/AKfycbyJFJW1CASqa3en_pGid025YGsuLR3VQaQc91Ve6L6fsdQIoe5qTMAOUpq6KyTRr7ET3A/exec";
 
   var css = ''
     + '.fb-widget{position:fixed;bottom:140px;right:24px;z-index:9999;'
@@ -105,19 +113,41 @@
     setOpen(false);
   });
 
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + "-" +
+      String(d.getMonth() + 1).padStart(2, "0") + "-" +
+      String(d.getDate()).padStart(2, "0");
+  }
+
   submitBtn.addEventListener('click', function () {
     var text = textarea.value.trim();
     if (!text) { textarea.focus(); return; }
 
-    // TODO: wire up to a real submission endpoint. For now, log locally so
-    // feedback isn't lost and can be inspected via DevTools / the page host.
+    // Local mirror so the entry is never silently lost (e.g. offline,
+    // ad-blocker, endpoint down). Inspectable via DevTools too.
     var payload = { text: text, path: location.pathname, ts: new Date().toISOString() };
     try {
-      console.log('[Feedback]', payload);
       var stored = JSON.parse(localStorage.getItem('aiwise_feedback') || '[]');
       stored.push(payload);
       localStorage.setItem('aiwise_feedback', JSON.stringify(stored));
     } catch (_) { /* ignore storage errors */ }
+
+    // Ship to the shared Google Apps Script endpoint. eventType
+    // "feedback" lands in a dedicated "Feedback" sheet.
+    if (FEEDBACK_ENDPOINT) {
+      try {
+        fetch(FEEDBACK_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify({
+            eventType: "feedback",
+            date: today(),
+            data: { text: text, path: location.pathname }
+          })
+        });
+      } catch (_) { /* network errors are non-fatal -- localStorage has it */ }
+    }
 
     successBox.hidden = false;
     textarea.value = '';
