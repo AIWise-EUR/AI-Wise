@@ -46,34 +46,93 @@ html, body {
   flex-direction: column;
 }
 
-/* ── COURSE PICKER (hero) ───────────────────────────────────── */
-.course-picker {
-  display: inline-flex; align-items: center; gap: 10px;
-  margin-top: 6px;
-  position: relative; z-index: 2;
-}
-.course-picker-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-}
-.course-picker-pills { display: inline-flex; gap: 6px; }
-.course-pill {
-  font: inherit; font-size: 12px; font-weight: 600;
-  padding: 5px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.28);
-  background: transparent;
-  color: rgba(255,255,255,0.75);
+/* ── COURSE CHOICE (modal + corner switch) ─────────────────── */
+.course-switch {
+  position: fixed;
+  top: 20px; right: 20px;
+  z-index: 60;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  font: inherit;
+  padding: 10px 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(2,47,53,0.14);
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  text-align: left;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
-.course-pill:hover { border-color: var(--signal); color: var(--signal); }
-.course-pill.active {
-  background: var(--signal);
-  border-color: var(--signal);
-  color: var(--dark);
-  cursor: default;
+.course-switch:hover { box-shadow: 0 8px 22px rgba(2,47,53,0.22); transform: translateY(-1px); }
+.course-switch-current {
+  font-size: 12px; font-weight: 700; color: var(--text);
+}
+.course-switch-current::before {
+  content: 'YOUR COURSE';
+  display: block;
+  font-size: 8.5px; font-weight: 600; letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 1px;
+}
+.course-switch-cta {
+  font-size: 10.5px; font-weight: 600;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .course-switch { top: 12px; right: 12px; padding: 8px 12px; }
+}
+
+.course-modal { position: fixed; inset: 0; z-index: 100; }
+.course-modal[hidden] { display: none; }
+.course-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(2,47,53,0.62);
+  backdrop-filter: blur(2px);
+}
+.course-modal-card {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100vw - 40px));
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 60px rgba(2,47,53,0.35);
+  padding: 30px 28px 26px;
+}
+.course-modal-title {
+  font-size: 19px; font-weight: 700; color: var(--text);
+  margin-bottom: 6px;
+}
+.course-modal-desc {
+  font-size: 13px; color: var(--muted); line-height: 1.6;
+  margin-bottom: 18px;
+}
+.course-modal-options { display: flex; flex-direction: column; gap: 8px; }
+.course-option {
+  display: flex; align-items: baseline; gap: 10px;
+  font: inherit;
+  width: 100%;
+  padding: 13px 16px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.course-option:hover { border-color: var(--accent); background: var(--white); }
+.course-option strong { font-size: 14px; font-weight: 700; color: var(--text); min-width: 52px; }
+.course-option span { font-size: 12px; color: var(--muted); }
+.course-option.active {
+  border-color: var(--accent);
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.course-option.active::after {
+  content: '✓';
+  margin-left: auto;
+  color: var(--accent);
+  font-weight: 700;
 }
 
 /* ── HERO ───────────────────────────────────────────────────── */
@@ -427,14 +486,6 @@ html, body {
         Use GenAI in a course-aligned and academically responsible way —
         supporting your thinking and writing process through <span data-slot="course.short_name">AWS&nbsp;I</span>.
       </p>
-      <div class="course-picker" aria-label="Choose your course">
-        <span class="course-picker-label">Your course</span>
-        <div class="course-picker-pills" role="group">
-          <button class="course-pill" type="button" data-course="aws1">AWS I</button>
-          <button class="course-pill" type="button" data-course="ped">PED</button>
-          <button class="course-pill" type="button" data-course="other">Others</button>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -510,26 +561,67 @@ html, body {
   </div>
 
 </div>
+<button class="course-switch" type="button" aria-haspopup="dialog" aria-controls="courseModal">
+  <span class="course-switch-current" id="courseSwitchCurrent">AWS I</span>
+  <span class="course-switch-cta">Choose another course</span>
+</button>
+
+<div class="course-modal" id="courseModal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle" hidden>
+  <div class="course-modal-backdrop"></div>
+  <div class="course-modal-card">
+    <h2 class="course-modal-title" id="courseModalTitle">Choose your course</h2>
+    <p class="course-modal-desc">AI-Wise adapts its examples, explanations, and prompt templates to your course. You can change this at any time.</p>
+    <div class="course-modal-options">
+      <button class="course-option" type="button" data-course="aws1"><strong>AWS&nbsp;I</strong><span>Academic Writing Skills I</span></button>
+      <button class="course-option" type="button" data-course="ped"><strong>PED</strong><span>Pedagogical Sciences</span></button>
+      <button class="course-option" type="button" data-course="other"><strong>Others</strong><span>All other courses</span></button>
+    </div>
+  </div>
+</div>
+
 <script src="course-loader.js"></script>
 <script>
-  // Course picker: highlight the loaded course, switch on click.
+  // Course choice: popup on first visit, corner box to change later.
   (function () {
     var KNOWN = ["aws1", "ped", "other"];
-    function mark(id) {
-      document.querySelectorAll(".course-pill").forEach(function (btn) {
+    var modal = document.getElementById("courseModal");
+    var switchBtn = document.querySelector(".course-switch");
+
+    /* read BEFORE course-loader stores the URL course on DOMContentLoaded */
+    var hadParam = false, stored = null;
+    try { hadParam = new URLSearchParams(window.location.search).has("course"); } catch (e) {}
+    try { stored = localStorage.getItem("aiwise-course"); } catch (e) {}
+
+    function openModal() { modal.hidden = false; }
+    function closeModal() { modal.hidden = true; }
+
+    document.addEventListener("aiwise:course-loaded", function (e) {
+      var id = (e.detail && e.detail.id) || "aws1";
+      if (KNOWN.indexOf(id) === -1) id = "aws1";
+      var data = e.detail && e.detail.data;
+      if (data && data.course && data.course.short_name) {
+        document.getElementById("courseSwitchCurrent").textContent = data.course.short_name;
+      }
+      modal.querySelectorAll(".course-option").forEach(function (btn) {
         btn.classList.toggle("active", btn.getAttribute("data-course") === id);
       });
-    }
-    document.addEventListener("aiwise:course-loaded", function (e) {
-      var id = e.detail && e.detail.id;
-      mark(KNOWN.indexOf(id) !== -1 ? id : "aws1");
     });
-    document.querySelectorAll(".course-pill").forEach(function (btn) {
+
+    modal.querySelectorAll(".course-option").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        if (btn.classList.contains("active")) return;
+        if (btn.classList.contains("active")) { closeModal(); return; }
         window.location.href = window.location.pathname + "?course=" + btn.getAttribute("data-course");
       });
     });
+
+    switchBtn.addEventListener("click", openModal);
+    modal.querySelector(".course-modal-backdrop").addEventListener("click", closeModal);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modal.hidden) closeModal();
+    });
+
+    /* first visit: no remembered course, none in the URL → ask */
+    if (!hadParam && !stored) openModal();
   })();
 </script>
 <script src="ui-effects.js"></script>
