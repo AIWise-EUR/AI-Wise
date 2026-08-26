@@ -260,13 +260,13 @@
   var UI_CSS = "" +
     ".aiwise-course-switch{position:fixed;left:18px;bottom:18px;z-index:940;" +
       "display:inline-flex;align-items:center;gap:8px;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;" +
-      "padding:9px 16px;background:#022f35;color:#fff;border:1px solid rgba(255,255,255,0.14);" +
-      "border-radius:999px;box-shadow:0 6px 18px rgba(2,47,53,0.28);cursor:pointer;" +
+      "padding:9px 16px;background:#2e6b4e;color:#fff;border:1px solid rgba(255,255,255,0.16);" +
+      "border-radius:999px;box-shadow:0 6px 18px rgba(24,66,46,0.3);cursor:pointer;" +
       "transition:transform .15s ease,box-shadow .15s ease;}" +
-    ".aiwise-course-switch:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(2,47,53,0.4);}" +
-    ".aiwise-course-switch .acs-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc;}" +
+    ".aiwise-course-switch:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(24,66,46,0.42);}" +
+    ".aiwise-course-switch .acs-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b7e7cd;}" +
     ".aiwise-course-switch .acs-name{font-size:12.5px;font-weight:700;color:#fff;}" +
-    ".aiwise-course-switch .acs-change{font-size:11px;font-weight:600;color:#7dd3fc;" +
+    ".aiwise-course-switch .acs-change{font-size:11px;font-weight:600;color:#b7e7cd;" +
       "text-decoration:underline;text-underline-offset:2px;margin-left:2px;}" +
     "@media (max-width:640px){.aiwise-course-switch{left:12px;bottom:12px;padding:8px 13px;}}" +
     ".aiwise-course-modal{position:fixed;inset:0;z-index:990;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;}" +
