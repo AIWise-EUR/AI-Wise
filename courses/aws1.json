@@ -46,7 +46,88 @@
         "typing": "\"Help me write a motivation letter for a research internship.\"",
         "processing": "A motivation letter for a research internship. No specific lab, no field, no applicant background, no deadline pressure, no tone preference. → Generate a polished, general purpose motivation letter template. Use broadly applicable language about \"passion for research\" and \"eagerness to learn.\" Structure it in a standard format. Sound professional and enthusiastic."
       }
-    ]
+    ],
+    "sat_example_title": "Narrowing a literature review focus through the S.A.T loop",
+    "sat_example": {
+      "phases": [
+        {
+          "label": "Self–AI",
+          "steps": [
+            {
+              "actor": "self",
+              "name": "Intent",
+              "text": "A student wants to write their literature review about social media and adolescent wellbeing. They have a rough sense of direction: social media seems connected to how adolescents feel about themselves. However, they are unsure whether this focus is specific enough to organize a review around."
+            },
+            {
+              "actor": "ai",
+              "name": "Operationalize",
+              "text": "The student asks AI in which ways the focus could be made more specific. AI suggests narrowing by outcome (self-esteem, anxiety, sleep), by population (early versus late adolescence), or by mechanism (social comparison, displacement of sleep and exercise)."
+            },
+            {
+              "actor": "self",
+              "name": "Judge",
+              "text": "The student considers the alternatives and decides to focus on self-esteem and social comparison. Their working focus is now: social media use and adolescent self-esteem."
+            },
+            {
+              "actor": "ai",
+              "name": "Refine",
+              "text": "The student asks AI to help sharpen the wording of the focus without changing its direction. AI suggests framing it as a question: how is social media use related to self-esteem in adolescents? The student now has a focus specific enough to search and organize literature around."
+            }
+          ]
+        },
+        {
+          "label": "Self–Team",
+          "steps": [
+            {
+              "actor": "self",
+              "name": "Present",
+              "text": "In class, the student shares their focus with their classmates and asks for their feedback."
+            },
+            {
+              "actor": "team",
+              "name": "Feedback",
+              "text": "Overall, the classmates understand the focus and find it workable. One classmate asks whether the student means active use, such as posting and commenting, or passive use, such as scrolling — the two may relate to self-esteem differently."
+            },
+            {
+              "actor": "self",
+              "name": "Integrate",
+              "text": "The student realizes that the focus is still too general. They reflect on the question raised by their classmate and agree that the distinction matters for how the studies should be grouped."
+            },
+            {
+              "actor": "team",
+              "name": "Expand",
+              "text": "The student and their classmates discuss which type of use fits the review better. During the discussion, another classmate asks which age range the student has in mind."
+            }
+          ]
+        },
+        {
+          "label": "Self–AI",
+          "steps": [
+            {
+              "actor": "self",
+              "name": "Intent",
+              "text": "The student wants to make the focus more specific regarding the type of use and the age range. However, they realize they lack knowledge about how the literature defines and measures these."
+            },
+            {
+              "actor": "ai",
+              "name": "Operationalize",
+              "text": "The student asks AI to clarify how active and passive use are defined and measured, and to give examples of commonly studied age ranges."
+            },
+            {
+              "actor": "self",
+              "name": "Judge",
+              "text": "The student evaluates the explanations and decides that passive use fits their intended focus best, and that they will concentrate on adolescents aged 12 to 15."
+            },
+            {
+              "actor": "ai",
+              "name": "Refine",
+              "text": "The student asks AI to help formulate the refined focus. AI suggests several formulations, and the student selects the one that best reflects their intent: how passive social media use relates to self-esteem in adolescents aged 12 to 15."
+            }
+          ]
+        }
+      ],
+      "note": "The example ends here, but the S.A.T process does not have to stop here. If the student feels that the idea still needs to be developed or wants to ask for feedback, they can start another Self–Team or Self–AI cycle."
+    }
   },
   "c3": {
     "techniques": {

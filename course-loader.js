@@ -144,6 +144,27 @@
       });
     },
 
+    /* C2 S.A.T worked example: {phases:[{label, steps:[{actor, name, text}]}], note} */
+    "sat-example": function (container, data) {
+      container.innerHTML = "";
+      (data.phases || []).forEach(function (phase) {
+        var group = el("div", "sat-phase");
+        var kind = /team/i.test(phase.label) ? "selfteam" : "selfai";
+        group.appendChild(el("span", "sat-phase-label sat-phase-" + kind, phase.label));
+        (phase.steps || []).forEach(function (step) {
+          var row = el("div", "sat-step");
+          row.appendChild(el("span", "sat-step-badge sat-badge-" + step.actor, step.actor === "ai" ? "AI" : step.actor.charAt(0).toUpperCase() + step.actor.slice(1)));
+          var content = el("div", "sat-step-content");
+          content.appendChild(el("span", "sat-step-name", step.name));
+          content.appendChild(document.createTextNode(step.text || ""));
+          row.appendChild(content);
+          group.appendChild(row);
+        });
+        container.appendChild(group);
+      });
+      if (data.note) container.appendChild(el("div", "sat-example-note", data.note));
+    },
+
     /* C3 Markdown code panel: [{heading, lines:[...]}] */
     "md-panel": function (container, sections) {
       container.innerHTML = "";

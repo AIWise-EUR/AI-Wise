@@ -690,6 +690,55 @@ body {
 .diagram-wrap svg { width: 100%; height: auto; }
 
 /* SAT FRAMEWORK DIAGRAM */
+/* ── S.A.T worked example (collapsible, filled from course JSON) ── */
+.sat-example { margin-top: 34px; border: 1px solid #dfe8e7; border-radius: 12px; background: #fff; }
+.sat-example summary {
+  cursor: pointer; padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+  font-weight: 600; font-size: 14.5px; color: var(--text);
+  list-style: none;
+}
+.sat-example summary::-webkit-details-marker { display: none; }
+.sat-example summary::after {
+  content: '+'; margin-left: auto;
+  font-size: 18px; font-weight: 400; color: var(--muted);
+  transition: transform 0.2s ease;
+}
+.sat-example[open] summary::after { transform: rotate(45deg); }
+.sat-example-tag {
+  flex: 0 0 auto;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid var(--accent);
+  padding: 3px 9px; border-radius: 999px;
+}
+.sat-example-body { padding: 0 20px 20px; }
+.sat-phase { margin-top: 14px; }
+.sat-phase-label {
+  display: inline-block;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 999px; margin-bottom: 4px;
+}
+.sat-phase-selfai { background: #eeecfa; color: #534AB7; }
+.sat-phase-selfteam { background: #e7f3ef; color: #0F6E56; }
+.sat-step { display: flex; gap: 12px; padding: 11px 0; border-top: 1px dashed #e4ebea; }
+.sat-step:first-of-type { border-top: none; }
+.sat-step-badge {
+  flex: 0 0 auto; align-self: flex-start;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 0; border-radius: 6px; min-width: 44px; text-align: center;
+}
+.sat-badge-self { background: #f8f0e3; color: #BA7517; }
+.sat-badge-ai { background: #eeecfa; color: #534AB7; }
+.sat-badge-team { background: #e7f3ef; color: #0F6E56; }
+.sat-step-content { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.sat-step-name { font-weight: 600; color: var(--text); margin-right: 6px; }
+.sat-example-note {
+  margin-top: 16px; padding: 12px 14px;
+  background: var(--gold-pale); border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  font-size: 12.5px; color: var(--muted); line-height: 1.7;
+}
+
 .sat-framework {
   /* break out of the section's 40px side padding for a larger canvas,
      then cap at 1240px so ultra-wide viewports don't go overboard */
@@ -1463,6 +1512,14 @@ body {
       </div>
     </div>
 
+    <details class="sat-example">
+      <summary>
+        <span class="sat-example-tag">Worked example</span>
+        <span data-slot="c2.sat_example_title">Narrowing a literature review focus through the S.A.T loop</span>
+      </summary>
+      <div class="sat-example-body" data-slot="c2.sat_example" data-slot-type="sat-example"></div>
+    </details>
+
     <div class="framework-heading">The ending is also yours</div>
     <div class="framework-text">
       <p>Just as the beginning cannot be generated, the ending cannot be delegated. GenAI cannot be held responsible. When the output of the Self–AI loop is discussed, presented, or submitted, your name is attached, and what the work represents is what you stand behind.</p>
@@ -1509,7 +1566,7 @@ body {
   </a>
 </div>
 
-<script src="course-loader.js?v=3"></script>
+<script src="course-loader.js?v=4"></script>
 <script>
 // Core block navigation with subsection awareness
 (function() {
