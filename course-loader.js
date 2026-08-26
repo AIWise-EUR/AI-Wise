@@ -11,6 +11,10 @@
  *   <el data-slot="course.short_name"></el>              text slot, filled with textContent
  *   <el data-slot="c2.examples" data-slot-type="carousel"> list slot, rendered by a renderer
  *
+ * A course file may declare  "extends": "<base-id>"  — the base course
+ * is fetched and deep-merged under it, so the file only needs the keys
+ * that differ from the base.
+ *
  * When every slot is filled the loader sets window.AIWISE_COURSE and
  * dispatches "aiwise:course-loaded" on document. Page scripts that
  * depend on slot content (e.g. the carousel) should wait for that.
@@ -191,12 +195,38 @@
   }
 
   /* ── load ──────────────────────────────────────────────── */
-  function load(id, isFallback) {
+
+  /* plain objects merge key by key; anything else (strings, arrays) is replaced */
+  function deepMerge(base, override) {
+    var isObj = function (v) { return v !== null && typeof v === "object" && !Array.isArray(v); };
+    if (!isObj(override)) return override;
+    var out = {};
+    if (isObj(base)) Object.keys(base).forEach(function (k) { out[k] = base[k]; });
+    Object.keys(override).forEach(function (k) { out[k] = deepMerge(out[k], override[k]); });
+    return out;
+  }
+
+  function fetchCourse(id, seen) {
+    seen = seen || {};
+    if (seen[id]) return Promise.reject(new Error("circular extends: " + id));
+    seen[id] = true;
     return fetch("courses/" + encodeURIComponent(id) + ".json", { cache: "no-cache" })
       .then(function (r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();
       })
+      .then(function (data) {
+        if (!data.extends) return data;
+        return fetchCourse(data.extends, seen).then(function (base) {
+          var merged = deepMerge(base, data);
+          delete merged.extends;
+          return merged;
+        });
+      });
+  }
+
+  function load(id, isFallback) {
+    return fetchCourse(id)
       .then(function (data) {
         fillSlots(data);
         announce(data, id);

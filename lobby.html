@@ -46,6 +46,36 @@ html, body {
   flex-direction: column;
 }
 
+/* ── COURSE PICKER (hero) ───────────────────────────────────── */
+.course-picker {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 6px;
+  position: relative; z-index: 2;
+}
+.course-picker-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.course-picker-pills { display: inline-flex; gap: 6px; }
+.course-pill {
+  font: inherit; font-size: 12px; font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: transparent;
+  color: rgba(255,255,255,0.75);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.course-pill:hover { border-color: var(--signal); color: var(--signal); }
+.course-pill.active {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--dark);
+  cursor: default;
+}
+
 /* ── HERO ───────────────────────────────────────────────────── */
 .hero {
   background: var(--dark);
@@ -390,13 +420,21 @@ html, body {
     <div class="hero-body">
       <div class="hero-eyebrow">
         <span class="eyebrow-dot"></span>
-        Academic Writing Skills I
+        <span data-slot="course.full_name">Academic Writing Skills I</span>
       </div>
       <h1 class="hero-title">AI-Wise Module</h1>
       <p class="hero-desc">
         Use GenAI in a course-aligned and academically responsible way —
-        supporting your thinking and writing process through AWS&nbsp;I.
+        supporting your thinking and writing process through <span data-slot="course.short_name">AWS&nbsp;I</span>.
       </p>
+      <div class="course-picker" aria-label="Choose your course">
+        <span class="course-picker-label">Your course</span>
+        <div class="course-picker-pills" role="group">
+          <button class="course-pill" type="button" data-course="aws1">AWS I</button>
+          <button class="course-pill" type="button" data-course="ped">PED</button>
+          <button class="course-pill" type="button" data-course="other">Others</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -421,7 +459,7 @@ html, body {
           <div class="card-title">A Student's Guide to Generative AI</div>
           <p class="card-desc">
             A broader introductory module on responsible GenAI use in academic contexts.
-            Builds a general foundation before AWS&nbsp;I specific orientation.
+            Builds a general foundation before <span data-slot="course.short_name">AWS&nbsp;I</span> specific orientation.
           </p>
           <div class="card-footer">Erasmus University Library &amp; Community for Learning &amp; Innovation</div>
           <span class="card-arrow">Open module ↗</span>
@@ -431,7 +469,7 @@ html, body {
           <div class="card-tag">AI-Wise Module</div>
           <div class="card-title">AI Orientation</div>
           <p class="card-desc">
-            Explore how GenAI is positioned within AWS&nbsp;I, what it is useful for,
+            Explore how GenAI is positioned within <span data-slot="course.short_name">AWS&nbsp;I</span>, what it is useful for,
             and how to use it responsibly within this module.
           </p>
           <div class="card-footer">Developed for Academic Writing Skills&nbsp;1, Erasmus University Rotterdam</div>
@@ -439,7 +477,7 @@ html, body {
         </a>
 
         <a class="card card-dark" href="sub-lobby.html">
-          <div class="card-tag">GenAI in AWS I</div>
+          <div class="card-tag">GenAI in <span data-slot="course.short_name">AWS I</span></div>
           <div class="card-title">Apply it to your writing now</div>
           <p class="card-desc">
             Use the Diagnostic Questionnaire to identify the most relevant step
@@ -472,6 +510,28 @@ html, body {
   </div>
 
 </div>
+<script src="course-loader.js"></script>
+<script>
+  // Course picker: highlight the loaded course, switch on click.
+  (function () {
+    var KNOWN = ["aws1", "ped", "other"];
+    function mark(id) {
+      document.querySelectorAll(".course-pill").forEach(function (btn) {
+        btn.classList.toggle("active", btn.getAttribute("data-course") === id);
+      });
+    }
+    document.addEventListener("aiwise:course-loaded", function (e) {
+      var id = e.detail && e.detail.id;
+      mark(KNOWN.indexOf(id) !== -1 ? id : "aws1");
+    });
+    document.querySelectorAll(".course-pill").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (btn.classList.contains("active")) return;
+        window.location.href = window.location.pathname + "?course=" + btn.getAttribute("data-course");
+      });
+    });
+  })();
+</script>
 <script src="ui-effects.js"></script>
 <script src="feedback-widget.js" defer></script>
 <script>
