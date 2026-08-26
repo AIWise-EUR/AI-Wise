@@ -15,6 +15,12 @@
  * is fetched and deep-merged under it, so the file only needs the keys
  * that differ from the base.
  *
+ * The loader also injects the course chooser UI on every page that
+ * includes it: a fixed "Course" pill (bottom left) and a modal listing
+ * the courses from courses/index.json. The modal opens automatically on
+ * a first visit (no remembered course, none in the URL). Opt out per
+ * page with  <html data-no-course-ui>.
+ *
  * When every slot is filled the loader sets window.AIWISE_COURSE and
  * dispatches "aiwise:course-loaded" on document. Page scripts that
  * depend on slot content (e.g. the carousel) should wait for that.
@@ -239,7 +245,148 @@
       });
   }
 
-  function start() { load(resolveCourseId(), false); }
+  /* ── course chooser UI (identical on every page) ───────── */
+  var manifestCache = null;
+  function fetchManifest() {
+    if (manifestCache) return Promise.resolve(manifestCache);
+    return fetch("courses/index.json", { cache: "no-cache" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (list) { manifestCache = list; return list; });
+  }
+
+  var UI_CSS = "" +
+    ".aiwise-course-switch{position:fixed;left:18px;bottom:18px;z-index:940;" +
+      "display:inline-flex;align-items:center;gap:8px;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;" +
+      "padding:9px 16px;background:#022f35;color:#fff;border:1px solid rgba(255,255,255,0.14);" +
+      "border-radius:999px;box-shadow:0 6px 18px rgba(2,47,53,0.28);cursor:pointer;" +
+      "transition:transform .15s ease,box-shadow .15s ease;}" +
+    ".aiwise-course-switch:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(2,47,53,0.4);}" +
+    ".aiwise-course-switch .acs-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc;}" +
+    ".aiwise-course-switch .acs-name{font-size:12.5px;font-weight:700;color:#fff;}" +
+    ".aiwise-course-switch .acs-change{font-size:11px;font-weight:600;color:#7dd3fc;" +
+      "text-decoration:underline;text-underline-offset:2px;margin-left:2px;}" +
+    "@media (max-width:640px){.aiwise-course-switch{left:12px;bottom:12px;padding:8px 13px;}}" +
+    ".aiwise-course-modal{position:fixed;inset:0;z-index:990;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;}" +
+    ".aiwise-course-modal[hidden]{display:none;}" +
+    ".aiwise-course-modal .acm-backdrop{position:absolute;inset:0;background:rgba(2,47,53,0.62);backdrop-filter:blur(2px);}" +
+    ".aiwise-course-modal .acm-card{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);" +
+      "width:min(420px,calc(100vw - 40px));background:#fff;border-radius:14px;" +
+      "box-shadow:0 24px 60px rgba(2,47,53,0.35);padding:30px 28px 26px;}" +
+    ".aiwise-course-modal .acm-title{font-size:19px;font-weight:700;color:#0f2f33;margin:0 0 6px;}" +
+    ".aiwise-course-modal .acm-desc{font-size:13px;color:#607375;line-height:1.6;margin:0 0 18px;}" +
+    ".aiwise-course-modal .acm-options{display:flex;flex-direction:column;gap:8px;}" +
+    ".aiwise-course-modal .acm-option{display:flex;align-items:baseline;gap:10px;width:100%;" +
+      "font:inherit;padding:13px 16px;background:#f7faf9;border:1px solid #dce8e7;border-radius:10px;" +
+      "cursor:pointer;text-align:left;transition:border-color .15s ease,background .15s ease;}" +
+    ".aiwise-course-modal .acm-option:hover{border-color:#2b5d63;background:#fff;}" +
+    ".aiwise-course-modal .acm-option strong{font-size:14px;font-weight:700;color:#0f2f33;min-width:52px;}" +
+    ".aiwise-course-modal .acm-option span{font-size:12px;color:#607375;}" +
+    ".aiwise-course-modal .acm-option.active{border-color:#2b5d63;background:#fff;box-shadow:inset 0 0 0 1px #2b5d63;}" +
+    ".aiwise-course-modal .acm-option.active::after{content:'✓';margin-left:auto;color:#2b5d63;font-weight:700;}";
+
+  function buildUI(list, firstVisit) {
+    if (document.getElementById("aiwiseCourseSwitch")) return;
+
+    var style = document.createElement("style");
+    style.textContent = UI_CSS;
+    document.head.appendChild(style);
+
+    var currentId = window.AIWISE_COURSE_ID;
+    var entry = null;
+    list.forEach(function (c) { if (c.id === currentId) entry = c; });
+    var currentName = entry ? entry.short_name
+      : (window.AIWISE_COURSE && window.AIWISE_COURSE.course && window.AIWISE_COURSE.course.short_name) || "AWS I";
+
+    /* pill */
+    var pill = document.createElement("button");
+    pill.type = "button";
+    pill.id = "aiwiseCourseSwitch";
+    pill.className = "aiwise-course-switch";
+    pill.setAttribute("aria-haspopup", "dialog");
+    pill.appendChild(el("span", "acs-label", "Course"));
+    pill.appendChild(el("span", "acs-name", currentName));
+    pill.appendChild(el("span", "acs-change", "Change"));
+    document.body.appendChild(pill);
+
+    /* modal */
+    var modal = document.createElement("div");
+    modal.className = "aiwise-course-modal";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-label", "Choose your course");
+    modal.hidden = true;
+
+    var backdrop = el("div", "acm-backdrop");
+    var card = el("div", "acm-card");
+    card.appendChild(el("h2", "acm-title", "Choose your course"));
+    card.appendChild(el("p", "acm-desc",
+      "AI-Wise adapts its examples, explanations, and prompt templates to your course. You can change this at any time."));
+    var options = el("div", "acm-options");
+    list.forEach(function (c) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "acm-option" + (c.id === currentId ? " active" : "");
+      btn.appendChild(el("strong", null, c.short_name));
+      btn.appendChild(el("span", null, c.full_name));
+      btn.addEventListener("click", function () {
+        if (c.id === currentId) { close(); return; }
+        window.location.href = window.location.pathname + "?course=" + encodeURIComponent(c.id);
+      });
+      options.appendChild(btn);
+    });
+    card.appendChild(options);
+    modal.appendChild(backdrop);
+    modal.appendChild(card);
+    document.body.appendChild(modal);
+
+    var lastFocus = null;
+    function open() {
+      lastFocus = document.activeElement;
+      modal.hidden = false;
+      var active = modal.querySelector(".acm-option.active") || modal.querySelector(".acm-option");
+      if (active) active.focus();
+    }
+    function close() {
+      modal.hidden = true;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    pill.addEventListener("click", open);
+    backdrop.addEventListener("click", close);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modal.hidden) close();
+    });
+
+    if (firstVisit) open();
+  }
+
+  function initUI(firstVisit) {
+    if (document.documentElement.hasAttribute("data-no-course-ui")) return;
+    fetchManifest()
+      .then(function (list) {
+        var build = function () { buildUI(list, firstVisit); };
+        if (window.AIWISE_COURSE_READY) build();
+        else document.addEventListener("aiwise:course-loaded", build, { once: true });
+      })
+      .catch(function (err) {
+        console.warn("[course-loader] course chooser disabled, no manifest:", err);
+      });
+  }
+
+  function start() {
+    /* read BEFORE resolveCourseId() stores a ?course= value */
+    var firstVisit = false;
+    try {
+      var hasParam = new URLSearchParams(window.location.search).get("course");
+      if (!hasParam) firstVisit = !localStorage.getItem(STORAGE_KEY);
+    } catch (e) {}
+    load(resolveCourseId(), false);
+    initUI(firstVisit);
+  }
+
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", start);
