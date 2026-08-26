@@ -214,6 +214,15 @@
     });
   }
 
+  /* elements with data-requires-slot="<path>" are shown only when the
+     course JSON actually has a value at that path */
+  function toggleRequired(data) {
+    document.querySelectorAll("[data-requires-slot]").forEach(function (node) {
+      var has = data && getPath(data, node.getAttribute("data-requires-slot")) !== undefined;
+      node.hidden = !has;
+    });
+  }
+
   function announce(data, id) {
     window.AIWISE_COURSE = data;
     window.AIWISE_COURSE_ID = id;
@@ -256,6 +265,7 @@
     return fetchCourse(id)
       .then(function (data) {
         fillSlots(data);
+        toggleRequired(data);
         announce(data, id);
       })
       .catch(function (err) {
