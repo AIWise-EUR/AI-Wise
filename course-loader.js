@@ -100,6 +100,64 @@
         slide.appendChild(card);
         container.appendChild(slide);
       });
+    },
+
+    /* C3 technique-panel example: {bad?, good} strings; \n in good becomes <br> */
+    "prompt-example": function (container, data) {
+      container.innerHTML = "";
+      function line(cls, prefix, text) {
+        var d = el("div", cls);
+        String(prefix + text).split("\n").forEach(function (part, i) {
+          if (i) d.appendChild(document.createElement("br"));
+          d.appendChild(document.createTextNode(part));
+        });
+        container.appendChild(d);
+      }
+      if (data.bad != null) line("ex-bad", "\u2717 ", data.bad);
+      if (data.good != null) line("ex-good", "\u2713 ", data.good);
+    },
+
+    /* C3 Adopt/Modify/Discard worked example: {title, intro, items:[{text, tag, reason}]} */
+    "amd-example": function (container, data) {
+      container.innerHTML = "";
+      container.appendChild(el("div", "amd-example-title", data.title || ""));
+      var intro = el("p", null, data.intro || "");
+      intro.setAttribute("style", "font-size:12.5px;color:var(--muted);margin-bottom:14px;line-height:1.6;");
+      container.appendChild(intro);
+      var TAG_LABELS = { adopt: "Adopt", modify: "Modify", discard: "Discard" };
+      (data.items || []).forEach(function (item) {
+        var row = el("div", "amd-item");
+        row.appendChild(el("div", "amd-item-text", item.text || ""));
+        row.appendChild(el("span", "amd-tag amd-tag-" + item.tag, TAG_LABELS[item.tag] || item.tag));
+        row.appendChild(el("div", "amd-reason", item.reason || ""));
+        container.appendChild(row);
+      });
+    },
+
+    /* C3 Markdown code panel: [{heading, lines:[...]}] */
+    "md-panel": function (container, sections) {
+      container.innerHTML = "";
+      sections.forEach(function (s, i) {
+        if (i) container.appendChild(document.createTextNode("\n\n"));
+        container.appendChild(el("span", "heading", "# " + s.heading));
+        (s.lines || []).forEach(function (lineText) {
+          container.appendChild(document.createTextNode("\n"));
+          container.appendChild(el("span", "comment", lineText));
+        });
+      });
+    },
+
+    /* C3 XML code panel: [{tag, lines:[...]}] */
+    "xml-panel": function (container, sections) {
+      container.innerHTML = "";
+      sections.forEach(function (s, i) {
+        if (i) container.appendChild(document.createTextNode("\n\n"));
+        container.appendChild(el("span", "tag", "<" + s.tag + ">"));
+        container.appendChild(document.createTextNode("\n"));
+        container.appendChild(el("span", "comment", (s.lines || []).join("\n")));
+        container.appendChild(document.createTextNode("\n"));
+        container.appendChild(el("span", "tag", "</" + s.tag + ">"));
+      });
     }
   };
 

@@ -1,0 +1,254 @@
+{
+  "course": {
+    "id": "ped",
+    "short_name": "PED",
+    "full_name": "Pedagogical Sciences"
+  },
+  "c2": {
+    "examples": [
+      {
+        "title": "Connecting an article to an argument in a scientific essay",
+        "thinking": "I want to use this article in my scientific essay because I think it supports my statement, but I'm not sure how to make the connection. My statement is that schools should play a larger role in preventing child maltreatment. Based on its findings, I think that the article could support an argument about the importance of early identification and support in schools, but I am not sure how to translate this idea into a strong argument.",
+        "typing_note": "[uploads a PDF]",
+        "typing": "\"How can I use this article to support my statement in my scientific essay?\"",
+        "processing": "The full text of the article is processed. Main findings, theoretical concepts, and conclusions are extracted. The most statistically likely \"helpful\" response pattern for \"how can I use this article to support my statement\" is activated. → Generate a comprehensive answer covering multiple possible ways to translate the article into an argument: relevant findings, connections between evidence and the statement, theoretical explanations, and possible ways to integrate the article into the essay. Present them as options. Sound confident and thorough."
+      },
+      {
+        "title": "Creating practice questions",
+        "thinking": "My exam is next week and I want to test myself on chapter 4. The professor always writes tricky MCQs where two options look almost the same and you have to know the exact definition to tell them apart. I need questions that are at that level, not the easy ones where you can guess by elimination.",
+        "typing_note": "[pastes chapter 4 text]",
+        "typing": "\"Make me some MCQs on chapter 4.\"",
+        "processing": "Full chapter text is processed. Key concepts, definitions, and relationships identified. \"MCQ\" triggers a default format: one correct answer, three distractors, medium difficulty, recall focused. → Generate questions that cover the chapter evenly, make distractors plausible but clearly distinguishable from the correct answer."
+      },
+      {
+        "title": "Summarizing a paper",
+        "thinking": "I read this paper but I am not sure I understood the method section. I think they used a between subjects design but the way they describe the groups is confusing. I do not need a full summary, I just need someone to explain the design so I can figure out whether their conclusion actually follows from it.",
+        "typing_note": "[uploads PDF]",
+        "typing": "\"Can you summarize this paper?\"",
+        "processing": "Full paper is processed. All sections weighted. \"Summarize\" triggers a default structure: background, aim, method, key findings, conclusion. Roughly equal coverage across sections. → Produce something that reads like a complete, balanced overview. Sound clear and organized."
+      },
+      {
+        "title": "Understanding a concept",
+        "thinking": "The professor used the term \"protective factors\" in the lecture today and I kind of got it from context, but when I tried to explain it to my friend I couldn't. I think it has something to do with factors that help children develop positively, but I am not sure how it differs from simply having a good environment or fewer risk factors.",
+        "typing_note": "",
+        "typing": "\"What are protective factors?\"",
+        "processing": "A definition request. \"Protective factors\" is a well represented concept in the training data. → Generate a clear, textbook style definition. Add an example. Possibly mention related terms. Present a self contained explanation, covering the concept broadly rather than targeting any specific point of confusion."
+      },
+      {
+        "title": "Asking for feedback on your writing",
+        "thinking": "I spent two hours on this introduction and I think I explain the pedagogical dilemma clearly, but I am not sure whether the last two sentences lead naturally to my statement. My tutor told me last time that I tend to overcomplicate my sentences and explanations, and I want to know if I am doing that again here.",
+        "typing_note": "[pastes paragraph]",
+        "typing": "\"What do you think of this? Any feedback?\"",
+        "processing": "A paragraph is provided. Feedback requested with no specific focus. → Scan for grammar, clarity, structure, and argument strength across the entire paragraph. Generate a balanced set of comments covering multiple aspects. Highlight positives first, then suggest improvements. Distribute attention evenly across the whole text."
+      },
+      {
+        "title": "Writing a motivation letter",
+        "thinking": "I am applying for an internship at a youth care organization, and I really want it because I would like to gain practical experience working with children and families. I have some relevant experience from my courses and volunteer work, but I am not sure whether it is enough to mention in my motivation letter. The deadline is tomorrow and I saw that they value \"independent thinkers\" but I do not want to sound arrogant.",
+        "typing_note": "",
+        "typing": "\"Help me write a motivation letter for a youth care internship.\"",
+        "processing": "A motivation letter for a youth care internship. No specific organization, no specific tasks, no applicant background, no deadline pressure, no tone preference. → Generate a polished, general purpose motivation letter template. Use broadly applicable language about \"passion for children and youth\" and \"eagerness to learn.\" Structure it in a standard format. Sound professional and enthusiastic."
+      }
+    ]
+  },
+  "c3": {
+    "techniques": {
+      "clear_instruction": {
+        "bad": "\"Summarize this paper\"",
+        "good": "\"Summarize this paper's main argument and research methodology in two sentences each. This is for an undergraduate pedagogical sciences class presentation.\""
+      },
+      "role": {
+        "bad": "\"Check my Boolean search string\"",
+        "good": "\"You are a search strategy advisor for academic databases. Review the Boolean search string I wrote. If there are logical errors, don't fix them directly — ask me questions about what went wrong.\""
+      },
+      "task_decomposition": {
+        "bad": "\"Build my scientific essay outline\"",
+        "good": "Step 1: \"Extract the main argument from each of these three articles\" → Step 2: \"Compare the main arguments and identify similarities and differences between the articles\" → Step 3: \"Suggest possible ways to organize these articles based on their main arguments\""
+      },
+      "few_shot": {
+        "good": "\"Summarize each paper's core claim in one sentence, like this:\nSmith (2022): Supportive teacher-student relationships can reduce the negative impact of family-related risk factors on children's socio-emotional development.\nDo the same for the remaining three papers.\""
+      },
+      "chain_of_thought": {
+        "bad": "\"Are the conclusions of these two papers contradictory?\"",
+        "good": "\"Determine whether the conclusions of these two papers contradict each other. First, summarize each paper's core claim. Then compare where they overlap and where they differ. Finally, explain step by step whether the difference is a genuine contradiction or a difference in scope or conditions.\""
+      },
+      "output_format": {
+        "bad": "\"Compare these three papers\"",
+        "good": "\"Create a comparison table for these three papers. Columns: author/year, research question, methodology, key findings, limitations. One sentence per cell.\""
+      }
+    },
+    "critique": {
+      "read": "Student asked \"Extract the main argument from each of these three articles.\" AI returned three paragraphs. Observation: AI identified one main argument for each article and wrote in paragraph form.",
+      "question": "Are these really the main arguments of the articles, or did AI generalize? Did AI accurately distinguish the authors' main arguments from secondary points? Article B's argument sounds stronger than I remember — is that what the authors actually concluded? I only asked for the main argument, but AI added \"practical implications\" — did it exceed my request scope?",
+      "verify": "Checking Article A: AI correctly identified the main argument, but also added a secondary argument. Checking Article B: AI generalized the original claim. Checking Article C: AI provided \"practical implications\" based on the findings, rather than the main argument. The \"practical implications\" section covers a stage I haven't reached yet.",
+      "decide": "Article A's main argument is usable as a starting point. Article B's main argument needs adjustment. Article C's practical implications are deleted — may re-prompt after checking the original."
+    },
+    "amd_example": {
+      "title": "Worked example — Main argument extraction",
+      "intro": "Student asked AI to extract the main argument from each of the three articles. AI presented three main arguments:",
+      "items": [
+        {
+          "text": "Article A: \"Supportive teacher-student relationships are associated with better socio-emotional development in children\"",
+          "tag": "adopt",
+          "reason": "Matches the original article's main argument. Usable as a starting point for organizing the evidence for and against my statement."
+        },
+        {
+          "text": "Article B: \"Parental involvement in schools leads to better educational outcomes\"",
+          "tag": "modify",
+          "reason": "Direction is correct, but AI generalized a \"positive association\" into a \"causal relationship.\" Corrected to \"positive association.\" Original article re-checked."
+        },
+        {
+          "text": "Article C: \"Schools should implement mandatory parent-training programmes\"",
+          "tag": "discard",
+          "reason": "I asked for the article's main argument, not practical implications. This recommendation does not represent the article's central claim. Deleted. Record: \"AI exceeded request scope by adding practical implications.\""
+        }
+      ]
+    },
+    "template_compare": {
+      "md": [
+        {
+          "heading": "Role",
+          "lines": [
+            "You are an academic writing assistant."
+          ]
+        },
+        {
+          "heading": "Task",
+          "lines": [
+            "Extract the main argument from each of",
+            "these three articles."
+          ]
+        },
+        {
+          "heading": "Context",
+          "lines": [
+            "I am writing a scientific essay for",
+            "\"Inleiding in opvoeding en onderwijs\"."
+          ]
+        },
+        {
+          "heading": "Constraints",
+          "lines": [
+            "- Do not summarize each paper individually",
+            "- Base your response only on the evidence",
+            "  presented in each article",
+            "- Do not add interpretations or practical",
+            "  implications"
+          ]
+        },
+        {
+          "heading": "Output Format",
+          "lines": [
+            "Numbered list, one article per item.",
+            "For each article, state its main argument",
+            "in one or two sentences."
+          ]
+        }
+      ],
+      "xml": [
+        {
+          "tag": "role",
+          "lines": [
+            "You are an academic writing assistant."
+          ]
+        },
+        {
+          "tag": "task",
+          "lines": [
+            "Extract the main argument from each of",
+            "these three articles."
+          ]
+        },
+        {
+          "tag": "context",
+          "lines": [
+            "I am writing a scientific essay for",
+            "\"Inleiding in opvoeding en onderwijs\"."
+          ]
+        },
+        {
+          "tag": "constraints",
+          "lines": [
+            "Do not summarize each paper individually.",
+            "Base your response only on the evidence",
+            "presented in each article.",
+            "Do not add interpretations or practical",
+            "implications."
+          ]
+        },
+        {
+          "tag": "output_format",
+          "lines": [
+            "Numbered list, one article per item.",
+            "For each article, state its main argument",
+            "in one or two sentences."
+          ]
+        }
+      ]
+    },
+    "full_example_title": "Full worked example — Connecting articles to a statement",
+    "full_example": [
+      {
+        "tag": "role",
+        "lines": [
+          "You are an academic writing assistant for a",
+          "first-year pedagogical sciences student."
+        ]
+      },
+      {
+        "tag": "task",
+        "lines": [
+          "Extract the main argument from each of the",
+          "following three journal articles. Focus on the",
+          "authors' central claim, not on secondary points",
+          "or practical implications."
+        ]
+      },
+      {
+        "tag": "context",
+        "lines": [
+          "I am writing a scientific essay for my course",
+          "\"Inleiding in opvoeding en onderwijs\". I have",
+          "read all three papers. I am currently at the",
+          "stage of organizing my sources before drafting",
+          "an outline."
+        ]
+      },
+      {
+        "tag": "constraints",
+        "lines": [
+          "Do not summarize each paper individually.",
+          "Base your response only on the evidence",
+          "presented in each article.",
+          "Do not add interpretations or practical",
+          "implications."
+        ]
+      },
+      {
+        "tag": "steps",
+        "lines": [
+          "1. Read the three abstracts I provide below.",
+          "2. Identify the authors' main argument in each",
+          "   article.",
+          "3. State each main argument clearly and concisely."
+        ]
+      },
+      {
+        "tag": "examples",
+        "lines": [
+          "Example argument format:",
+          "\"Article A: Supportive teacher-student",
+          "relationships are associated with better",
+          "socio-emotional development in children\""
+        ]
+      },
+      {
+        "tag": "output_format",
+        "lines": [
+          "Numbered list, one article per item.",
+          "For each article, state its main argument",
+          "in one or two sentences."
+        ]
+      }
+    ]
+  }
+}
