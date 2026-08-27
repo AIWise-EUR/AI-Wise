@@ -156,7 +156,7 @@ html, body {
 /* ── CARDS ──────────────────────────────────────────────────── */
 .cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
 
@@ -228,6 +228,20 @@ html, body {
 }
 .card-accent .card-arrow { color: var(--accent); }
 .card-dark   .card-arrow { color: var(--dark);   }
+
+/* Deactivated module teaser: dashed outline, faded, no link */
+.card.card-disabled {
+  border: 1.5px dashed #c3d2d0;
+  background: transparent;
+  cursor: default;
+  opacity: 0.75;
+}
+.card.card-disabled::before { display: none; }
+.card.card-disabled:hover { transform: none; box-shadow: none; }
+.card-disabled .card-tag { color: var(--accent); }
+.card-disabled .card-title,
+.card-disabled .card-desc,
+.card-disabled .card-footer { color: var(--muted); }
 .card:hover  .card-arrow { gap: 8px; }
 
 /* ── FOOTER ─────────────────────────────────────────────────── */
@@ -437,6 +451,15 @@ html, body {
           <div class="card-footer">Developed for university students, Erasmus University Rotterdam</div>
           <span class="card-arrow">Start orientation →</span>
         </a>
+
+        <div class="card card-disabled" aria-disabled="true">
+          <div class="card-tag">Coming soon</div>
+          <div class="card-title">Apply it to your writing now</div>
+          <p class="card-desc">
+            This module will be active during a later course.
+          </p>
+          <div class="card-footer">Includes Diagnostic Questionnaire and Activity Modules 1–7</div>
+        </div>
 
       </div>
     </div>
