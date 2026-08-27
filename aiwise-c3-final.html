@@ -656,18 +656,26 @@ body {
   border-radius: var(--radiusLg);
   padding: 26px 28px 24px;
   box-shadow: 0 12px 32px rgba(140,47,68,0.2);
-  animation: essb-vibrate 3.5s ease-in-out infinite;
+  animation: essb-vibrate 2.5s ease-in-out infinite;
 }
 .essb-notice.essb-quiet { animation: none; }
 .essb-quiet .essb-notice-hint { display: none; }
 @keyframes essb-vibrate {
-  0%, 20%, 100% { transform: translateX(0) rotate(0); }
-  3%  { transform: translateX(-2px) rotate(-0.25deg); }
-  6%  { transform: translateX(2px) rotate(0.25deg); }
-  9%  { transform: translateX(-2px) rotate(-0.2deg); }
-  12% { transform: translateX(2px) rotate(0.2deg); }
-  15% { transform: translateX(-1px); }
-  18% { transform: translateX(1px); }
+  0%, 56%, 100% { transform: translateX(0) rotate(0); }
+  4%  { transform: translateX(-2px) rotate(-0.25deg); }
+  8%  { transform: translateX(2px) rotate(0.25deg); }
+  12% { transform: translateX(-2px) rotate(-0.2deg); }
+  16% { transform: translateX(2px) rotate(0.2deg); }
+  20% { transform: translateX(-2px) rotate(-0.2deg); }
+  24% { transform: translateX(2px) rotate(0.2deg); }
+  28% { transform: translateX(-2px) rotate(-0.15deg); }
+  32% { transform: translateX(2px) rotate(0.15deg); }
+  36% { transform: translateX(-2px) rotate(-0.15deg); }
+  40% { transform: translateX(2px) rotate(0.15deg); }
+  44% { transform: translateX(-1.5px); }
+  48% { transform: translateX(1.5px); }
+  52% { transform: translateX(-1px); }
+}
 }
 @media (prefers-reduced-motion: reduce) {
   .essb-notice { animation: none; }
@@ -717,6 +725,18 @@ body {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .essb-notice-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(168,58,82,0.45); }
+.essb-notice-shot {
+  flex: 1 1 100%;
+  display: block;
+  margin-top: 8px;
+  border: 1px solid #e8d4da;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(140,47,68,0.12);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.essb-notice-shot:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(140,47,68,0.22); }
+.essb-notice-shot img { display: block; width: 100%; height: auto; }
 
 .checklist-card { max-width: 960px; margin: 36px auto 0; padding: 28px 32px; background: var(--nav-bg); border-radius: var(--radiusLg); border-left: 4px solid var(--gold); }
 .checklist-card-title { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
@@ -1165,6 +1185,9 @@ details.collapsible .collapsible-body { padding: 20px 22px; background: #f4f7f6;
         Use GenAI responsibly during your study work, make sure you adhere to the ESSB principles and Guidelines.
       </div>
       <a class="essb-notice-btn" href="https://my.eur.nl/nl/essb/generative-ai-education" target="_blank" rel="noopener noreferrer">ESSB GenAI Guidelines&nbsp;↗</a>
+      <a class="essb-notice-shot" href="https://my.eur.nl/nl/essb/generative-ai-education" target="_blank" rel="noopener noreferrer">
+        <img src="assets/images/essb-genai.png" alt="ESSB Generative AI in Education page with the downloadable guideline PDFs" loading="lazy">
+      </a>
     </div>
   </section>
 
