@@ -1,27 +1,28 @@
 /**
  * course-loader.js
- * Fills course specific slots from course-specific/<id>/ JSON files.
- * Shared course defaults and the manifest live in common/courses/.
+ * Fills course specific slots. common/courses/registry.json lists the
+ * bachelors and their courses. A course is addressed as
+ * "<bachelor>.<course>" (for example "psychology.aws1"); its examples come
+ * from the bachelor's content file, so every course of a bachelor shows the
+ * same examples.
  *
  * Which course:
  *   0. data-force-course on <html> (single-course deployments; wins over everything)
  *   1. ?course=<id> in the URL (also remembered for later pages)
  *   2. previously remembered course (localStorage)
  *   3. data-default-course on <html>, else "aws1"
+ * Earlier ids ("aws1", "ped", "other") are listed as aliases in the registry
+ * and resolve to their course.
  *
  * Slots:
  *   <el data-slot="course.short_name"></el>              text slot, filled with textContent
  *   <el data-slot="c2.examples" data-slot-type="carousel"> list slot, rendered by a renderer
  *
- * A course file may declare  "extends": "<base-id>"  — the base course
- * is fetched and deep-merged under it, so the file only needs the keys
- * that differ from the base.
- *
  * The loader also injects the course chooser UI on every page that
  * includes it: a fixed "Course" pill (bottom left) and a modal listing
- * the courses from common/courses/index.json. The modal opens automatically on
+ * the courses from the registry. The modal opens automatically on
  * a first visit (no remembered course, none in the URL). Opt out per
- * page with  <html data-no-course-ui>.
+ * page with  <html data-no-course-ui>; a forced course never shows it.
  *
  * When every slot is filled the loader sets window.AIWISE_COURSE and
  * dispatches "aiwise:course-loaded" on document. Page scripts that
@@ -29,7 +30,7 @@
  */
 (function () {
   var ROOT_URL = new URL("./", document.currentScript.src);
-  var STORAGE_KEY = "aiwise-published-course";
+  var STORAGE_KEY = window.AIWisePublished ? "aiwise-published-course" : "aiwise-beta-course";
   var LEGACY_STORAGE_KEY = "aiwise-course";
   var needsCourseChoice = false;
   var DEFAULT_ID = document.documentElement.getAttribute("data-default-course") || "aws1";
@@ -223,6 +224,7 @@
         console.warn("[course-loader] slot has no renderer for its value:", path);
       }
     });
+    window.AIWiseStudioBlocks?.course(renderDoc,data);
   }
 
   /* elements with data-requires-slot="<path>" are shown only when the
@@ -242,16 +244,6 @@
   }
 
   /* ── load ──────────────────────────────────────────────── */
-
-  /* plain objects merge key by key; anything else (strings, arrays) is replaced */
-  function deepMerge(base, override) {
-    var isObj = function (v) { return v !== null && typeof v === "object" && !Array.isArray(v); };
-    if (!isObj(override)) return override;
-    var out = {};
-    if (isObj(base)) Object.keys(base).forEach(function (k) { out[k] = base[k]; });
-    Object.keys(override).forEach(function (k) { out[k] = deepMerge(out[k], override[k]); });
-    return out;
-  }
 
   // Match exact courses only. A different course in the same bachelor is not an alias.
   function findCourse(list, id) {
@@ -281,9 +273,14 @@
   function fetchCourse(id) { return window.AIWisePublished.course(id); }
 
   function load(id, isFallback) {
-    return Promise.resolve(window.AIWiseCommonReady).then(fetchManifest).then(function(list){id = selectCourse(list, id); return fetchCourse(id);})
+    return Promise.resolve(window.AIWiseCommonReady).then(fetchManifest)
+      .then(function (list) {
+        id = selectCourse(list, id);
+        return fetchCourse(id);
+      })
       .then(function (data) {
-        return window.AIWiseBetaContent ? window.AIWiseBetaContent.read(id,window.AIWiseLanguage?.current() || "en").then(function(rows) { var chapter=document.querySelector('[data-current-block]')?.dataset.currentBlock;
+        /* approved examples are stored per bachelor */
+        return window.AIWiseBetaContent ? window.AIWiseBetaContent.read(data.course.bachelor,window.AIWiseLanguage?.current() || "en").then(function(rows) { var chapter=document.querySelector('[data-current-block]')?.dataset.currentBlock;
           if(window.AIWiseLanguage?.current()==='nl' && ['c2','c3'].includes(chapter) && (!rows.some(r=>r.chapter===chapter)||rows.find(r=>r.chapter===chapter)?.fallback_locale==='en')) {
             var note=document.createElement('p');note.dataset.languageNotice='';note.setAttribute('role','status');note.textContent='Nederlands course examples are not approved yet. English examples are shown.';
             note.style.cssText='padding:12px;background:#fff3e8;color:#682b1b';document.querySelector('main')?.prepend(note);
@@ -292,6 +289,7 @@
       })
       .then(function (data) {
         document.getElementById("aiwise-beta-error")?.remove();
+        document.getElementById("aiwise-course-unavailable")?.remove();
         fillSlots(data);
         toggleRequired(data);
         announce(data, id);
