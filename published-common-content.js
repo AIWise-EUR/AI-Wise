@@ -113,6 +113,17 @@
     for(const chapter of ['c2','c3'])for(const f of data._studio?.[chapter]?.formats||[]){
       let root=doc.querySelector('[data-slot="'+f.slot+'"]');if(!root)continue;
       if(f.slot==='c2.examples'){root=root.querySelectorAll('.carousel-card')[Number(f.path[0])];const field=f.path[1];if(root&&['thinking','typing','typing_note','processing'].includes(field))root=root.querySelector('.layer-'+(field==='typing_note'?'typing':field));else if(root&&field==='title')root=root.querySelector('.carousel-card-header');}if(!root)continue;
+      if(f.slot==='c2.sat_example'){
+        if(f.path[0]==='phases'){
+          root=root.querySelector('[data-sat-phase="'+Number(f.path[1])+'"]');
+          if(f.path[2]==='label')root=root?.querySelector('.sat-phase-label');
+          else if(f.path[2]==='steps'){
+            root=root?.querySelector('[data-sat-step="'+Number(f.path[3])+'"]');
+            root=root?.querySelector(f.path[4]==='name'?'.sat-step-name':f.path[4]==='text'?'.sat-step-text':'.sat-step-badge');
+          }
+        }else if(f.path[0]==='note')root=root.querySelector('.sat-example-note');
+        if(!root)continue;
+      }
       const text=plain(f.runs);if(!text)continue;
       const segments=[],walk=doc.createTreeWalker(root,5);let content='';
       while(walk.nextNode()){const n=walk.currentNode;if(n.nodeType===1&&n.tagName==='BR'){content+='\n';continue;}if(n.nodeType!==3||n.parentElement.closest('[data-copy-use],[data-example-index],button,script,style'))continue;segments.push({node:n,start:content.length,end:content.length+n.nodeValue.length});content+=n.nodeValue;}
