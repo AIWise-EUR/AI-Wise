@@ -374,7 +374,7 @@
     var currentId = window.AIWISE_COURSE_ID;
     var entry = null;
     list.forEach(function (c) { if (c.id === currentId) entry = c; });
-    var currentName = entry ? entry.short_name
+    var currentName = entry ? (entry.bachelor_name || (entry.bachelor && entry.full_name.split(" – ")[0]) || entry.short_name)
       : (window.AIWISE_COURSE && window.AIWISE_COURSE.course && window.AIWISE_COURSE.course.short_name) || copy("choose-course", "Choose your course");
 
     if (pinnedCourse()) {
